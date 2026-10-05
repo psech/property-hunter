@@ -1,0 +1,45 @@
+# Search criteria. This repo is public: keep anything personal out of this file.
+# The budget comes from the BUDGET_MAX environment variable (an Actions secret).
+
+school:
+  name: Kirrawee High School
+  lat: -34.0434279
+  lng: 151.0734482
+
+suburbs:
+  - Kirrawee
+  - Gymea
+  - Gymea Bay
+  - Sutherland
+  - Loftus
+  - Engadine
+  - Heathcote
+  - Miranda
+  - Yowie Bay
+  - Grays Point
+
+property:
+  types: [house, townhouse, duplex, villa]   # also available: unit, land, other
+  min_beds: 3
+  min_baths: null
+  min_land_m2: null
+
+budget:
+  tolerance: 0.05            # allow prices up to BUDGET_MAX * (1 + tolerance)
+  estimate_rule: mid         # optimistic (low) | mid | conservative (high)
+  include_unknown_price: true
+
+# A listing passes if ANY rule matches. Remove a rule to disable it.
+distance_rules:
+  - type: walk
+    max_minutes: 25
+  - type: train_stops
+    school_station: Kirrawee
+    max_stops: 2
+    max_walk_to_station_minutes: 10
+  - type: drive
+    max_minutes: 10
+
+llm:
+  model: gemini-flash-latest
+  max_calls_per_run: 200

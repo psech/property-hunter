@@ -1,0 +1,34 @@
+# Agencies to sweep each week. Onboard a site with a coding agent + Playwright CLI, then set
+# enabled: true. See README "Adding an agency".
+
+sources:
+  - name: ray-white-sutherland-shire
+    agency: Ray White Sutherland Shire
+    adapter: raywhite
+    list_urls: [https://raywhitesutherlandshire.com.au]
+    options:
+      organisation_ids: [1676, 2098, 2368, 2980, 840]   # from window.INITIAL_STATE.config.organisationIds
+    notes: >
+      Shared Ray White listings API via /api/proxy/v1/listings. Status OFF (withdrawn or not
+      publicly marketed) is reported as off-market. No off-market sign-up page on the site.
+
+  - name: pulse
+    agency: Pulse Property Agents
+    adapter: pulse
+    list_urls: [https://www.pulseproperty.com.au]
+    notes: >
+      /wp-json/api/listings/all. Off-market ("Pre-Market") listings have hidden addresses; register
+      the alerts Gmail at /off-market/ and /property-alerts/ to get them by email.
+
+  # ---- to onboard ----
+  - {name: kore, agency: KORE Property Group, enabled: false}
+  - {name: one-agency-engadine, agency: One Agency Engadine, enabled: false}
+  - {name: one-agency-the-shire, agency: One Agency The Shire, enabled: false}
+  - {name: fox-and-wood, agency: Fox & Wood, enabled: false}
+  - {name: the-agency-sutherland-shire, agency: The Agency Sutherland Shire, enabled: false}
+  - {name: mcgrath-engadine, agency: McGrath Engadine, enabled: false}
+  - {name: sanders, agency: Sanders Property Agents, enabled: false}
+  - {name: highland, agency: Highland Property Group, enabled: false}
+  - {name: watkins, agency: Watkins Real Estate, enabled: false}
+  - {name: sutherland-shire-property-agents, agency: Sutherland Shire Property Agents, enabled: false}
+  - {name: century-21-sutherland-shire, agency: Century 21 Sutherland Shire, enabled: false}

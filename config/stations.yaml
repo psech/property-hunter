@@ -1,0 +1,18 @@
+# Static T4 network around the Sutherland Shire, for the train_stops distance rule.
+# Coordinates come from OpenStreetMap. Each line is an ordered list of stations; a stop count is
+# the fewest hops between two stations, with interchange at Sutherland counted as free.
+stations:
+  Como: [-34.0043476, 151.0680640]
+  Jannali: [-34.0159520, 151.0646300]
+  Sutherland: [-34.0316252, 151.0572738]
+  Loftus: [-34.0453436, 151.0513461]
+  Engadine: [-34.0678648, 151.0147301]
+  Heathcote: [-34.0879621, 151.0082554]
+  Kirrawee: [-34.0349533, 151.0719112]
+  Gymea: [-34.0348927, 151.0855146]
+  Miranda: [-34.0363125, 151.1026950]
+  Caringbah: [-34.0415962, 151.1227396]
+
+lines:
+  illawarra: [Como, Jannali, Sutherland, Loftus, Engadine, Heathcote]
+  cronulla: [Sutherland, Kirrawee, Gymea, Miranda, Caringbah]

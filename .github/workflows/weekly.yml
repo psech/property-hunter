@@ -1,0 +1,95 @@
+name: weekly
+
+on:
+  schedule:
+    - cron: "17 6 * * 0"          # Sunday 06:17; off the hour, where GitHub delays schedules most
+      timezone: "Australia/Sydney"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "normal: notify and save · seed: save without notifying · dry-run: neither"
+        type: choice
+        options: [normal, seed, dry-run]
+        default: normal
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly
+  cancel-in-progress: false
+
+jobs:
+  hunt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Check out memory (state branch)
+        run: |
+          if git ls-remote --exit-code --heads origin state > /dev/null; then
+            git fetch --depth=1 origin state
+            git worktree add --detach state origin/state
+          else
+            git worktree add --detach state
+            git -C state checkout --orphan state
+            git -C state rm -rqf .
+          fi
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - run: uv sync --locked
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ hashFiles('uv.lock') }}
+
+      - run: uv run playwright install --with-deps chromium
+
+      - name: Restore geocode / extraction caches
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: hunter-cache-${{ github.run_id }}
+          restore-keys: hunter-cache-
+
+      - name: Run
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+          CALLMEBOT_PHONE: ${{ secrets.CALLMEBOT_PHONE }}
+          CALLMEBOT_APIKEY: ${{ secrets.CALLMEBOT_APIKEY }}
+          BUDGET_MAX: ${{ secrets.BUDGET_MAX }}
+          MODE: ${{ inputs.mode || 'normal' }}
+        run: |
+          flags=""
+          [ "$MODE" = "seed" ] && flags="--seed"
+          [ "$MODE" = "dry-run" ] && flags="--dry-run"
+          uv run hunter --state state/listings.json --where actions $flags
+
+      - name: Save memory
+        if: inputs.mode != 'dry-run'
+        run: |
+          cd state
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add listings.json
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -qm "state: $(date -u +%F)"
+          git push origin HEAD:state
+
+      - name: Upload debug pages
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-${{ github.run_id }}
+          path: debug/
+          if-no-files-found: ignore
+          retention-days: 14

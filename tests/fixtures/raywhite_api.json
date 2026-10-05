@@ -1,0 +1,199 @@
+{
+ "current": {
+  "data": [
+   {
+    "value": {
+     "id": 1,
+     "statusCode": "CUR",
+     "typeCode": "SAL",
+     "underOffer": false,
+     "price": "900000",
+     "bedrooms": 3,
+     "bathrooms": 2,
+     "carSpaces": 1,
+     "address": {
+      "streetNumber": "26-30",
+      "streetName": "Harrow",
+      "streetType": "Road",
+      "suburb": "Sylvania",
+      "postCode": "2224",
+      "location": {
+       "lat": -34.01,
+       "lon": 151.1
+      },
+      "unitNumber": "2"
+     },
+     "measurements": [
+      {
+       "code": "LAS",
+       "value": 0
+      }
+     ],
+     "categories": [
+      {
+       "code": "UNT"
+      }
+     ],
+     "links": [
+      {
+       "code": "PRL",
+       "url": "https://raywhitesutherlandshire.com.au/L1"
+      }
+     ],
+     "images": [
+      {
+       "url": "https://img/1.jpg"
+      }
+     ],
+     "updatedAt": "2026-10-01T10:00:00+10:00",
+     "displayPrice": "For Sale: Guide $900,000"
+    }
+   },
+   {
+    "value": {
+     "id": 2,
+     "statusCode": "CUR",
+     "typeCode": "SAL",
+     "underOffer": true,
+     "price": "1600000",
+     "bedrooms": 3,
+     "bathrooms": 2,
+     "carSpaces": 1,
+     "address": {
+      "streetNumber": "5",
+      "streetName": "Oak",
+      "streetType": "Road",
+      "suburb": "Kirrawee",
+      "postCode": "2232",
+      "location": {
+       "lat": -34.01,
+       "lon": 151.1
+      }
+     },
+     "measurements": [
+      {
+       "code": "LAS",
+       "value": 556
+      }
+     ],
+     "categories": [
+      {
+       "code": "HSE"
+      }
+     ],
+     "links": [
+      {
+       "code": "PRL",
+       "url": "https://raywhitesutherlandshire.com.au/L2"
+      }
+     ],
+     "images": [
+      {
+       "url": "https://img/2.jpg"
+      }
+     ],
+     "updatedAt": "2026-10-01T10:00:00+10:00",
+     "displayPrice": "For Sale | Contact Agent"
+    }
+   }
+  ],
+  "hits": 2
+ },
+ "off": {
+  "data": [
+   {
+    "value": {
+     "id": 3,
+     "statusCode": "OFF",
+     "typeCode": "SAL",
+     "underOffer": false,
+     "price": "0",
+     "bedrooms": 3,
+     "bathrooms": 2,
+     "carSpaces": 1,
+     "address": {
+      "streetNumber": "8",
+      "streetName": "Barratta",
+      "streetType": "Place",
+      "suburb": "Bangor",
+      "postCode": "2234",
+      "location": {
+       "lat": -34.01,
+       "lon": 151.1
+      }
+     },
+     "measurements": [
+      {
+       "code": "LAS",
+       "value": 0
+      }
+     ],
+     "categories": [
+      {
+       "code": "HSE"
+      }
+     ],
+     "links": [
+      {
+       "code": "PRL",
+       "url": "https://raywhitesutherlandshire.com.au/L3"
+      }
+     ],
+     "images": [
+      {
+       "url": "https://img/3.jpg"
+      }
+     ],
+     "updatedAt": "2026-10-01T10:00:00+10:00"
+    }
+   },
+   {
+    "value": {
+     "id": 4,
+     "statusCode": "OFF",
+     "typeCode": "SAL",
+     "underOffer": false,
+     "price": "0",
+     "bedrooms": 3,
+     "bathrooms": 2,
+     "carSpaces": 1,
+     "address": {
+      "streetNumber": "1",
+      "streetName": "Old",
+      "streetType": "Street",
+      "suburb": "Mudgee",
+      "postCode": "2850",
+      "location": {
+       "lat": -34.01,
+       "lon": 151.1
+      }
+     },
+     "measurements": [
+      {
+       "code": "LAS",
+       "value": 0
+      }
+     ],
+     "categories": [
+      {
+       "code": "HSE"
+      }
+     ],
+     "links": [
+      {
+       "code": "PRL",
+       "url": "https://raywhitesutherlandshire.com.au/L4"
+      }
+     ],
+     "images": [
+      {
+       "url": "https://img/4.jpg"
+      }
+     ],
+     "updatedAt": "2025-01-01T10:00:00+10:00"
+    }
+   }
+  ],
+  "hits": 2
+ }
+}

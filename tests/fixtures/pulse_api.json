@@ -1,0 +1,100 @@
+{
+ "success": true,
+ "status": "SUCCESS",
+ "total": 3,
+ "results": [
+  {
+   "ID": 1,
+   "slug": "/property/villa-nsw-jannali-1p16387/",
+   "link": "https://www.pulseproperty.com.au/property/villa-nsw-jannali-1p16387/",
+   "heading": "Nice home",
+   "statusCaption": "For Sale",
+   "isOffMarket": false,
+   "categories": "Villa",
+   "bedrooms": 3,
+   "bathrooms": 2,
+   "parkingSpaces": 1,
+   "price": {
+    "value": "Auction | Guide $1,050,000"
+   },
+   "landDetails": {
+    "value": 0,
+    "unit": ""
+   },
+   "address": {
+    "streetAddress": "4/85-87 Jannali Avenue",
+    "suburb": "Jannali",
+    "postcode": "2226",
+    "coordinates": {
+     "lat": "-34.021774291992",
+     "lng": "151.06321716309"
+    }
+   },
+   "images": {
+    "featured": "https://img/1.jpg"
+   }
+  },
+  {
+   "ID": 2,
+   "slug": "/property/house-nsw-gymea-bay-1p11468/",
+   "link": "",
+   "heading": "Nice home",
+   "statusCaption": "For Sale",
+   "isOffMarket": true,
+   "categories": "House",
+   "bedrooms": 3,
+   "bathrooms": 2,
+   "parkingSpaces": 1,
+   "price": {
+    "value": "For Sale"
+   },
+   "landDetails": {
+    "value": 0,
+    "unit": ""
+   },
+   "address": {
+    "streetAddress": "",
+    "suburb": "",
+    "postcode": "",
+    "coordinates": {
+     "lat": "",
+     "lng": ""
+    }
+   },
+   "images": {
+    "featured": "https://img/2.jpg"
+   }
+  },
+  {
+   "ID": 3,
+   "slug": "/property/duplexsemi-detached-nsw-miranda-1p15838/",
+   "link": "",
+   "heading": "Nice home",
+   "statusCaption": "For Sale",
+   "isOffMarket": true,
+   "categories": "DuplexSemi-detached",
+   "bedrooms": 3,
+   "bathrooms": 2,
+   "parkingSpaces": 1,
+   "price": {
+    "value": "Coming Soon"
+   },
+   "landDetails": {
+    "value": 0,
+    "unit": ""
+   },
+   "address": {
+    "streetAddress": "",
+    "suburb": "",
+    "postcode": "",
+    "coordinates": {
+     "lat": "",
+     "lng": ""
+    }
+   },
+   "images": {
+    "featured": "https://img/3.jpg"
+   }
+  }
+ ]
+}

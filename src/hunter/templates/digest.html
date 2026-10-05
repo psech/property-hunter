@@ -1,0 +1,65 @@
+{%- macro price(item) -%}
+  {%- set p = item.listing.price -%}
+  {%- if p.is_known -%}
+    <b>Advertised {% if p.value %}{{ p.value | money }}{% elif p.min and p.max %}{{ p.min | money }}–{{ p.max | money }}{% elif p.min %}from {{ p.min | money }}{% else %}up to {{ p.max | money }}{% endif %}</b>
+  {%- elif item.estimate -%}
+    <b>Estimate {{ item.estimate.low | money }}–{{ item.estimate.high | money }}</b> <span style="color:#777">(conf {{ "%.1f" | format(item.estimate.confidence) }})</span>
+  {%- else -%}
+    <b>{{ p.text or "Price not disclosed" }}</b>
+  {%- endif -%}
+{%- endmacro -%}
+{%- macro card(change, show_status=False) -%}
+{%- set l = change.item.listing -%}{%- set g = change.item.geo -%}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e3e3e3;border-radius:8px;margin:0 0 14px;border-collapse:separate">
+<tr>
+  {%- if l.photo_url %}<td width="150" style="padding:10px;vertical-align:top"><img src="{{ l.photo_url }}" width="150" style="border-radius:6px;display:block" alt=""></td>{% endif %}
+  <td style="padding:10px 12px;vertical-align:top;font:14px/1.45 -apple-system,Segoe UI,Arial,sans-serif;color:#222">
+    <div style="font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#8a5a00">
+      {%- if show_status %}{{ change.status }} · {% endif %}{{ l.kind.value | replace("_", "-") }}{% if l.agency %} · {{ l.agency }}{% endif %}
+    </div>
+    <div style="font-size:16px;font-weight:600;margin:2px 0">
+      {%- if l.url %}<a href="{{ l.url }}" style="color:#0b57d0;text-decoration:none">{% endif -%}
+      {{ l.address or l.title or "Address withheld" }}{% if l.suburb and (not l.address or l.suburb|lower not in l.address|lower) %}, {{ l.suburb }}{% endif %}
+      {%- if l.url %}</a>{% endif %}
+    </div>
+    <div>{{ price(change.item) }}</div>
+    <div style="color:#555">
+      {%- set specs = [] -%}
+      {%- if l.beds is not none %}{% set _ = specs.append(l.beds ~ " bed") %}{% endif -%}
+      {%- if l.baths is not none %}{% set _ = specs.append(l.baths ~ " bath") %}{% endif -%}
+      {%- if l.cars is not none %}{% set _ = specs.append(l.cars ~ " car") %}{% endif -%}
+      {%- if l.land_m2 %}{% set _ = specs.append("%.0f m²" | format(l.land_m2)) %}{% endif -%}
+      {%- if l.property_type %}{% set _ = specs.append(l.property_type.value) %}{% endif -%}
+      {{ specs | join(" · ") }}
+    </div>
+    <div style="color:#555">
+      {%- if g.walk_min is not none -%}
+        🚶 {{ "%.0f" | format(g.walk_min) }} min ({{ "%.1f" | format(g.walk_km) }} km) · 🚗 {{ "%.0f" | format(g.drive_min) }} min to KHS
+        {%- if g.station %} · 🚆 {{ g.station }} ({{ "%.0f" | format(g.station_walk_min) }} min walk{% if g.stops_to_school is not none %}, {{ g.stops_to_school }} stop{{ "" if g.stops_to_school == 1 else "s" }} to Kirrawee{% endif %}){% endif %}
+        {%- if g.approx %} <i>(suburb centre, address withheld)</i>{% elif not g.routed %} <i>(approx.)</i>{% endif %}
+      {%- else -%}<i>Distance unknown</i>{%- endif -%}
+    </div>
+    {%- if change.details %}<div style="margin-top:4px;color:#b3261e">Changed: {{ change.details | join("; ") }}</div>{% endif %}
+    {%- if l.description %}<div style="margin-top:4px;color:#444">{{ l.description | truncate(220) }}</div>{% endif %}
+    {%- if g.lat %}<div style="margin-top:4px;font-size:12px"><a href="https://www.google.com/maps/search/?api=1&query={{ g.lat }},{{ g.lng }}" style="color:#0b57d0">Map</a></div>{% endif %}
+  </td>
+</tr>
+</table>
+{%- endmacro -%}
+<!doctype html>
+<html><body style="margin:0;padding:16px;background:#f6f6f6">
+<div style="max-width:680px;margin:0 auto;background:#fff;padding:18px;border-radius:10px;font:14px/1.45 -apple-system,Segoe UI,Arial,sans-serif;color:#222">
+<h1 style="font-size:20px;margin:0 0 4px">Property Hunter: {{ d.run_date.strftime("%d %b %Y") }}</h1>
+<p style="margin:0 0 16px;color:#666">{{ d.subject().split(": ", 1)[1] }}</p>
+{%- for title, items, show in (("Off-market", d.off_market, True), ("New", d.new, False), ("Changed", d.changed, False)) %}
+  {%- if items %}
+  <h2 style="font-size:15px;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid #222;padding-bottom:4px;margin:20px 0 12px">{{ title }} ({{ items | length }})</h2>
+  {%- for c in items %}{{ card(c, show) }}{% endfor %}
+  {%- endif %}
+{%- endfor %}
+{%- if not d.total %}<p>No new or changed properties match your criteria this week.</p>{% endif %}
+<p style="margin-top:24px;font-size:12px;color:#777;border-top:1px solid #eee;padding-top:10px">
+  {{ d.off_market | length }} off-market · {{ d.new | length }} new · {{ d.changed | length }} changed · {{ d.unchanged_count }} seen before, unchanged · {{ d.filtered_count }} outside criteria
+  {%- if d.failing_sources %}<br><b style="color:#b3261e">Sources failing:</b> {{ d.failing_sources | join(", ") }}{% endif %}
+</p>
+</div></body></html>

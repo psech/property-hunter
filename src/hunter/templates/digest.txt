@@ -1,0 +1,13 @@
+Property Hunter: {{ d.run_date.strftime("%d %b %Y") }}
+{% for title, items in (("OFF-MARKET", d.off_market), ("NEW", d.new), ("CHANGED", d.changed)) %}{% if items %}
+== {{ title }} ({{ items | length }}) ==
+{% for c in items %}{% set l = c.item.listing %}{% set g = c.item.geo %}
+- {{ l.address or l.title or "Address withheld" }}{% if l.suburb %}, {{ l.suburb }}{% endif %} [{{ c.status }}, {{ l.kind.value }}]
+  {{ l.price.text or "Price not disclosed" }}{% if c.item.estimate %} | estimate {{ c.item.estimate.low | money }}-{{ c.item.estimate.high | money }}{% endif %}
+  {% if l.beds is not none %}{{ l.beds }} bed {% endif %}{% if l.baths is not none %}{{ l.baths }} bath {% endif %}{% if g.walk_min is not none %}| walk {{ "%.0f" | format(g.walk_min) }} min, drive {{ "%.0f" | format(g.drive_min) }} min{% endif %}
+{% if c.details %}  Changed: {{ c.details | join("; ") }}
+{% endif %}{% if l.url %}  {{ l.url }}
+{% endif %}{% endfor %}{% endif %}{% endfor %}
+{% if not d.total %}No new or changed properties match your criteria this week.
+{% endif %}
+{{ d.unchanged_count }} unchanged, {{ d.filtered_count }} outside criteria.{% if d.failing_sources %} Sources failing: {{ d.failing_sources | join(", ") }}{% endif %}
