@@ -19,6 +19,10 @@ ORS = "https://api.openrouteservice.org"
 NOMINATIM = "https://nominatim.openstreetmap.org/search"
 USER_AGENT = "property-hunter/0.1 (+https://github.com/psech/property-hunter)"
 
+# Free plan: 40 directions and 100 geocodes a minute, 2,000 / 1,000 a day.
+ORS_MIN_INTERVAL_S = 60 / 38
+ORS_RETRIES = 2
+
 # Fallbacks when routing is unavailable: typical detour factors and speeds for suburban Sydney.
 WALK_DETOUR, WALK_KMH = 1.3, 4.8
 DRIVE_DETOUR, DRIVE_KMH, DRIVE_OVERHEAD_MIN = 1.4, 30.0, 2.0
@@ -57,6 +61,42 @@ class Geo:
         self.cache = cache
         self.http = httpx.Client(timeout=20, headers={"User-Agent": USER_AGENT})
         self._last_nominatim = 0.0
+        self._last_ors = 0.0
+        self._ors_exhausted = False  # set when the quota is used up: heuristics for the rest of the run
+
+    def _ors(self, method: str, path: str, **kwargs) -> dict | None:
+        """One ORS call, kept under the per-minute limit and retried after a 429."""
+        if not self.ors_key or self._ors_exhausted:
+            return None
+        for attempt in range(ORS_RETRIES + 1):
+            wait = ORS_MIN_INTERVAL_S - (time.monotonic() - self._last_ors)
+            if wait > 0:
+                time.sleep(wait)
+            self._last_ors = time.monotonic()
+            try:
+                r = self.http.request(method, f"{ORS}{path}", **kwargs)
+            except httpx.HTTPError as exc:
+                log.warning("ORS %s failed: %s", path, exc)
+                return None
+            if r.status_code == 429:
+                if attempt == ORS_RETRIES:
+                    log.warning("ORS quota exhausted; using distance estimates for the rest of this run")
+                    self._ors_exhausted = True
+                    return None
+                reset = r.headers.get("x-ratelimit-reset")
+                delay = max(1.0, float(reset) - time.time()) if reset and reset.isdigit() else 61.0
+                if delay > 120:  # the daily quota, not the per-minute one: no point waiting
+                    log.warning("ORS daily quota used up; using distance estimates for the rest of this run")
+                    self._ors_exhausted = True
+                    return None
+                log.info("ORS rate limit hit; waiting %.0fs", delay)
+                time.sleep(delay)
+                continue
+            if r.is_error:
+                log.warning("ORS %s returned %s: %s", path, r.status_code, r.text[:200])
+                return None
+            return r.json()
+        return None
 
     # ----- geocoding -----
 
@@ -70,16 +110,11 @@ class Geo:
         return point
 
     def _geocode_ors(self, query: str) -> tuple[float, float] | None:
-        try:
-            r = self.http.get(
-                f"{ORS}/geocode/search",
-                params={"api_key": self.ors_key, "text": query, "boundary.country": "AU", "size": 1},
-            )
-            r.raise_for_status()
-            features = r.json().get("features") or []
-        except httpx.HTTPError as exc:
-            log.warning("ORS geocode failed for %r: %s", query, exc)
-            return None
+        data = self._ors(
+            "GET", "/geocode/search",
+            params={"api_key": self.ors_key, "text": query, "boundary.country": "AU", "size": 1},
+        )
+        features = (data or {}).get("features") or []
         if not features:
             return None
         lng, lat = features[0]["geometry"]["coordinates"]
@@ -103,23 +138,21 @@ class Geo:
 
     def route(self, profile: str, a: tuple[float, float], b: tuple[float, float]) -> tuple[float, float] | None:
         """(km, minutes) for 'foot-walking' or 'driving-car', or None without routing."""
-        if not self.ors_key:
+        if not self.ors_key or self._ors_exhausted:
             return None
         key = f"route:{profile}:{a[0]:.5f},{a[1]:.5f}:{b[0]:.5f},{b[1]:.5f}"
         if (hit := self.cache.get(key)) is not None:
             return tuple(hit) if hit else None
+        data = self._ors(
+            "POST", f"/v2/directions/{profile}",
+            headers={"Authorization": self.ors_key},
+            json={"coordinates": [[a[1], a[0]], [b[1], b[0]]]},
+        )
         try:
-            r = self.http.post(
-                f"{ORS}/v2/directions/{profile}",
-                headers={"Authorization": self.ors_key},
-                json={"coordinates": [[a[1], a[0]], [b[1], b[0]]]},
-            )
-            r.raise_for_status()
-            summary = r.json()["routes"][0]["summary"]
-            result = (summary.get("distance", 0) / 1000, summary.get("duration", 0) / 60)
-        except (httpx.HTTPError, KeyError, IndexError) as exc:
-            log.warning("ORS %s routing failed: %s", profile, exc)
+            summary = data["routes"][0]["summary"]
+        except (TypeError, KeyError, IndexError):
             return None
+        result = (summary.get("distance", 0) / 1000, summary.get("duration", 0) / 60)
         self.cache.set(key, list(result))
         return result
 

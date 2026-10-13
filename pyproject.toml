@@ -16,6 +16,7 @@ dependencies = [
 
 [project.scripts]
 hunter = "hunter.main:main"
+hunter-gmail-auth = "hunter.gmail_auth:main"
 
 [dependency-groups]
 dev = ["pytest>=8"]

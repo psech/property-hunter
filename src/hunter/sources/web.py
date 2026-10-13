@@ -34,8 +34,11 @@ class Fetcher:
         self._last: dict[str, float] = {}
         self._playwright = None
         self._browser = None
+        self._context = None
 
     def close(self) -> None:
+        if self._context:
+            self._context.close()
         if self._browser:
             self._browser.close()
         if self._playwright:
@@ -80,18 +83,43 @@ class Fetcher:
         self._throttle(url)
         try:
             r = self.http.get(url, params=params, headers={"Accept": "application/json"})
+            if r.status_code in (403, 503) and r.headers.get("server", "").lower() == "cloudflare":
+                # Cloudflare often blocks datacenter clients by fingerprint; a real browser may pass.
+                return self._get_json_browser(str(httpx.URL(url, params=params)))
             r.raise_for_status()
             return r.json()
         except (httpx.HTTPError, ValueError) as exc:
             raise FetchError(f"{url}: {exc}") from exc
 
-    def _get_browser(self, url: str, wait_for: str | None) -> str:
-        if self._browser is None:
+    def _page(self):
+        if self._context is None:
             from playwright.sync_api import sync_playwright
 
             self._playwright = sync_playwright().start()
             self._browser = self._playwright.chromium.launch()
-        page = self._browser.new_page(user_agent=USER_AGENT, locale="en-AU")
+            self._context = self._browser.new_context(user_agent=USER_AGENT, locale="en-AU")
+        return self._context.new_page()
+
+    def _get_json_browser(self, url: str) -> object:
+        page = self._page()
+        try:
+            origin = f"{urlparse(url).scheme}://{urlparse(url).netloc}/"
+            page.goto(origin, wait_until="domcontentloaded", timeout=45_000)  # collects any clearance cookie
+            response = page.goto(url, wait_until="domcontentloaded", timeout=45_000)
+            if response is None or not response.ok:
+                status = response.status if response else "no response"
+                save_debug(url, page.content(), page)
+                raise FetchError(f"{url}: browser fallback got {status}")
+            return response.json()
+        except FetchError:
+            raise
+        except Exception as exc:
+            raise FetchError(f"{url}: browser fallback failed: {exc}") from exc
+        finally:
+            page.close()
+
+    def _get_browser(self, url: str, wait_for: str | None) -> str:
+        page = self._page()
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=45_000)
             if wait_for:

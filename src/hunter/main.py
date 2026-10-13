@@ -16,7 +16,7 @@ from hunter.extract import Extractor
 from hunter.filters import rejection
 from hunter.geo import Geo
 from hunter.llm import Llm
-from hunter.mail import GmailImapSmtp
+from hunter.mail import GmailApi
 from hunter.models import Enriched, Listing
 from hunter.notify.digest import Digest
 from hunter.notify.whatsapp import send_whatsapp
@@ -96,12 +96,16 @@ def run(args: argparse.Namespace) -> int:
     finally:
         fetcher.close()
 
-    use_inbox = not args.no_inbox and not args.source and secrets.gmail_address and secrets.gmail_app_password
-    new_uid = None
+    gmail = (
+        GmailApi(secrets.gmail_client_id, secrets.gmail_client_secret, secrets.gmail_refresh_token)
+        if secrets.gmail_ready
+        else None
+    )
+    use_inbox = gmail and not args.no_inbox and not args.source
+    new_cursor = None
     if use_inbox:
         try:
-            client = GmailImapSmtp(secrets.gmail_address, secrets.gmail_app_password)
-            found, new_uid = inbox.collect(client, extractor, store.meta.get("inbox_last_uid", 0))
+            found, new_cursor = inbox.collect(gmail, extractor, store.meta.get("inbox_cursor", 0))
             collected += found
         except Exception as exc:
             log.error("inbox failed: %s", exc)
@@ -114,14 +118,18 @@ def run(args: argparse.Namespace) -> int:
     unchanged = filtered = 0
     for listing in merge_duplicates(collected):
         item = Enriched(listing=listing)
-        item.geo = geo.metrics(listing)
-        if school_station:
-            item.geo.stops_to_school = geo.stops_to(item.geo.station, school_station)
         if not listing.price.is_known:
             item.estimate = valuation.estimate(item)
+        # Routing calls are rate-limited, so only locate listings that pass the cheap checks.
+        reason = rejection(item, criteria, check_distance=False)
+        if reason is None:
+            item.geo = geo.metrics(listing)
+            if school_station:
+                item.geo.stops_to_school = geo.stops_to(item.geo.station, school_station)
+            reason = rejection(item, criteria)
         key, _ = store.observe(item, today)
         seen.add(key)
-        if reason := rejection(item, criteria):
+        if reason:
             log.debug("skip %s: %s", key, reason)
             filtered += 1
             continue
@@ -148,23 +156,21 @@ def run(args: argparse.Namespace) -> int:
         return 0
 
     if not args.seed:
-        notify(digest, html, text, secrets)
+        notify(digest, html, text, secrets, gmail)
     for change in changes:
         store.mark_notified(change.key, today)
 
     # 4. Save (only after notifications went out, so a failed send is retried next week)
-    if new_uid is not None:
-        store.meta["inbox_last_uid"] = new_uid
+    if new_cursor is not None:
+        store.meta["inbox_cursor"] = new_cursor
     store.meta["last_run"] = today.isoformat()
     store.save()
     return 0
 
 
-def notify(digest: Digest, html: str, text: str, secrets: Secrets) -> None:
-    if secrets.gmail_address and secrets.gmail_app_password and secrets.notify_email:
-        GmailImapSmtp(secrets.gmail_address, secrets.gmail_app_password).send(
-            secrets.notify_email, digest.subject(), html, text
-        )
+def notify(digest: Digest, html: str, text: str, secrets: Secrets, gmail: GmailApi | None) -> None:
+    if gmail and secrets.notify_email:
+        gmail.send(secrets.notify_email, digest.subject(), html, text)
         log.info("email sent")
     else:
         log.warning("email not configured: skipped")

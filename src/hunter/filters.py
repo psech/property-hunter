@@ -40,7 +40,7 @@ def distance_ok(item: Enriched, criteria: Criteria) -> bool:
     return False
 
 
-def rejection(item: Enriched, criteria: Criteria) -> str | None:
+def rejection(item: Enriched, criteria: Criteria, check_distance: bool = True) -> str | None:
     """None when the listing matches; otherwise a short reason."""
     listing = item.listing
     if listing.kind == ListingKind.SOLD:
@@ -63,7 +63,7 @@ def rejection(item: Enriched, criteria: Criteria) -> str | None:
     if prop.min_land_m2 and listing.land_m2 is not None and listing.land_m2 < prop.min_land_m2:
         return f"land {listing.land_m2:.0f} m²"
 
-    if not distance_ok(item, criteria):
+    if check_distance and not distance_ok(item, criteria):
         return "too far"
 
     budget = criteria.budget

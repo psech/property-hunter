@@ -20,10 +20,13 @@ def _agency(mail: InboundMail) -> str:
     return name or mail.sender
 
 
-def collect(client: MailClient, extractor: Extractor, last_uid: int) -> tuple[list[Listing], int]:
-    """Returns listings found in mail newer than last_uid, and the new high-water UID."""
+def collect(client: MailClient, extractor: Extractor, cursor: int) -> tuple[list[Listing], int]:
+    """Returns listings found in mail newer than the cursor, and the new cursor."""
     listings: list[Listing] = []
-    mails = client.fetch_since(last_uid)
+    if not extractor.llm.available:
+        log.warning("inbox skipped: no LLM to read the emails (they'll be read next run)")
+        return listings, cursor
+    mails = client.fetch_since(cursor)
     for mail in mails:
         body = html_to_text(mail.html) if mail.html else (mail.text or "")
         content = f"Subject: {mail.subject}\nFrom: {mail.sender}\n\n{body}"
@@ -34,4 +37,4 @@ def collect(client: MailClient, extractor: Extractor, last_uid: int) -> tuple[li
                 listing.title = listing.title or mail.subject
         log.info("inbox: %d listing(s) in %r", len(found), mail.subject)
         listings += found
-    return listings, max((m.uid for m in mails), default=last_uid)
+    return listings, max((m.cursor for m in mails), default=cursor)
