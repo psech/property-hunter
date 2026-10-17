@@ -1,7 +1,7 @@
 {
  "version": 1,
  "meta": {
-  "last_run": "2026-10-05"
+  "last_run": "2026-10-17"
  },
  "listings": {
   "addr:1 aldgate street sutherland": {
@@ -22,7 +22,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L39046663",
    "suburb": "Sutherland",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Contact Agent",
@@ -34,17 +34,8 @@
     "land_m2": 556.0
    },
    "geo": {
-    "lat": -34.03661,
-    "lng": 151.065172,
     "approx": false,
-    "straight_km": 1.08,
-    "walk_km": 1.67,
-    "walk_min": 20.1,
-    "drive_min": 4.7,
-    "routed": true,
-    "station": "Kirrawee",
-    "station_walk_min": 10.3,
-    "stops_to_school": 0
+    "routed": false
    }
   },
   "addr:1 lambeth place illawong": {
@@ -66,7 +57,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L19439527",
    "suburb": "Illawong",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "Auction",
     "price_low": null,
@@ -90,6 +81,40 @@
     "stops_to_school": 3
    }
   },
+  "addr:1 power place menai": {
+   "key": "addr:1 power place menai",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Contact Agent",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3590954",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L10927318",
+   "suburb": "Menai",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Contact Agent",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "1 Power Place",
+    "beds": 4,
+    "baths": 2,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
+   }
+  },
   "addr:10 allies road barden ridge": {
    "key": "addr:10 allies road barden ridge",
    "first_seen": "2026-10-05",
@@ -98,6 +123,11 @@
      "date": "2026-10-05",
      "price": "Auction | Guide $1,700,000",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Guide $1,700,000",
+     "kind": "under_offer"
     }
    ],
    "last_notified_hash": null,
@@ -108,29 +138,20 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10926844",
    "suburb": "Barden Ridge",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Auction | Guide $1,700,000",
     "price_low": 1700000,
-    "kind": "for_sale",
+    "kind": "under_offer",
     "address": "10 Allies Road",
     "beds": 4,
     "baths": 2,
     "land_m2": null
    },
    "geo": {
-    "lat": -34.03606,
-    "lng": 151.008227,
     "approx": false,
-    "straight_km": 6.07,
-    "walk_km": 7.88,
-    "walk_min": 98.6,
-    "drive_min": 19.0,
-    "routed": false,
-    "station": "Engadine",
-    "station_walk_min": 58.3,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:10/477-481 president avenue kirrawee": {
@@ -140,6 +161,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | $910,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | $895,000",
      "kind": "for_sale"
     }
    ],
@@ -151,11 +177,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L39127798",
    "suburb": "Kirrawee",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | $910,000",
-    "price_low": 910000,
+    "price": "For Sale | $895,000",
+    "price_low": 895000,
     "kind": "for_sale",
     "address": "10/477-481 President Avenue",
     "beds": 2,
@@ -163,17 +189,76 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.035025,
-    "lng": 151.067122,
     "approx": false,
-    "straight_km": 1.1,
-    "walk_km": 1.43,
-    "walk_min": 17.9,
-    "drive_min": 5.1,
-    "routed": false,
-    "station": "Kirrawee",
-    "station_walk_min": 7.2,
-    "stops_to_school": 0
+    "routed": false
+   }
+  },
+  "addr:101/7 dianella street caringbah": {
+   "key": "addr:101/7 dianella street caringbah",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Contact Agent",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3594572",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L43122341",
+   "suburb": "Caringbah",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "For Sale | Contact Agent",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "101/7 Dianella Street",
+    "beds": 2,
+    "baths": 2,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
+   }
+  },
+  "addr:104/11 mitchell avenue jannali": {
+   "key": "addr:104/11 mitchell avenue jannali",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3593455",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L33358125",
+   "suburb": "Jannali",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "104/11 Mitchell Avenue",
+    "beds": 2,
+    "baths": 2,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:11 cranbrook place illawong": {
@@ -183,6 +268,11 @@
     {
      "date": "2026-10-05",
      "price": "Auction guide: $2,370,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Contact Agent",
      "kind": "for_sale"
     }
    ],
@@ -194,11 +284,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L20956052",
    "suburb": "Illawong",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Auction guide: $2,370,000",
-    "price_low": 2370000,
+    "price": "For Sale | Contact Agent",
+    "price_low": null,
     "kind": "for_sale",
     "address": "11 Cranbrook Place",
     "beds": 5,
@@ -206,17 +296,42 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -33.990602,
-    "lng": 151.059749,
     "approx": false,
-    "straight_km": 6.01,
-    "walk_km": 7.81,
-    "walk_min": 97.6,
-    "drive_min": 18.8,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 27.8,
-    "stops_to_school": 3
+    "routed": false
+   }
+  },
+  "addr:11 melville place barden ridge": {
+   "key": "addr:11 melville place barden ridge",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3591576",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L26760974",
+   "suburb": "Barden Ridge",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "11 Melville Place",
+    "beds": 4,
+    "baths": 1,
+    "land_m2": 720.0
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:11/2-4 adelong street sutherland": {
@@ -226,6 +341,11 @@
     {
      "date": "2026-10-05",
      "price": "Contact Agent",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "By Appointment | Contact Agent",
      "kind": "for_sale"
     }
    ],
@@ -237,10 +357,10 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42662615",
    "suburb": "Sutherland",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Contact Agent",
+    "price": "By Appointment | Contact Agent",
     "price_low": null,
     "kind": "for_sale",
     "address": "11/2-4 Adelong Street",
@@ -249,17 +369,76 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.03197,
-    "lng": 151.055761,
     "approx": false,
-    "straight_km": 2.07,
-    "walk_km": 2.93,
-    "walk_min": 35.1,
-    "drive_min": 8.0,
-    "routed": true,
-    "station": "Sutherland",
-    "station_walk_min": 1.9,
-    "stops_to_school": 1
+    "routed": false
+   }
+  },
+  "addr:115 monash road menai": {
+   "key": "addr:115 monash road menai",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Price Guide $2,900,000",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3596113",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L41507311",
+   "suburb": "Menai",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "For Sale | Price Guide $2,900,000",
+    "price_low": 2900000,
+    "kind": "for_sale",
+    "address": "115 Monash Road",
+    "beds": 5,
+    "baths": 4,
+    "land_m2": 670.0
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
+   }
+  },
+  "addr:118 harrow road bexley": {
+   "key": "addr:118 harrow road bexley",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Unless Sold Prior",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3591418",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L43018092",
+   "suburb": "Bexley",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction | Unless Sold Prior",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "118 Harrow Road",
+    "beds": 3,
+    "baths": 1,
+    "land_m2": 660.0
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:12 daintree way menai": {
@@ -280,7 +459,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Menai",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -292,17 +471,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.011862,
-    "lng": 151.013569,
     "approx": false,
-    "straight_km": 6.54,
-    "walk_km": 8.5,
-    "walk_min": 106.3,
-    "drive_min": 20.3,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 74.6,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:12 loch lomond crescent burraneer": {
@@ -312,6 +482,11 @@
     {
      "date": "2026-10-05",
      "price": "Open By Appointment - 0418 634 085",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Guide $6,000,000 - $6,250,0000",
      "kind": "for_sale"
     }
    ],
@@ -323,11 +498,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L37661168",
    "suburb": "Burraneer",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Open By Appointment - 0418 634 085",
-    "price_low": null,
+    "price": "For Sale | Guide $6,000,000 - $6,250,0000",
+    "price_low": 6000000,
     "kind": "for_sale",
     "address": "12 Loch Lomond Crescent",
     "beds": 4,
@@ -335,17 +510,8 @@
     "land_m2": 1010.0
    },
    "geo": {
-    "lat": -34.072045,
-    "lng": 151.135199,
     "approx": false,
-    "straight_km": 6.52,
-    "walk_km": 8.47,
-    "walk_min": 105.9,
-    "drive_min": 20.3,
-    "routed": false,
-    "station": "Caringbah",
-    "station_walk_min": 58.1,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:12d coral road woolooware": {
@@ -356,6 +522,11 @@
      "date": "2026-10-05",
      "price": "Auction | Unless Sold Prior",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": null,
+     "kind": "off_market"
     }
    ],
    "last_notified_hash": null,
@@ -364,31 +535,56 @@
    "source": "ray-white-sutherland-shire",
    "ref": "ray-white-sutherland-shire:3576197",
    "agency": "Ray White Sutherland Shire",
-   "url": "https://raywhitesutherlandshire.com.au/L42658844",
+   "url": null,
    "suburb": "Woolooware",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Auction | Unless Sold Prior",
+    "price": null,
     "price_low": null,
-    "kind": "for_sale",
+    "kind": "off_market",
     "address": "12D Coral Road",
     "beds": 5,
     "baths": 4,
     "land_m2": null
    },
    "geo": {
-    "lat": -34.048018,
-    "lng": 151.134943,
     "approx": false,
-    "straight_km": 5.69,
-    "walk_km": 7.4,
-    "walk_min": 92.4,
-    "drive_min": 17.9,
-    "routed": false,
-    "station": "Caringbah",
-    "station_walk_min": 21.6,
-    "stops_to_school": 3
+    "routed": false
+   }
+  },
+  "addr:13 hobart place illawong": {
+   "key": "addr:13 hobart place illawong",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Contact Agent",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3597349",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L39435775",
+   "suburb": "Illawong",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Contact Agent",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "13 Hobart Place",
+    "beds": 3,
+    "baths": 2,
+    "land_m2": 648.0
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:138a the esplanade sylvania": {
@@ -399,6 +595,11 @@
      "date": "2026-10-05",
      "price": "For Sale | $1,800,000 - $1,900,000",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": null,
+     "kind": "off_market"
     }
    ],
    "last_notified_hash": null,
@@ -407,31 +608,22 @@
    "source": "ray-white-sutherland-shire",
    "ref": "ray-white-sutherland-shire:3532958",
    "agency": "Ray White Sutherland Shire",
-   "url": "https://raywhitesutherlandshire.com.au/L40945662",
+   "url": null,
    "suburb": "Sylvania",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | $1,800,000 - $1,900,000",
-    "price_low": 1800000,
-    "kind": "for_sale",
+    "price": null,
+    "price_low": null,
+    "kind": "off_market",
     "address": "138A The Esplanade",
     "beds": 6,
     "baths": 4,
     "land_m2": 677.8
    },
    "geo": {
-    "lat": -34.014916,
-    "lng": 151.089501,
     "approx": false,
-    "straight_km": 3.5,
-    "walk_km": 4.55,
-    "walk_min": 56.9,
-    "drive_min": 11.8,
-    "routed": false,
-    "station": "Gymea",
-    "station_walk_min": 36.6,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:14 inverness avenue mudgee": {
@@ -452,7 +644,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L34983919",
    "suburb": "Mudgee",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale l Contact Agent",
@@ -464,17 +656,94 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -32.612345,
-    "lng": 149.593116,
     "approx": false,
-    "straight_km": 210.32,
-    "walk_km": 273.42,
-    "walk_min": 3417.7,
-    "drive_min": 590.9,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 3359.6,
-    "stops_to_school": 3
+    "routed": false
+   }
+  },
+  "addr:14 logan street loftus": {
+   "key": "addr:14 logan street loftus",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Contact Agent",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3596053",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L43113343",
+   "suburb": "Loftus",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "For Sale | Contact Agent",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "14 Logan Street",
+    "beds": 3,
+    "baths": 1,
+    "land_m2": 563.0
+   },
+   "geo": {
+    "lat": -34.050563,
+    "lng": 151.046649,
+    "approx": false,
+    "straight_km": 2.59,
+    "walk_km": 4.2,
+    "walk_min": 50.4,
+    "drive_min": 11.9,
+    "routed": true,
+    "station": "Loftus",
+    "station_walk_min": 11.4,
+    "stops_to_school": 2
+   }
+  },
+  "addr:1431 princes highway heathcote": {
+   "key": "addr:1431 princes highway heathcote",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Contact Agent",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3591890",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L43106423",
+   "suburb": "Heathcote",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Contact Agent",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "1431 Princes Highway",
+    "beds": 3,
+    "baths": 1,
+    "land_m2": 556.0
+   },
+   "geo": {
+    "lat": -34.091854,
+    "lng": 151.0024,
+    "approx": false,
+    "straight_km": 8.47,
+    "walk_km": 11.25,
+    "walk_min": 135.0,
+    "drive_min": 16.5,
+    "routed": true,
+    "station": "Heathcote",
+    "station_walk_min": 15.9,
+    "stops_to_school": 4
    }
   },
   "addr:15 sixth avenue loftus": {
@@ -495,7 +764,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42685267",
    "suburb": "Loftus",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -507,17 +776,8 @@
     "land_m2": 765.1
    },
    "geo": {
-    "lat": -34.042207,
-    "lng": 151.048328,
     "approx": false,
-    "straight_km": 2.32,
-    "walk_km": 3.01,
-    "walk_min": 37.7,
-    "drive_min": 8.5,
-    "routed": false,
-    "station": "Loftus",
-    "station_walk_min": 7.2,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:15/1317-1321 princes highway heathcote": {
@@ -539,7 +799,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L10917685",
    "suburb": "Heathcote",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "For Sale | Contact Agent",
     "price_low": null,
@@ -571,6 +831,11 @@
      "date": "2026-10-05",
      "price": "Price Guide $1,600,000",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": null,
+     "kind": "off_market"
     }
    ],
    "last_notified_hash": null,
@@ -579,14 +844,14 @@
    "source": "ray-white-sutherland-shire",
    "ref": "ray-white-sutherland-shire:3574494",
    "agency": "Ray White Sutherland Shire",
-   "url": "https://raywhitesutherlandshire.com.au/L42645414",
+   "url": null,
    "suburb": "Loftus",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Price Guide $1,600,000",
-    "price_low": 1600000,
-    "kind": "for_sale",
+    "price": null,
+    "price_low": null,
+    "kind": "off_market",
     "address": "154B National Avenue",
     "beds": 4,
     "baths": 3,
@@ -597,12 +862,12 @@
     "lng": 151.046825,
     "approx": false,
     "straight_km": 2.63,
-    "walk_km": 3.42,
-    "walk_min": 42.7,
-    "drive_min": 9.4,
-    "routed": false,
+    "walk_km": 4.2,
+    "walk_min": 50.4,
+    "drive_min": 11.7,
+    "routed": true,
     "station": "Loftus",
-    "station_walk_min": 13.8,
+    "station_walk_min": 11.5,
     "stops_to_school": 2
    }
   },
@@ -625,7 +890,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L26271613",
    "suburb": "Alfords Point",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "Auction | Unless Sold Prior",
     "price_low": null,
@@ -667,7 +932,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10924955",
    "suburb": "Woronora",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -679,17 +944,42 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.022677,
-    "lng": 151.050479,
     "approx": false,
-    "straight_km": 3.13,
-    "walk_km": 4.07,
-    "walk_min": 50.9,
-    "drive_min": 10.8,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 19.1,
-    "stops_to_school": 1
+    "routed": false
+   }
+  },
+  "addr:16 marlock place alfords point": {
+   "key": "addr:16 marlock place alfords point",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Unless Sold Prior",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3592888",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L10928164",
+   "suburb": "Alfords Point",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction | Unless Sold Prior",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "16 Marlock Place",
+    "beds": 5,
+    "baths": 3,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:160 prices circuit woronora": {
@@ -710,7 +1000,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42746609",
    "suburb": "Woronora",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Guide $1,350,000 to $1,400,000",
@@ -722,17 +1012,8 @@
     "land_m2": 740.0
    },
    "geo": {
-    "lat": -34.025034,
-    "lng": 151.042821,
     "approx": false,
-    "straight_km": 3.49,
-    "walk_km": 4.53,
-    "walk_min": 56.6,
-    "drive_min": 11.8,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 24.7,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:165 fowler road illawong": {
@@ -754,7 +1035,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L19203306",
    "suburb": "Illawong",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "For Sale | Guide $2,750,000",
     "price_low": 2750000,
@@ -796,7 +1077,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L40648073",
    "suburb": "Gymea Bay",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Forthcoming Auction | Open by Private Appointment",
@@ -808,17 +1089,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.055605,
-    "lng": 151.092856,
     "approx": false,
-    "straight_km": 2.24,
-    "walk_km": 2.92,
-    "walk_min": 36.4,
-    "drive_min": 8.3,
-    "routed": false,
-    "station": "Miranda",
-    "station_walk_min": 37.8,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:179 kiora road yowie bay": {
@@ -839,7 +1111,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L39554681",
    "suburb": "Yowie Bay",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Auction | Contact Agent",
@@ -851,17 +1123,8 @@
     "land_m2": 306.5
    },
    "geo": {
-    "lat": -34.044627,
-    "lng": 151.099517,
     "approx": false,
-    "straight_km": 2.41,
-    "walk_km": 2.98,
-    "walk_min": 35.8,
-    "drive_min": 5.2,
-    "routed": true,
-    "station": "Miranda",
-    "station_walk_min": 13.2,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:17b mona road menai": {
@@ -871,6 +1134,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | Contact Agent",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Price Guide $1,250,000",
      "kind": "for_sale"
     }
    ],
@@ -882,11 +1150,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10915088",
    "suburb": "Menai",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | Contact Agent",
-    "price_low": null,
+    "price": "For Sale | Price Guide $1,250,000",
+    "price_low": 1250000,
     "kind": "for_sale",
     "address": "17B Mona Road",
     "beds": 3,
@@ -894,17 +1162,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.012588,
-    "lng": 151.01909,
     "approx": false,
-    "straight_km": 6.07,
-    "walk_km": 8.31,
-    "walk_min": 99.8,
-    "drive_min": 15.9,
-    "routed": true,
-    "station": "Sutherland",
-    "station_walk_min": 66.9,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:18 edward street sylvania": {
@@ -914,6 +1173,11 @@
     {
      "date": "2026-10-05",
      "price": "$1,600,000 - $1,700,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "$1,500,000 - $1,600,000",
      "kind": "for_sale"
     }
    ],
@@ -925,11 +1189,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L39678368",
    "suburb": "Sylvania",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "$1,600,000 - $1,700,000",
-    "price_low": 1600000,
+    "price": "$1,500,000 - $1,600,000",
+    "price_low": 1500000,
     "kind": "for_sale",
     "address": "18 Edward Street",
     "beds": 2,
@@ -937,17 +1201,8 @@
     "land_m2": 663.94
    },
    "geo": {
-    "lat": -34.015503,
-    "lng": 151.092238,
     "approx": false,
-    "straight_km": 3.56,
-    "walk_km": 4.62,
-    "walk_min": 57.8,
-    "drive_min": 12.0,
-    "routed": false,
-    "station": "Gymea",
-    "station_walk_min": 36.5,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:18/7-15 jackson avenue miranda": {
@@ -957,6 +1212,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | $800,000 - $840,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | $800,000 - $825,000",
      "kind": "for_sale"
     }
    ],
@@ -968,10 +1228,10 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42793718",
    "suburb": "Miranda",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | $800,000 - $840,000",
+    "price": "For Sale | $800,000 - $825,000",
     "price_low": 800000,
     "kind": "for_sale",
     "address": "18/7-15 Jackson Avenue",
@@ -980,17 +1240,42 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.03538,
-    "lng": 151.104519,
     "approx": false,
-    "straight_km": 3.0,
-    "walk_km": 3.9,
-    "walk_min": 48.7,
-    "drive_min": 10.4,
-    "routed": false,
-    "station": "Miranda",
-    "station_walk_min": 3.2,
-    "stops_to_school": 2
+    "routed": false
+   }
+  },
+  "addr:19 glen-ayr avenue yowie bay": {
+   "key": "addr:19 glen-ayr avenue yowie bay",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Contact Agent",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3594327",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L39516601",
+   "suburb": "Yowie Bay",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction | Contact Agent",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "19 Glen-Ayr Avenue",
+    "beds": 4,
+    "baths": 3,
+    "land_m2": 1025.0
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:19/1 raine place barden ridge": {
@@ -1000,6 +1285,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | Price Guide $1,500,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Guide $1,450,000",
      "kind": "for_sale"
     }
    ],
@@ -1011,11 +1301,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42943937",
    "suburb": "Barden Ridge",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | Price Guide $1,500,000",
-    "price_low": 1500000,
+    "price": "For Sale | Guide $1,450,000",
+    "price_low": 1450000,
     "kind": "for_sale",
     "address": "19/1 Raine Place",
     "beds": 4,
@@ -1023,17 +1313,8 @@
     "land_m2": 398.0
    },
    "geo": {
-    "lat": -34.025868,
-    "lng": 151.012453,
     "approx": false,
-    "straight_km": 5.95,
-    "walk_km": 8.96,
-    "walk_min": 107.6,
-    "drive_min": 17.1,
-    "routed": true,
-    "station": "Sutherland",
-    "station_walk_min": 74.5,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:19b wentworth street caringbah south": {
@@ -1055,7 +1336,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L39604447",
    "suburb": "Caringbah South",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "Auction | Guide $2,900,000",
     "price_low": 2900000,
@@ -1087,6 +1368,11 @@
      "date": "2026-10-05",
      "price": "Auction | Contact Agent",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Guide $2,800,000",
+     "kind": "for_sale"
     }
    ],
    "last_notified_hash": null,
@@ -1097,11 +1383,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L40853947",
    "suburb": "Cronulla",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Auction | Contact Agent",
-    "price_low": null,
+    "price": "Auction | Guide $2,800,000",
+    "price_low": 2800000,
     "kind": "for_sale",
     "address": "1A Cross Road",
     "beds": 4,
@@ -1109,17 +1395,8 @@
     "land_m2": 303.5
    },
    "geo": {
-    "lat": -34.055176,
-    "lng": 151.143102,
     "approx": false,
-    "straight_km": 6.55,
-    "walk_km": 8.18,
-    "walk_min": 98.2,
-    "drive_min": 15.0,
-    "routed": true,
-    "station": "Caringbah",
-    "station_walk_min": 37.4,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:2 catton place menai": {
@@ -1141,7 +1418,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L10930144",
    "suburb": "Menai",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "Auction | 22nd of October at 6:00pm",
     "price_low": null,
@@ -1183,7 +1460,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Bangor",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -1195,17 +1472,8 @@
     "land_m2": 622.0
    },
    "geo": {
-    "lat": -34.019734,
-    "lng": 151.022552,
     "approx": false,
-    "straight_km": 5.38,
-    "walk_km": 6.99,
-    "walk_min": 87.4,
-    "drive_min": 17.1,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 56.3,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:2 moon point road illawong": {
@@ -1226,7 +1494,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L41193884",
    "suburb": "Illawong",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Auction",
@@ -1238,17 +1506,8 @@
     "land_m2": 700.7
    },
    "geo": {
-    "lat": -33.997482,
-    "lng": 151.030284,
     "approx": false,
-    "straight_km": 6.48,
-    "walk_km": 10.6,
-    "walk_min": 127.2,
-    "drive_min": 20.6,
-    "routed": true,
-    "station": "Como",
-    "station_walk_min": 115.0,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:2/26-30 harrow road sylvania": {
@@ -1258,6 +1517,11 @@
     {
      "date": "2026-10-05",
      "price": "Auction | Price Guide $1,450,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "Auction Guide | $1,300,000 - $1,350,000",
      "kind": "for_sale"
     }
    ],
@@ -1269,11 +1533,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10911810",
    "suburb": "Sylvania",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Auction | Price Guide $1,450,000",
-    "price_low": 1450000,
+    "price": "Auction Guide | $1,300,000 - $1,350,000",
+    "price_low": 1300000,
     "kind": "for_sale",
     "address": "2/26-30 Harrow Road",
     "beds": 3,
@@ -1281,17 +1545,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.006753,
-    "lng": 151.108103,
     "approx": false,
-    "straight_km": 5.18,
-    "walk_km": 6.82,
-    "walk_min": 81.8,
-    "drive_min": 15.0,
-    "routed": true,
-    "station": "Miranda",
-    "station_walk_min": 46.8,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:202/66 glencoe street sutherland": {
@@ -1302,6 +1557,11 @@
      "date": "2026-10-05",
      "price": "For Sale | Guide $850,000",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Guide $850,000",
+     "kind": "under_offer"
     }
    ],
    "last_notified_hash": null,
@@ -1312,29 +1572,20 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L39315762",
    "suburb": "Sutherland",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Guide $850,000",
     "price_low": 850000,
-    "kind": "for_sale",
+    "kind": "under_offer",
     "address": "202/66 Glencoe Street",
     "beds": 2,
     "baths": 2,
     "land_m2": null
    },
    "geo": {
-    "lat": -34.03088,
-    "lng": 151.06394,
     "approx": false,
-    "straight_km": 1.65,
-    "walk_km": 2.14,
-    "walk_min": 26.8,
-    "drive_min": 6.6,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 10.1,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:203/552 president avenue sutherland": {
@@ -1355,7 +1606,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L41795860",
    "suburb": "Sutherland",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -1367,17 +1618,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.03445,
-    "lng": 151.060148,
     "approx": false,
-    "straight_km": 1.58,
-    "walk_km": 2.05,
-    "walk_min": 25.7,
-    "drive_min": 6.4,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 6.7,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:206/315 taren point road caringbah": {
@@ -1398,7 +1640,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42719978",
    "suburb": "Caringbah",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Guide $600,000",
@@ -1410,17 +1652,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.03403,
-    "lng": 151.119028,
     "approx": false,
-    "straight_km": 4.33,
-    "walk_km": 5.63,
-    "walk_min": 70.3,
-    "drive_min": 14.1,
-    "routed": false,
-    "station": "Caringbah",
-    "station_walk_min": 14.8,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:209/3 village place kirrawee": {
@@ -1441,7 +1674,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L34709619",
    "suburb": "Kirrawee",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Sale | Guide $750,000",
@@ -1453,17 +1686,8 @@
     "land_m2": 76.0
    },
    "geo": {
-    "lat": -34.032797,
-    "lng": 151.072946,
     "approx": false,
-    "straight_km": 1.18,
-    "walk_km": 1.54,
-    "walk_min": 19.2,
-    "drive_min": 5.3,
-    "routed": false,
-    "station": "Kirrawee",
-    "station_walk_min": 4.2,
-    "stops_to_school": 0
+    "routed": false
    }
   },
   "addr:21 liffey place woronora": {
@@ -1473,6 +1697,11 @@
     {
      "date": "2026-10-05",
      "price": "Auction | Price Guide $2,800,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "Auction",
      "kind": "for_sale"
     }
    ],
@@ -1484,11 +1713,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42960346",
    "suburb": "Woronora",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Auction | Price Guide $2,800,000",
-    "price_low": 2800000,
+    "price": "Auction",
+    "price_low": null,
     "kind": "for_sale",
     "address": "21 Liffey Place",
     "beds": 3,
@@ -1496,17 +1725,8 @@
     "land_m2": 556.4
    },
    "geo": {
-    "lat": -34.022168,
-    "lng": 151.050206,
     "approx": false,
-    "straight_km": 3.19,
-    "walk_km": 4.74,
-    "walk_min": 56.9,
-    "drive_min": 10.2,
-    "routed": true,
-    "station": "Sutherland",
-    "station_walk_min": 24.0,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:21/82-90 allison crescent menai": {
@@ -1516,6 +1736,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | Guide $1,050,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Price Guide $1,050,000",
      "kind": "for_sale"
     }
    ],
@@ -1527,10 +1752,10 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L21347141",
    "suburb": "Menai",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | Guide $1,050,000",
+    "price": "For Sale | Price Guide $1,050,000",
     "price_low": 1050000,
     "kind": "for_sale",
     "address": "21/82-90 Allison Crescent",
@@ -1539,17 +1764,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.012209,
-    "lng": 151.017635,
     "approx": false,
-    "straight_km": 6.21,
-    "walk_km": 8.07,
-    "walk_min": 100.8,
-    "drive_min": 19.4,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 69.0,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:210/3 village place kirrawee": {
@@ -1570,7 +1786,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42276842",
    "suburb": "Kirrawee",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | $890,000 - $900,000",
@@ -1582,17 +1798,8 @@
     "land_m2": 122.0
    },
    "geo": {
-    "lat": -34.032449,
-    "lng": 151.072329,
     "approx": false,
-    "straight_km": 1.23,
-    "walk_km": 1.59,
-    "walk_min": 19.9,
-    "drive_min": 5.4,
-    "routed": false,
-    "station": "Kirrawee",
-    "station_walk_min": 4.6,
-    "stops_to_school": 0
+    "routed": false
    }
   },
   "addr:22 edward street sylvania": {
@@ -1614,7 +1821,7 @@
    "url": null,
    "suburb": "Sylvania",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": null,
     "price_low": null,
@@ -1638,6 +1845,74 @@
     "stops_to_school": 1
    }
   },
+  "addr:22 rutherford avenue burraneer": {
+   "key": "addr:22 rutherford avenue burraneer",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Unless Sold Prior",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3593487",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L40650234",
+   "suburb": "Burraneer",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction | Unless Sold Prior",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "22 Rutherford Avenue",
+    "beds": 5,
+    "baths": 4,
+    "land_m2": 881.0
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
+   }
+  },
+  "addr:23 bangalee place bangor": {
+   "key": "addr:23 bangalee place bangor",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3590914",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L42964254",
+   "suburb": "Bangor",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "23 Bangalee Place",
+    "beds": 4,
+    "baths": 2,
+    "land_m2": 636.5
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
+   }
+  },
   "addr:23 vista street sans souci": {
    "key": "addr:23 vista street sans souci",
    "first_seen": "2026-10-05",
@@ -1656,7 +1931,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Sans Souci",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -1668,17 +1943,8 @@
     "land_m2": 1200.0
    },
    "geo": {
-    "lat": -33.995273,
-    "lng": 151.125437,
     "approx": false,
-    "straight_km": 7.19,
-    "walk_km": 9.34,
-    "walk_min": 116.8,
-    "drive_min": 22.1,
-    "routed": false,
-    "station": "Miranda",
-    "station_walk_min": 81.6,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:23a shorland avenue jannali": {
@@ -1699,7 +1965,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L40646172",
    "suburb": "Jannali",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -1711,17 +1977,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.017609,
-    "lng": 151.070039,
     "approx": false,
-    "straight_km": 2.89,
-    "walk_km": 3.75,
-    "walk_min": 46.9,
-    "drive_min": 10.1,
-    "routed": false,
-    "station": "Jannali",
-    "station_walk_min": 8.6,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:24 milton street north ashfield": {
@@ -1731,6 +1988,11 @@
     {
      "date": "2026-10-05",
      "price": "Auction",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Price Guide $2,400,000.",
      "kind": "for_sale"
     }
    ],
@@ -1742,11 +2004,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L41115387",
    "suburb": "Ashfield",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Auction",
-    "price_low": null,
+    "price": "For Sale | Price Guide $2,400,000.",
+    "price_low": 2400000,
     "kind": "for_sale",
     "address": "24 Milton Street North",
     "beds": 3,
@@ -1754,17 +2016,8 @@
     "land_m2": 727.0
    },
    "geo": {
-    "lat": -33.887742,
-    "lng": 151.117444,
     "approx": false,
-    "straight_km": 17.78,
-    "walk_km": 23.11,
-    "walk_min": 288.9,
-    "drive_min": 51.8,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 223.3,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:24 sutcliffe place barden ridge": {
@@ -1785,7 +2038,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L19588678",
    "suburb": "Barden Ridge",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -1797,17 +2050,8 @@
     "land_m2": 693.4
    },
    "geo": {
-    "lat": -34.03405,
-    "lng": 151.009864,
     "approx": false,
-    "straight_km": 5.95,
-    "walk_km": 9.99,
-    "walk_min": 119.9,
-    "drive_min": 18.0,
-    "routed": true,
-    "station": "Engadine",
-    "station_walk_min": 137.8,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:254 attunga road yowie bay": {
@@ -1828,7 +2072,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L39802587",
    "suburb": "Yowie Bay",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Forthcoming Auction",
@@ -1840,17 +2084,42 @@
     "land_m2": 1014.5
    },
    "geo": {
-    "lat": -34.057992,
-    "lng": 151.101398,
     "approx": false,
-    "straight_km": 3.04,
-    "walk_km": 3.95,
-    "walk_min": 49.4,
-    "drive_min": 10.5,
-    "routed": false,
-    "station": "Miranda",
-    "station_walk_min": 39.2,
-    "stops_to_school": 2
+    "routed": false
+   }
+  },
+  "addr:26a pines parade gymea": {
+   "key": "addr:26a pines parade gymea",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Unless Sold Prior",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3596920",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L33707644",
+   "suburb": "Gymea",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction | Unless Sold Prior",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "26A Pines Parade",
+    "beds": 4,
+    "baths": 3,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:274 prince charles parade kurnell": {
@@ -1871,7 +2140,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L36918975",
    "suburb": "Kurnell",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Contact Agent",
@@ -1883,17 +2152,8 @@
     "land_m2": 1707.0
    },
    "geo": {
-    "lat": -34.008571,
-    "lng": 151.198013,
     "approx": false,
-    "straight_km": 12.12,
-    "walk_km": 15.75,
-    "walk_min": 196.9,
-    "drive_min": 35.9,
-    "routed": false,
-    "station": "Caringbah",
-    "station_walk_min": 127.5,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:28 carter road menai": {
@@ -1914,7 +2174,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L41856084",
    "suburb": "Menai",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | $1,475,000 - $1,550,000",
@@ -1926,17 +2186,8 @@
     "land_m2": 584.6
    },
    "geo": {
-    "lat": -34.019202,
-    "lng": 151.01241,
     "approx": false,
-    "straight_km": 6.24,
-    "walk_km": 8.11,
-    "walk_min": 101.3,
-    "drive_min": 19.5,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 70.8,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:3 arika close bangor": {
@@ -1957,7 +2208,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10920549",
    "suburb": "Bangor",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Contact Agent",
@@ -1969,17 +2220,8 @@
     "land_m2": 645.4
    },
    "geo": {
-    "lat": -34.023349,
-    "lng": 151.038009,
     "approx": false,
-    "straight_km": 3.96,
-    "walk_km": 5.76,
-    "walk_min": 69.1,
-    "drive_min": 12.2,
-    "routed": true,
-    "station": "Sutherland",
-    "station_walk_min": 35.9,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:3 bermuda place burraneer": {
@@ -2000,7 +2242,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L41699339",
    "suburb": "Burraneer",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Auction Unless Sold Prior",
@@ -2012,17 +2254,8 @@
     "land_m2": 1035.2
    },
    "geo": {
-    "lat": -34.057073,
-    "lng": 151.141522,
     "approx": false,
-    "straight_km": 6.45,
-    "walk_km": 8.39,
-    "walk_min": 104.9,
-    "drive_min": 20.1,
-    "routed": false,
-    "station": "Caringbah",
-    "station_walk_min": 39.7,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:3 coachwood crescent alfords point": {
@@ -2043,7 +2276,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Alfords Point",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -2055,17 +2288,8 @@
     "land_m2": 630.0
    },
    "geo": {
-    "lat": -33.991466,
-    "lng": 151.024553,
     "approx": false,
-    "straight_km": 7.33,
-    "walk_km": 9.53,
-    "walk_min": 119.1,
-    "drive_min": 22.5,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 69.2,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:3 dinjerra close bangor": {
@@ -2086,7 +2310,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L27470606",
    "suburb": "Bangor",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Auction | Unless Sold Prior",
@@ -2098,17 +2322,8 @@
     "land_m2": 623.5
    },
    "geo": {
-    "lat": -34.021737,
-    "lng": 151.022279,
     "approx": false,
-    "straight_km": 5.3,
-    "walk_km": 6.89,
-    "walk_min": 86.1,
-    "drive_min": 16.8,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 55.4,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:3 unaipon street barden ridge": {
@@ -2129,7 +2344,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42655355",
    "suburb": "Barden Ridge",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -2141,17 +2356,8 @@
     "land_m2": 870.9
    },
    "geo": {
-    "lat": -34.032893,
-    "lng": 151.012103,
     "approx": false,
-    "straight_km": 5.77,
-    "walk_km": 7.5,
-    "walk_min": 93.8,
-    "drive_min": 18.2,
-    "routed": false,
-    "station": "Loftus",
-    "station_walk_min": 62.9,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:3/8-10 pembroke street sylvania": {
@@ -2173,7 +2379,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L18784030",
    "suburb": "Sylvania",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "For Sale | $1,050,000 - $1,100,000",
     "price_low": 1050000,
@@ -2205,6 +2411,11 @@
      "date": "2026-10-05",
      "price": "For Sale | Guide $850,000 - $935,000",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Guide $850,000 - $935,000",
+     "kind": "under_offer"
     }
    ],
    "last_notified_hash": null,
@@ -2215,29 +2426,54 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L41526863",
    "suburb": "Padstow",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Guide $850,000 - $935,000",
     "price_low": 850000,
-    "kind": "for_sale",
+    "kind": "under_offer",
     "address": "30/193 Davies Road",
     "beds": 2,
     "baths": 1,
     "land_m2": 175.0
    },
    "geo": {
-    "lat": -33.959701,
-    "lng": 151.038274,
     "approx": false,
-    "straight_km": 9.86,
-    "walk_km": 12.82,
-    "walk_min": 160.2,
-    "drive_min": 29.6,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 92.2,
-    "stops_to_school": 3
+    "routed": false
+   }
+  },
+  "addr:30/530-536 president avenue sutherland": {
+   "key": "addr:30/530-536 president avenue sutherland",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "For Sale |Contact Agent",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3594262",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L42209184",
+   "suburb": "Sutherland",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "For Sale |Contact Agent",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "30/530-536 President Avenue",
+    "beds": 2,
+    "baths": 2,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:303/22 banksia road caringbah": {
@@ -2248,6 +2484,11 @@
      "date": "2026-10-05",
      "price": "For Sale | $920,000 - $990,000",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | $920,000 - $990,000",
+     "kind": "under_offer"
     }
    ],
    "last_notified_hash": null,
@@ -2258,29 +2499,20 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L41985283",
    "suburb": "Caringbah",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | $920,000 - $990,000",
     "price_low": 920000,
-    "kind": "for_sale",
+    "kind": "under_offer",
     "address": "303/22 Banksia Road",
     "beds": 2,
     "baths": 2,
     "land_m2": null
    },
    "geo": {
-    "lat": -34.04228,
-    "lng": 151.124736,
     "approx": false,
-    "straight_km": 4.73,
-    "walk_km": 6.15,
-    "walk_min": 76.8,
-    "drive_min": 15.2,
-    "routed": false,
-    "station": "Caringbah",
-    "station_walk_min": 3.2,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:31 parthenia street dolans bay": {
@@ -2302,7 +2534,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L41297879",
    "suburb": "Dolans Bay",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "Auction | Unless Sold Prior",
     "price_low": null,
@@ -2345,7 +2577,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L41318738",
    "suburb": "Kirrawee",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "For Sale | $850,000",
     "price_low": 850000,
@@ -2369,6 +2601,74 @@
     "stops_to_school": 0
    }
   },
+  "addr:33 allies road barden ridge": {
+   "key": "addr:33 allies road barden ridge",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Guide $1,600,000",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3592437",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L35269357",
+   "suburb": "Barden Ridge",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction | Guide $1,600,000",
+    "price_low": 1600000,
+    "kind": "for_sale",
+    "address": "33 Allies Road",
+    "beds": 4,
+    "baths": 2,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
+   }
+  },
+  "addr:33 chester street sylvania": {
+   "key": "addr:33 chester street sylvania",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Price Guide $1,700,000",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3591492",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L10922113",
+   "suburb": "Sylvania",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction | Price Guide $1,700,000",
+    "price_low": 1700000,
+    "kind": "for_sale",
+    "address": "33 Chester Street",
+    "beds": 3,
+    "baths": 1,
+    "land_m2": 638.6
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
+   }
+  },
   "addr:36 shoalhaven road sylvania waters": {
    "key": "addr:36 shoalhaven road sylvania waters",
    "first_seen": "2026-10-05",
@@ -2377,6 +2677,11 @@
      "date": "2026-10-05",
      "price": "For Sale | Contact Agent",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": null,
+     "kind": "off_market"
     }
    ],
    "last_notified_hash": null,
@@ -2385,31 +2690,22 @@
    "source": "ray-white-sutherland-shire",
    "ref": "ray-white-sutherland-shire:3549758",
    "agency": "Ray White Sutherland Shire",
-   "url": "https://raywhitesutherlandshire.com.au/L41923961",
+   "url": null,
    "suburb": "Sylvania Waters",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | Contact Agent",
+    "price": null,
     "price_low": null,
-    "kind": "for_sale",
+    "kind": "off_market",
     "address": "36 Shoalhaven Road",
     "beds": 4,
     "baths": 3,
     "land_m2": 607.0
    },
    "geo": {
-    "lat": -34.017011,
-    "lng": 151.107926,
     "approx": false,
-    "straight_km": 4.33,
-    "walk_km": 5.63,
-    "walk_min": 70.3,
-    "drive_min": 14.1,
-    "routed": false,
-    "station": "Miranda",
-    "station_walk_min": 35.7,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:4 belbowrie close bangor": {
@@ -2430,7 +2726,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10913360",
    "suburb": "Bangor",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Auction",
@@ -2442,17 +2738,8 @@
     "land_m2": 641.5
    },
    "geo": {
-    "lat": -34.011306,
-    "lng": 151.028692,
     "approx": false,
-    "straight_km": 5.46,
-    "walk_km": 7.09,
-    "walk_min": 88.7,
-    "drive_min": 17.3,
-    "routed": false,
-    "station": "Jannali",
-    "station_walk_min": 54.5,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:401/621 princes highway blakehurst": {
@@ -2462,6 +2749,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | Price Guide $690,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Price Guide $650,000",
      "kind": "for_sale"
     }
    ],
@@ -2473,11 +2765,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L41484682",
    "suburb": "Blakehurst",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | Price Guide $690,000",
-    "price_low": 690000,
+    "price": "For Sale | Price Guide $650,000",
+    "price_low": 650000,
     "kind": "for_sale",
     "address": "401/621 Princes Highway",
     "beds": 1,
@@ -2485,17 +2777,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -33.988445,
-    "lng": 151.111809,
     "approx": false,
-    "straight_km": 7.06,
-    "walk_km": 9.52,
-    "walk_min": 114.2,
-    "drive_min": 15.2,
-    "routed": true,
-    "station": "Como",
-    "station_walk_min": 82.0,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:42/474-482 kingsway miranda": {
@@ -2505,6 +2788,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | $750,000 - $825,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | $740,000 - $790,000",
      "kind": "for_sale"
     }
    ],
@@ -2516,11 +2804,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42720301",
    "suburb": "Miranda",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | $750,000 - $825,000",
-    "price_low": 750000,
+    "price": "For Sale | $740,000 - $790,000",
+    "price_low": 740000,
     "kind": "for_sale",
     "address": "42/474-482 Kingsway",
     "beds": 2,
@@ -2528,17 +2816,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.03549,
-    "lng": 151.112282,
     "approx": false,
-    "straight_km": 3.69,
-    "walk_km": 4.79,
-    "walk_min": 59.9,
-    "drive_min": 12.3,
-    "routed": false,
-    "station": "Miranda",
-    "station_walk_min": 14.4,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:42a parkinson street narrawallee": {
@@ -2559,7 +2838,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Narrawallee",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -2571,17 +2850,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -35.309375,
-    "lng": 150.470945,
     "approx": false,
-    "straight_km": 151.16,
-    "walk_km": 196.51,
-    "walk_min": 2456.4,
-    "drive_min": 425.3,
-    "routed": false,
-    "station": "Heathcote",
-    "station_walk_min": 2346.9,
-    "stops_to_school": 4
+    "routed": false
    }
   },
   "addr:42b parkinson street narrawallee": {
@@ -2602,7 +2872,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Narrawallee",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -2614,17 +2884,42 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -35.309375,
-    "lng": 150.470945,
     "approx": false,
-    "straight_km": 151.16,
-    "walk_km": 196.51,
-    "walk_min": 2456.4,
-    "drive_min": 425.3,
-    "routed": false,
-    "station": "Heathcote",
-    "station_walk_min": 2346.9,
-    "stops_to_school": 4
+    "routed": false
+   }
+  },
+  "addr:44 street george crescent sandy point": {
+   "key": "addr:44 street george crescent sandy point",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Guide $2,950,000",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3595981",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L39100479",
+   "suburb": "Sandy Point",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "For Sale | Guide $2,950,000",
+    "price_low": 2950000,
+    "kind": "for_sale",
+    "address": "44 St George Crescent",
+    "beds": 6,
+    "baths": 3,
+    "land_m2": 2898.0
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:5 palmer close illawong": {
@@ -2645,7 +2940,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10918981",
    "suburb": "Illawong",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -2657,17 +2952,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -33.995422,
-    "lng": 151.034377,
     "approx": false,
-    "straight_km": 6.44,
-    "walk_km": 8.37,
-    "walk_min": 104.6,
-    "drive_min": 20.0,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 53.0,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:51 bligh street kirrawee": {
@@ -2678,14 +2964,19 @@
      "date": "2026-10-05",
      "price": "For Sale | $1,400,000, - $1,540,000",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | $1,400,000, - $1,540,000",
+     "kind": "under_offer"
     }
    ],
-   "last_notified_hash": "8edb434be003b10d",
-   "last_notified_at": "2026-10-05",
+   "last_notified_hash": "901f2206db93bf38",
+   "last_notified_at": "2026-10-17",
    "last_notified_observation": {
     "price": "For Sale | $1,400,000, - $1,540,000",
     "price_low": 1400000,
-    "kind": "for_sale",
+    "kind": "under_offer",
     "address": "51 Bligh Street",
     "beds": 4,
     "baths": 2,
@@ -2696,12 +2987,12 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L35640121",
    "suburb": "Kirrawee",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | $1,400,000, - $1,540,000",
     "price_low": 1400000,
-    "kind": "for_sale",
+    "kind": "under_offer",
     "address": "51 Bligh Street",
     "beds": 4,
     "baths": 2,
@@ -2712,13 +3003,81 @@
     "lng": 151.069464,
     "approx": false,
     "straight_km": 0.37,
-    "walk_km": 0.48,
-    "walk_min": 6.0,
-    "drive_min": 3.0,
-    "routed": false,
+    "walk_km": 0.58,
+    "walk_min": 6.9,
+    "drive_min": 1.1,
+    "routed": true,
     "station": "Kirrawee",
-    "station_walk_min": 16.3,
+    "station_walk_min": 14.4,
     "stops_to_school": 0
+   }
+  },
+  "addr:51 yanderra avenue bangor": {
+   "key": "addr:51 yanderra avenue bangor",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Unless Sold Prior",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3596921",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L10918559",
+   "suburb": "Bangor",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction | Unless Sold Prior",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "51 Yanderra Avenue",
+    "beds": 4,
+    "baths": 2,
+    "land_m2": 814.2
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
+   }
+  },
+  "addr:55 lower washington drive bonnet bay": {
+   "key": "addr:55 lower washington drive bonnet bay",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3593186",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L40700619",
+   "suburb": "Bonnet Bay",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "55 Lower Washington Drive",
+    "beds": 4,
+    "baths": 1,
+    "land_m2": 822.0
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:56 street george crescent sandy point": {
@@ -2739,7 +3098,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L18923286",
    "suburb": "Sandy Point",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale: Guide $5,000,000 to $5,200,000",
@@ -2751,17 +3110,8 @@
     "land_m2": 5011.0
    },
    "geo": {
-    "lat": -33.975306,
-    "lng": 150.996352,
     "approx": false,
-    "straight_km": 10.39,
-    "walk_km": 19.2,
-    "walk_min": 230.4,
-    "drive_min": 30.4,
-    "routed": true,
-    "station": "Como",
-    "station_walk_min": 177.1,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:59b mina road menai": {
@@ -2782,7 +3132,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10918518",
    "suburb": "Menai",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Price Guide $1,300,000",
@@ -2794,17 +3144,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.011542,
-    "lng": 151.011542,
     "approx": false,
-    "straight_km": 6.72,
-    "walk_km": 8.73,
-    "walk_min": 109.2,
-    "drive_min": 20.8,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 77.5,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:6 busby close barden ridge": {
@@ -2814,6 +3155,11 @@
     {
      "date": "2026-10-05",
      "price": "Contact Agent",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "Price Guide | $1,800,000",
      "kind": "for_sale"
     }
    ],
@@ -2825,11 +3171,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10909952",
    "suburb": "Barden Ridge",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Contact Agent",
-    "price_low": null,
+    "price": "Price Guide | $1,800,000",
+    "price_low": 1800000,
     "kind": "for_sale",
     "address": "6 Busby Close",
     "beds": 5,
@@ -2837,17 +3183,51 @@
     "land_m2": 603.0
    },
    "geo": {
-    "lat": -34.026493,
-    "lng": 151.017735,
     "approx": false,
-    "straight_km": 5.47,
-    "walk_km": 7.11,
-    "walk_min": 88.9,
-    "drive_min": 17.3,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 59.9,
-    "stops_to_school": 1
+    "routed": false
+   }
+  },
+  "addr:6 crest place engadine": {
+   "key": "addr:6 crest place engadine",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction Unless Sold Prior",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3592427",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L42273257",
+   "suburb": "Engadine",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction Unless Sold Prior",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "6 Crest Place",
+    "beds": 3,
+    "baths": 1,
+    "land_m2": null
+   },
+   "geo": {
+    "lat": -34.057836,
+    "lng": 150.999632,
+    "approx": false,
+    "straight_km": 6.99,
+    "walk_km": 9.47,
+    "walk_min": 113.7,
+    "drive_min": 15.4,
+    "routed": true,
+    "station": "Engadine",
+    "station_walk_min": 29.6,
+    "stops_to_school": 3
    }
   },
   "addr:6 easton avenue sylvania": {
@@ -2869,7 +3249,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L39494370",
    "suburb": "Sylvania",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "For Sale | Contact Agent",
     "price_low": null,
@@ -2893,6 +3273,40 @@
     "stops_to_school": 2
    }
   },
+  "addr:6 kershaw road menai": {
+   "key": "addr:6 kershaw road menai",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Unless sold prior",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3591424",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L10925136",
+   "suburb": "Menai",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction | Unless sold prior",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "6 Kershaw Road",
+    "beds": 6,
+    "baths": 4,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
+   }
+  },
   "addr:6 stuart close illawong": {
    "key": "addr:6 stuart close illawong",
    "first_seen": "2026-10-05",
@@ -2900,6 +3314,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | Contact Agent",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Guide $2,000,000",
      "kind": "for_sale"
     }
    ],
@@ -2911,11 +3330,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10914316",
    "suburb": "Illawong",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | Contact Agent",
-    "price_low": null,
+    "price": "Auction | Guide $2,000,000",
+    "price_low": 2000000,
     "kind": "for_sale",
     "address": "6 Stuart Close",
     "beds": 4,
@@ -2923,17 +3342,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -33.992604,
-    "lng": 151.064351,
     "approx": false,
-    "straight_km": 5.71,
-    "walk_km": 13.12,
-    "walk_min": 157.4,
-    "drive_min": 18.0,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 21.9,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:6/65 hobart place illawong": {
@@ -2943,6 +3353,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | Guide $950,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Price Guide $950,000",
      "kind": "for_sale"
     }
    ],
@@ -2954,10 +3369,10 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10919930",
    "suburb": "Illawong",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | Guide $950,000",
+    "price": "For Sale | Price Guide $950,000",
     "price_low": 950000,
     "kind": "for_sale",
     "address": "6/65 Hobart Place",
@@ -2966,17 +3381,42 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -33.997294,
-    "lng": 151.043641,
     "approx": false,
-    "straight_km": 5.82,
-    "walk_km": 7.56,
-    "walk_min": 94.6,
-    "drive_min": 18.3,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 38.7,
-    "stops_to_school": 3
+    "routed": false
+   }
+  },
+  "addr:601/63 miranda road": {
+   "key": "addr:601/63 miranda road",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Contact Agent",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3593456",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L20377563",
+   "suburb": "Miranda",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "For Sale | Contact Agent",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "601/63 Miranda Road",
+    "beds": 3,
+    "baths": 2,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:63 raglan road miranda": {
@@ -2997,7 +3437,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42513581",
    "suburb": "Miranda",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -3009,17 +3449,8 @@
     "land_m2": 605.9
    },
    "geo": {
-    "lat": -34.04043,
-    "lng": 151.092124,
     "approx": false,
-    "straight_km": 1.75,
-    "walk_km": 2.28,
-    "walk_min": 28.5,
-    "drive_min": 6.9,
-    "routed": false,
-    "station": "Gymea",
-    "station_walk_min": 14.1,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:64 prices circuit woronora": {
@@ -3041,7 +3472,7 @@
    "url": "https://raywhitesutherlandshire.com.au/L41029449",
    "suburb": "Woronora",
    "last_seen": "2026-10-05",
-   "active": true,
+   "active": false,
    "last_observation": {
     "price": "For Sale | Guide $1,300,000",
     "price_low": 1300000,
@@ -3073,6 +3504,11 @@
      "date": "2026-10-05",
      "price": "Auction | Contact Agent",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Guide $1,700,000",
+     "kind": "for_sale"
     }
    ],
    "last_notified_hash": null,
@@ -3083,11 +3519,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L34923116",
    "suburb": "Alfords Point",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Auction | Contact Agent",
-    "price_low": null,
+    "price": "Auction | Guide $1,700,000",
+    "price_low": 1700000,
     "kind": "for_sale",
     "address": "66 Brushwood Drive",
     "beds": 5,
@@ -3095,17 +3531,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -33.985245,
-    "lng": 151.024274,
     "approx": false,
-    "straight_km": 7.9,
-    "walk_km": 10.27,
-    "walk_min": 128.4,
-    "drive_min": 24.1,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 74.1,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:68 bignell street illawong": {
@@ -3126,7 +3553,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L40870751",
    "suburb": "Illawong",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -3138,17 +3565,8 @@
     "land_m2": 2923.0
    },
    "geo": {
-    "lat": -33.994655,
-    "lng": 151.061014,
     "approx": false,
-    "straight_km": 5.54,
-    "walk_km": 7.21,
-    "walk_min": 90.1,
-    "drive_min": 17.5,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 20.5,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:7 kerslake grove menai": {
@@ -3169,7 +3587,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10920459",
    "suburb": "Menai",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Sale | Contact Agent",
@@ -3181,17 +3599,42 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.023414,
-    "lng": 151.013138,
     "approx": false,
-    "straight_km": 5.99,
-    "walk_km": 7.78,
-    "walk_min": 97.3,
-    "drive_min": 18.8,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 67.7,
-    "stops_to_school": 1
+    "routed": false
+   }
+  },
+  "addr:704b/8 village place kirrawee": {
+   "key": "addr:704b/8 village place kirrawee",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Contact Agent",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3590074",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L20406956",
+   "suburb": "Kirrawee",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "For Sale | Contact Agent",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "704B/8 Village Place",
+    "beds": 1,
+    "baths": 1,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:79 warrangarree drive woronora heights": {
@@ -3202,6 +3645,11 @@
      "date": "2026-10-05",
      "price": "For Sale | Contact Agent",
      "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Contact Agent",
+     "kind": "under_offer"
     }
    ],
    "last_notified_hash": null,
@@ -3212,29 +3660,20 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L39772065",
    "suburb": "Woronora Heights",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
     "price_low": null,
-    "kind": "for_sale",
+    "kind": "under_offer",
     "address": "79 Warrangarree Drive",
     "beds": 5,
     "baths": 3,
     "land_m2": 645.0
    },
    "geo": {
-    "lat": -34.03385,
-    "lng": 151.026844,
     "approx": false,
-    "straight_km": 4.42,
-    "walk_km": 5.75,
-    "walk_min": 71.9,
-    "drive_min": 14.4,
-    "routed": false,
-    "station": "Loftus",
-    "station_walk_min": 42.2,
-    "stops_to_school": 2
+    "routed": false
    }
   },
   "addr:7a milford road miranda": {
@@ -3247,15 +3686,23 @@
      "kind": "off_market"
     }
    ],
-   "last_notified_hash": null,
-   "last_notified_at": null,
-   "last_notified_observation": null,
+   "last_notified_hash": "19569b6589defcca",
+   "last_notified_at": "2026-10-17",
+   "last_notified_observation": {
+    "price": null,
+    "price_low": null,
+    "kind": "off_market",
+    "address": "7A Milford Road",
+    "beds": 4,
+    "baths": 3,
+    "land_m2": 473.0
+   },
    "source": "ray-white-sutherland-shire",
    "ref": "ray-white-sutherland-shire:3577914",
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Miranda",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -3271,12 +3718,12 @@
     "lng": 151.112753,
     "approx": false,
     "straight_km": 3.79,
-    "walk_km": 4.93,
-    "walk_min": 61.6,
-    "drive_min": 12.6,
-    "routed": false,
+    "walk_km": 5.02,
+    "walk_min": 60.3,
+    "drive_min": 8.9,
+    "routed": true,
     "station": "Miranda",
-    "station_walk_min": 16.0,
+    "station_walk_min": 17.5,
     "stops_to_school": 2
    }
   },
@@ -3298,7 +3745,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Bangor",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -3310,17 +3757,8 @@
     "land_m2": 665.8
    },
    "geo": {
-    "lat": -34.012732,
-    "lng": 151.025974,
     "approx": false,
-    "straight_km": 5.55,
-    "walk_km": 7.21,
-    "walk_min": 90.2,
-    "drive_min": 17.5,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 58.0,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:8 lomandra place alfords point": {
@@ -3330,6 +3768,11 @@
     {
      "date": "2026-10-05",
      "price": "Auction | Guide $2,700,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale",
      "kind": "for_sale"
     }
    ],
@@ -3341,11 +3784,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42349743",
    "suburb": "Alfords Point",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Auction | Guide $2,700,000",
-    "price_low": 2700000,
+    "price": "For Sale",
+    "price_low": null,
     "kind": "for_sale",
     "address": "8 Lomandra Place",
     "beds": 5,
@@ -3353,17 +3796,8 @@
     "land_m2": 805.5
    },
    "geo": {
-    "lat": -33.986116,
-    "lng": 151.020255,
     "approx": false,
-    "straight_km": 8.04,
-    "walk_km": 10.45,
-    "walk_min": 130.7,
-    "drive_min": 24.5,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 78.8,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:8 melaleuca place alfords point": {
@@ -3384,7 +3818,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10929849",
    "suburb": "Alfords Point",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Guide $1,900,000",
@@ -3396,17 +3830,8 @@
     "land_m2": 967.1
    },
    "geo": {
-    "lat": -33.987406,
-    "lng": 151.024735,
     "approx": false,
-    "straight_km": 7.68,
-    "walk_km": 9.98,
-    "walk_min": 124.8,
-    "drive_min": 23.5,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 71.8,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:89 prices circuit woronora": {
@@ -3416,6 +3841,11 @@
     {
      "date": "2026-10-05",
      "price": "Price Guide: $1,490,000 - $1,560,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "Price Guide: $1,480,000 to $1,520,000",
      "kind": "for_sale"
     }
    ],
@@ -3427,11 +3857,11 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42475037",
    "suburb": "Woronora",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "Price Guide: $1,490,000 - $1,560,000",
-    "price_low": 1490000,
+    "price": "Price Guide: $1,480,000 to $1,520,000",
+    "price_low": 1480000,
     "kind": "for_sale",
     "address": "89 Prices Circuit",
     "beds": 5,
@@ -3439,17 +3869,8 @@
     "land_m2": 841.0
    },
    "geo": {
-    "lat": -34.023623,
-    "lng": 151.043763,
     "approx": false,
-    "straight_km": 3.51,
-    "walk_km": 4.57,
-    "walk_min": 57.1,
-    "drive_min": 11.8,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 24.9,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:9/1 raine place barden ridge": {
@@ -3470,7 +3891,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42512661",
    "suburb": "Barden Ridge",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | $1,300,000 - $1,400,000",
@@ -3482,17 +3903,42 @@
     "land_m2": 215.0
    },
    "geo": {
-    "lat": -34.025868,
-    "lng": 151.012453,
     "approx": false,
-    "straight_km": 5.95,
-    "walk_km": 8.96,
-    "walk_min": 107.6,
-    "drive_min": 17.1,
-    "routed": true,
-    "station": "Sutherland",
-    "station_walk_min": 74.5,
-    "stops_to_school": 1
+    "routed": false
+   }
+  },
+  "addr:9/19 owen jones row menai": {
+   "key": "addr:9/19 owen jones row menai",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "Auction | Unless Sold Prior",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3593170",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L37662945",
+   "suburb": "Menai",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "Auction | Unless Sold Prior",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "9/19 Owen Jones Row",
+    "beds": 3,
+    "baths": 1,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "addr:92 eric street bundeena": {
@@ -3513,7 +3959,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L41824344",
    "suburb": "Bundeena",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -3525,17 +3971,8 @@
     "land_m2": 641.0
    },
    "geo": {
-    "lat": -34.08697,
-    "lng": 151.157679,
     "approx": false,
-    "straight_km": 9.15,
-    "walk_km": 11.89,
-    "walk_min": 148.6,
-    "drive_min": 27.6,
-    "routed": false,
-    "station": "Caringbah",
-    "station_walk_min": 97.2,
-    "stops_to_school": 3
+    "routed": false
    }
   },
   "addr:93 allison crescent menai": {
@@ -3545,6 +3982,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | Guide $1,150,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Price Guide $1,150,000",
      "kind": "for_sale"
     }
    ],
@@ -3556,10 +3998,10 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L10920007",
    "suburb": "Menai",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | Guide $1,150,000",
+    "price": "For Sale | Price Guide $1,150,000",
     "price_low": 1150000,
     "kind": "for_sale",
     "address": "93 Allison Crescent",
@@ -3568,17 +4010,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.011824,
-    "lng": 151.014677,
     "approx": false,
-    "straight_km": 6.46,
-    "walk_km": 8.39,
-    "walk_min": 104.9,
-    "drive_min": 20.1,
-    "routed": false,
-    "station": "Sutherland",
-    "station_walk_min": 73.1,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:9a tedman parade sylvania": {
@@ -3588,6 +4021,11 @@
     {
      "date": "2026-10-05",
      "price": "For Sale | $1,700,000 - $1,850,000",
+     "kind": "for_sale"
+    },
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | $1,700,000 - $1,800,000",
      "kind": "for_sale"
     }
    ],
@@ -3599,10 +4037,10 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L20832402",
    "suburb": "Sylvania",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
-    "price": "For Sale | $1,700,000 - $1,850,000",
+    "price": "For Sale | $1,700,000 - $1,800,000",
     "price_low": 1700000,
     "kind": "for_sale",
     "address": "9A Tedman Parade",
@@ -3611,17 +4049,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.015825,
-    "lng": 151.094482,
     "approx": false,
-    "straight_km": 3.63,
-    "walk_km": 4.72,
-    "walk_min": 59.0,
-    "drive_min": 12.2,
-    "routed": false,
-    "station": "Gymea",
-    "station_walk_min": 37.0,
-    "stops_to_school": 1
+    "routed": false
    }
   },
   "addr:g02/1 university road miranda": {
@@ -3642,7 +4071,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Miranda",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -3654,17 +4083,42 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.033596,
-    "lng": 151.096071,
     "approx": false,
-    "straight_km": 2.35,
-    "walk_km": 3.06,
-    "walk_min": 38.2,
-    "drive_min": 8.6,
-    "routed": false,
-    "station": "Miranda",
-    "station_walk_min": 11.1,
-    "stops_to_school": 2
+    "routed": false
+   }
+  },
+  "addr:lg04/68b glencoe street sutherland": {
+   "key": "addr:lg04/68b glencoe street sutherland",
+   "first_seen": "2026-10-17",
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": "For Sale | Contact Agent",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "ray-white-sutherland-shire",
+   "ref": "ray-white-sutherland-shire:3594574",
+   "agency": "Ray White Sutherland Shire",
+   "url": "https://raywhitesutherlandshire.com.au/L41522367",
+   "suburb": "Sutherland",
+   "last_seen": "2026-10-17",
+   "active": true,
+   "last_observation": {
+    "price": "For Sale | Contact Agent",
+    "price_low": null,
+    "kind": "for_sale",
+    "address": "LG04/68B Glencoe Street",
+    "beds": 1,
+    "baths": 2,
+    "land_m2": 124.0
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
    }
   },
   "ref:ray-white-sutherland-shire:3167921": {
@@ -3685,7 +4139,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Aberglasslyn",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -3697,17 +4151,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -32.70068,
-    "lng": 151.530096,
-    "approx": true,
-    "straight_km": 155.21,
-    "walk_km": 201.77,
-    "walk_min": 2522.2,
-    "drive_min": 436.6,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 2456.7,
-    "stops_to_school": 3
+    "approx": false,
+    "routed": false
    }
   },
   "ref:ray-white-sutherland-shire:3194209": {
@@ -3728,7 +4173,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Horsley",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -3740,17 +4185,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.487999,
-    "lng": 150.774443,
-    "approx": true,
-    "straight_km": 56.56,
-    "walk_km": 73.52,
-    "walk_min": 919.1,
-    "drive_min": 160.4,
-    "routed": false,
-    "station": "Heathcote",
-    "station_walk_min": 802.7,
-    "stops_to_school": 4
+    "approx": false,
+    "routed": false
    }
   },
   "ref:ray-white-sutherland-shire:3194243": {
@@ -3771,7 +4207,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Kootingal",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -3783,17 +4219,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -31.049127,
-    "lng": 151.060554,
-    "approx": true,
-    "straight_km": 332.95,
-    "walk_km": 432.84,
-    "walk_min": 5410.5,
-    "drive_min": 934.3,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 5339.9,
-    "stops_to_school": 3
+    "approx": false,
+    "routed": false
    }
   },
   "ref:ray-white-sutherland-shire:3237014": {
@@ -3814,7 +4241,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Singleton",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -3826,17 +4253,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -32.566463,
-    "lng": 151.176038,
-    "approx": true,
-    "straight_km": 164.51,
-    "walk_km": 213.86,
-    "walk_min": 2673.2,
-    "drive_min": 462.6,
-    "routed": false,
-    "station": "Como",
-    "station_walk_min": 2603.3,
-    "stops_to_school": 3
+    "approx": false,
+    "routed": false
    }
   },
   "ref:ray-white-sutherland-shire:3237019": {
@@ -3857,7 +4275,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "Horsley",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -3869,17 +4287,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.487999,
-    "lng": 150.774443,
-    "approx": true,
-    "straight_km": 56.56,
-    "walk_km": 73.52,
-    "walk_min": 919.1,
-    "drive_min": 160.4,
-    "routed": false,
-    "station": "Heathcote",
-    "station_walk_min": 802.7,
-    "stops_to_school": 4
+    "approx": false,
+    "routed": false
    }
   },
   "ref:ray-white-sutherland-shire:3237047": {
@@ -3900,7 +4309,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": null,
    "suburb": "South Brisbane",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": null,
@@ -3912,17 +4321,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -32.494981,
-    "lng": 146.586903,
-    "approx": true,
-    "straight_km": 451.2,
-    "walk_km": 586.56,
-    "walk_min": 7332.0,
-    "drive_min": 1265.4,
-    "routed": false,
-    "station": "Engadine",
-    "station_walk_min": 7266.4,
-    "stops_to_school": 3
+    "approx": false,
+    "routed": false
    }
   },
   "ref:ray-white-sutherland-shire:3553556": {
@@ -3943,7 +4343,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42245707",
    "suburb": "Cronulla",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "Due for Completion Late 2027",
@@ -3955,17 +4355,8 @@
     "land_m2": null
    },
    "geo": {
-    "lat": -34.045839,
-    "lng": 151.151521,
-    "approx": true,
-    "straight_km": 7.2,
-    "walk_km": 9.36,
-    "walk_min": 117.0,
-    "drive_min": 22.2,
-    "routed": false,
-    "station": "Caringbah",
-    "station_walk_min": 43.8,
-    "stops_to_school": 3
+    "approx": false,
+    "routed": false
    }
   },
   "ref:ray-white-sutherland-shire:3573312": {
@@ -3986,7 +4377,7 @@
    "agency": "Ray White Sutherland Shire",
    "url": "https://raywhitesutherlandshire.com.au/L42054328",
    "suburb": "Menai",
-   "last_seen": "2026-10-05",
+   "last_seen": "2026-10-17",
    "active": true,
    "last_observation": {
     "price": "For Sale | Contact Agent",
@@ -3998,17 +4389,8 @@
     "land_m2": 286.0
    },
    "geo": {
-    "lat": -34.022755,
-    "lng": 150.994546,
-    "approx": true,
-    "straight_km": 7.63,
-    "walk_km": 9.91,
-    "walk_min": 123.9,
-    "drive_min": 23.4,
-    "routed": false,
-    "station": "Engadine",
-    "station_walk_min": 86.9,
-    "stops_to_school": 3
+    "approx": false,
+    "routed": false
    }
   }
  }
