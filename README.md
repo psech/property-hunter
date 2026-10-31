@@ -15,7 +15,8 @@ Gmail inbox ──┼─► extract ──► enrich ─► filter ─► diff v
               └────────────────────────────────────── state branch ◄───┘
 ```
 
-Runs on GitHub Actions every Sunday at 06:17 Sydney time. Every service it uses is free.
+Runs on GitHub Actions every Friday at 18:17 Sydney time, ahead of Saturday inspections. Every service it uses is free.
+To skip the alerts inbox for a run, add `--no-inbox` to the `hunter` command.
 
 ## How it decides what to send
 
@@ -29,20 +30,11 @@ Runs on GitHub Actions every Sunday at 06:17 Sydney time. Every service it uses 
 
 ## Setup
 
-1. **Gmail:** create a dedicated account for agency alerts and register it on each agency's buyer
-   or off-market list. The pipeline reads it, and sends your digest from it, through the Gmail API:
-   1. In [Google Cloud Console](https://console.cloud.google.com/), signed in as the alerts
-      account, create a project and enable the **Gmail API**.
-   2. **Google Auth Platform → Branding:** fill in an app name and your email. Under
-      **Audience**, choose *External*, then click **Publish app** so the status is
-      *In production*. Leaving it in *Testing* makes the token expire after 7 days.
-   3. **Clients → Create client → Desktop app.** Copy the client ID and secret.
-   4. On your machine, run `uv run hunter-gmail-auth --client-id … --client-secret …`, sign
-      in as the alerts account, and click through the "Google hasn't verified this app"
-      warning (*Advanced → Go to …*). It prints a refresh token.
-
-   The token lasts as long as the weekly job keeps using it. It's revoked if you change the
-   account's password or remove the app's access; run step 4 again if that happens.
+1. **Gmail:** create a dedicated account for agency alerts, turn on 2-Step Verification, and
+   create an [app password](https://myaccount.google.com/apppasswords). Register this address on
+   each agency's buyer or off-market list. The pipeline reads its inbox over IMAP (read-only,
+   nothing is marked as read) and sends your digest from it over SMTP. Changing the account's
+   password revokes the app password; create a new one if that happens.
 2. **Keys:** get a Gemini key from [Google AI Studio](https://aistudio.google.com/apikey) (free
    tier) and an [OpenRouteService](https://openrouteservice.org/dev/#/signup) key (free).
 3. **WhatsApp:** follow [CallMeBot's setup](https://www.callmebot.com/blog/free-api-whatsapp-messages/)
@@ -55,9 +47,8 @@ Runs on GitHub Actions every Sunday at 06:17 Sydney time. Every service it uses 
    | `BUDGET_MAX` | `1500000` |
    | `GEMINI_API_KEY` | |
    | `ORS_API_KEY` | |
-   | `GMAIL_CLIENT_ID` | `…apps.googleusercontent.com` |
-   | `GMAIL_CLIENT_SECRET` | |
-   | `GMAIL_REFRESH_TOKEN` | from `hunter-gmail-auth` |
+   | `GMAIL_ADDRESS` | `you.homehunt@gmail.com` |
+   | `GMAIL_APP_PASSWORD` | 16 characters; spaces are ignored |
    | `NOTIFY_EMAIL` | where the digest goes |
    | `CALLMEBOT_PHONE` | `+614xxxxxxxx` |
    | `CALLMEBOT_APIKEY` | |

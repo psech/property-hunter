@@ -1,24 +1,19 @@
-"""Mail access through the Gmail API, behind a small interface so another provider can slot in."""
+"""Mail access behind a small interface, so a Gmail API client can replace IMAP/SMTP if ever needed."""
 
 from __future__ import annotations
 
-import base64
 import email
+import imaplib
+import smtplib
 from dataclasses import dataclass
 from email.header import decode_header, make_header
 from email.message import EmailMessage, Message
 from typing import Protocol
 
-import httpx
-
-TOKEN_URL = "https://oauth2.googleapis.com/token"
-API = "https://gmail.googleapis.com/gmail/v1/users/me"
-SCOPES = ["https://www.googleapis.com/auth/gmail.readonly", "https://www.googleapis.com/auth/gmail.send"]
-
 
 @dataclass
 class InboundMail:
-    cursor: int  # when Gmail received it, in epoch ms: increases with each new message
+    uid: int
     sender: str
     subject: str
     html: str | None
@@ -27,13 +22,9 @@ class InboundMail:
 
 
 class MailClient(Protocol):
-    def fetch_since(self, cursor: int, limit: int = 50) -> list[InboundMail]: ...
+    def fetch_since(self, last_uid: int, limit: int = 50) -> list[InboundMail]: ...
 
     def send(self, to: str, subject: str, html: str, text: str) -> None: ...
-
-
-class MailError(RuntimeError):
-    pass
 
 
 def _decode(value: str | None) -> str:
@@ -56,69 +47,48 @@ def _bodies(message: Message) -> tuple[str | None, str | None]:
     return html, text
 
 
-class GmailApi:
-    """Gmail over its REST API with an OAuth refresh token (minted once by `hunter-gmail-auth`)."""
+class GmailImapSmtp:
+    """Gmail over IMAP/SMTP with an app password (requires 2-Step Verification on the account)."""
 
-    def __init__(self, client_id: str, client_secret: str, refresh_token: str, http: httpx.Client | None = None):
-        self.client_id = client_id
-        self.client_secret = client_secret
-        self.refresh_token = refresh_token
-        self.http = http or httpx.Client(timeout=30)
-        self._access_token: str | None = None
+    def __init__(self, address: str, app_password: str):
+        self.address = address
+        self.password = app_password.replace(" ", "")  # Google shows it as four groups of four
 
-    def _token(self) -> str:
-        if self._access_token is None:
-            r = self.http.post(
-                TOKEN_URL,
-                data={
-                    "client_id": self.client_id,
-                    "client_secret": self.client_secret,
-                    "refresh_token": self.refresh_token,
-                    "grant_type": "refresh_token",
-                },
-            )
-            if r.is_error:
-                # invalid_grant means the token was revoked or expired: mint a new one.
-                raise MailError(f"Gmail token refresh failed ({r.status_code}): {r.text[:300]}")
-            self._access_token = r.json()["access_token"]
-        return self._access_token
-
-    def _call(self, method: str, path: str, **kwargs) -> dict:
-        r = self.http.request(method, f"{API}{path}", headers={"Authorization": f"Bearer {self._token()}"}, **kwargs)
-        if r.is_error:
-            raise MailError(f"Gmail API {method} {path} failed ({r.status_code}): {r.text[:300]}")
-        return r.json()
-
-    def fetch_since(self, cursor: int, limit: int = 50) -> list[InboundMail]:
-        query = "in:inbox -from:me"
-        if cursor:
-            query += f" after:{cursor // 1000}"  # whole seconds; exact filtering below
-        listing = self._call("GET", "/messages", params={"q": query, "maxResults": limit})
-        mails = []
-        for ref in listing.get("messages", []):
-            raw = self._call("GET", f"/messages/{ref['id']}", params={"format": "raw"})
-            received = int(raw.get("internalDate", 0))
-            if received <= cursor:
-                continue
-            message = email.message_from_bytes(base64.urlsafe_b64decode(raw["raw"]))
-            html, text = _bodies(message)
-            mails.append(
-                InboundMail(
-                    cursor=received,
-                    sender=_decode(message.get("From")),
-                    subject=_decode(message.get("Subject")),
-                    html=html,
-                    text=text,
-                    message_id=message.get("Message-ID"),
+    def fetch_since(self, last_uid: int, limit: int = 50) -> list[InboundMail]:
+        with imaplib.IMAP4_SSL("imap.gmail.com") as imap:
+            imap.login(self.address, self.password)
+            imap.select("INBOX", readonly=True)
+            status, data = imap.uid("search", None, f"UID {last_uid + 1}:*")
+            if status != "OK":
+                return []
+            # 'UID n:*' always matches the newest message, even when n is past it.
+            uids = [int(u) for u in data[0].split() if int(u) > last_uid][:limit]
+            mails = []
+            for uid in uids:
+                status, parts = imap.uid("fetch", str(uid), "(RFC822)")
+                if status != "OK" or not parts or not isinstance(parts[0], tuple):
+                    continue
+                message = email.message_from_bytes(parts[0][1])
+                html, text = _bodies(message)
+                mails.append(
+                    InboundMail(
+                        uid=uid,
+                        sender=_decode(message.get("From")),
+                        subject=_decode(message.get("Subject")),
+                        html=html,
+                        text=text,
+                        message_id=message.get("Message-ID"),
+                    )
                 )
-            )
-        return sorted(mails, key=lambda m: m.cursor)
+            return mails
 
     def send(self, to: str, subject: str, html: str, text: str) -> None:
         message = EmailMessage()
+        message["From"] = f"Property Hunter <{self.address}>"
         message["To"] = to
         message["Subject"] = subject
         message.set_content(text)
         message.add_alternative(html, subtype="html")
-        raw = base64.urlsafe_b64encode(message.as_bytes()).decode()
-        self._call("POST", "/messages/send", json={"raw": raw})
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            smtp.login(self.address, self.password)
+            smtp.send_message(message)

@@ -1,72 +1,87 @@
-import base64
 import email
-import json
 from email.message import EmailMessage
 
-import httpx
+from hunter import mail
+from hunter.mail import GmailImapSmtp
 
-from hunter.mail import GmailApi
 
-
-def _raw(subject: str, html: str) -> str:
+def _message(subject: str, html: str) -> bytes:
     message = EmailMessage()
     message["From"] = "Pulse Property <alerts@pulse.example>"
     message["Subject"] = subject
     message.set_content("plain version")
     message.add_alternative(html, subtype="html")
-    return base64.urlsafe_b64encode(message.as_bytes()).decode()
+    return message.as_bytes()
 
 
-def make_client(handler) -> GmailApi:
-    return GmailApi("id", "secret", "refresh", http=httpx.Client(transport=httpx.MockTransport(handler)))
+class FakeImap:
+    def __init__(self, messages: dict[int, bytes]):
+        self.messages = messages
+        self.login_args = None
+        self.readonly = None
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+    def login(self, user, password):
+        self.login_args = (user, password)
+
+    def select(self, mailbox, readonly=False):
+        self.readonly = readonly
+        return "OK", [str(len(self.messages)).encode()]
+
+    def uid(self, command, *args):
+        if command == "search":
+            start = int(args[1].split()[1].split(":")[0])
+            # Like Gmail, 'n:*' still matches the newest message when n is past it.
+            found = [u for u in self.messages if u >= start] or [max(self.messages)]
+            return "OK", [" ".join(map(str, found)).encode()]
+        return "OK", [(b"header", self.messages[int(args[0])])]
 
 
-def test_fetch_since_refreshes_token_and_filters_by_cursor():
-    seen = []
-    messages = {
-        "old": {"internalDate": "1000", "raw": _raw("Old", "<p>old</p>")},
-        "b": {"internalDate": "3000", "raw": _raw("Second", "<p>Off-market: 3 Oak Rd</p>")},
-        "a": {"internalDate": "2000", "raw": _raw("First", "<p>Coming soon</p>")},
-    }
+class FakeSmtp:
+    sent: list = []
 
-    def handler(request: httpx.Request) -> httpx.Response:
-        seen.append(request)
-        if request.url.host == "oauth2.googleapis.com":
-            assert b"grant_type=refresh_token" in request.content
-            return httpx.Response(200, json={"access_token": "tok"})
-        assert request.headers["Authorization"] == "Bearer tok"
-        if request.url.path.endswith("/messages"):
-            assert "after:1" in request.url.params["q"]
-            return httpx.Response(200, json={"messages": [{"id": i} for i in ("b", "a", "old")]})
-        return httpx.Response(200, json=messages[request.url.path.rsplit("/", 1)[1]])
+    def __init__(self, host, port):
+        pass
 
-    mails = make_client(handler).fetch_since(cursor=1000)
-    assert [m.subject for m in mails] == ["First", "Second"]  # oldest first, cursor excluded
-    assert mails[1].cursor == 3000 and "3 Oak Rd" in mails[1].html
-    assert mails[0].sender == "Pulse Property <alerts@pulse.example>"
-    assert sum(1 for r in seen if r.url.host == "oauth2.googleapis.com") == 1  # token reused
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+    def login(self, user, password):
+        self.login_args = (user, password)
+
+    def send_message(self, message):
+        FakeSmtp.sent.append((self.login_args, message))
 
 
-def test_send_posts_raw_message():
-    sent = {}
+def test_fetch_since_returns_only_newer_mail_read_only(monkeypatch):
+    imap = FakeImap({5: _message("Old", "<p>old</p>"), 7: _message("Off-market", "<p>3 Oak Rd</p>")})
+    monkeypatch.setattr(mail.imaplib, "IMAP4_SSL", lambda host: imap)
 
-    def handler(request: httpx.Request) -> httpx.Response:
-        if request.url.host == "oauth2.googleapis.com":
-            return httpx.Response(200, json={"access_token": "tok"})
-        sent.update(json.loads(request.content))
-        return httpx.Response(200, json={"id": "x"})
-
-    make_client(handler).send("me@example.com", "Digest", "<b>hi</b>", "hi")
-    message = email.message_from_bytes(base64.urlsafe_b64decode(sent["raw"]))
-    assert message["To"] == "me@example.com" and message["Subject"] == "Digest"
-    assert message.is_multipart()
+    mails = GmailImapSmtp("me@gmail.com", "abcd efgh ijkl mnop").fetch_since(last_uid=5)
+    assert [(m.uid, m.subject) for m in mails] == [(7, "Off-market")]
+    assert "3 Oak Rd" in mails[0].html and mails[0].sender == "Pulse Property <alerts@pulse.example>"
+    assert imap.login_args == ("me@gmail.com", "abcdefghijklmnop")  # spaces from Google's display dropped
+    assert imap.readonly  # never marks mail as read
 
 
-def test_revoked_token_raises_clear_error():
-    import pytest
+def test_fetch_since_with_nothing_new(monkeypatch):
+    monkeypatch.setattr(mail.imaplib, "IMAP4_SSL", lambda host: FakeImap({7: _message("Seen", "<p>x</p>")}))
+    assert GmailImapSmtp("me@gmail.com", "pw").fetch_since(last_uid=7) == []
 
-    from hunter.mail import MailError
 
-    client = make_client(lambda r: httpx.Response(400, json={"error": "invalid_grant"}))
-    with pytest.raises(MailError, match="token refresh failed"):
-        client.fetch_since(0)
+def test_send_builds_multipart_message(monkeypatch):
+    FakeSmtp.sent = []
+    monkeypatch.setattr(mail.smtplib, "SMTP_SSL", FakeSmtp)
+    GmailImapSmtp("me@gmail.com", "pw").send("you@example.com", "Digest", "<b>hi</b>", "hi")
+    (login, message), = FakeSmtp.sent
+    assert login == ("me@gmail.com", "pw")
+    parsed = email.message_from_bytes(message.as_bytes())
+    assert parsed["To"] == "you@example.com" and parsed["Subject"] == "Digest" and parsed.is_multipart()

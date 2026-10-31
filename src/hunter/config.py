@@ -95,16 +95,15 @@ class Sources(BaseModel):
 class Secrets(BaseModel):
     gemini_api_key: str | None = None
     ors_api_key: str | None = None
-    gmail_client_id: str | None = None
-    gmail_client_secret: str | None = None
-    gmail_refresh_token: str | None = None
+    gmail_address: str | None = None
+    gmail_app_password: str | None = None
     notify_email: str | None = None
     callmebot_phone: str | None = None
     callmebot_apikey: str | None = None
 
     @property
     def gmail_ready(self) -> bool:
-        return bool(self.gmail_client_id and self.gmail_client_secret and self.gmail_refresh_token)
+        return bool(self.gmail_address and self.gmail_app_password)
 
     @classmethod
     def from_env(cls) -> Secrets:

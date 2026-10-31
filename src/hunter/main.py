@@ -16,7 +16,7 @@ from hunter.extract import Extractor
 from hunter.filters import rejection
 from hunter.geo import Geo
 from hunter.llm import Llm
-from hunter.mail import GmailApi
+from hunter.mail import GmailImapSmtp
 from hunter.models import Enriched, Listing
 from hunter.notify.digest import Digest
 from hunter.notify.whatsapp import send_whatsapp
@@ -96,16 +96,12 @@ def run(args: argparse.Namespace) -> int:
     finally:
         fetcher.close()
 
-    gmail = (
-        GmailApi(secrets.gmail_client_id, secrets.gmail_client_secret, secrets.gmail_refresh_token)
-        if secrets.gmail_ready
-        else None
-    )
+    gmail = GmailImapSmtp(secrets.gmail_address, secrets.gmail_app_password) if secrets.gmail_ready else None
     use_inbox = gmail and not args.no_inbox and not args.source
-    new_cursor = None
+    new_uid = None
     if use_inbox:
         try:
-            found, new_cursor = inbox.collect(gmail, extractor, store.meta.get("inbox_cursor", 0))
+            found, new_uid = inbox.collect(gmail, extractor, store.meta.get("inbox_last_uid", 0))
             collected += found
         except Exception as exc:
             log.error("inbox failed: %s", exc)
@@ -161,14 +157,14 @@ def run(args: argparse.Namespace) -> int:
         store.mark_notified(change.key, today)
 
     # 4. Save (only after notifications went out, so a failed send is retried next week)
-    if new_cursor is not None:
-        store.meta["inbox_cursor"] = new_cursor
+    if new_uid is not None:
+        store.meta["inbox_last_uid"] = new_uid
     store.meta["last_run"] = today.isoformat()
     store.save()
     return 0
 
 
-def notify(digest: Digest, html: str, text: str, secrets: Secrets, gmail: GmailApi | None) -> None:
+def notify(digest: Digest, html: str, text: str, secrets: Secrets, gmail: GmailImapSmtp | None) -> None:
     if gmail and secrets.notify_email:
         gmail.send(secrets.notify_email, digest.subject(), html, text)
         log.info("email sent")
