@@ -1,7 +1,8 @@
 {
  "version": 1,
  "meta": {
-  "last_run": "2026-10-31"
+  "last_run": "2026-10-31",
+  "inbox_last_uid": 13
  },
  "listings": {
   "addr:1 aldgate street sutherland": {
@@ -5136,6 +5137,40 @@
     "address": "93 Allison Crescent",
     "beds": 3,
     "baths": 2,
+    "land_m2": null
+   },
+   "geo": {
+    "approx": false,
+    "routed": false
+   }
+  },
+  "addr:93 coonong road gymea bay": {
+   "key": "addr:93 coonong road gymea bay",
+   "first_seen": "2026-10-31",
+   "history": [
+    {
+     "date": "2026-10-31",
+     "price": "Guide $2,000,000",
+     "kind": "for_sale"
+    }
+   ],
+   "last_notified_hash": null,
+   "last_notified_at": null,
+   "last_notified_observation": null,
+   "source": "inbox",
+   "ref": null,
+   "agency": "Pulse Property Agents",
+   "url": "https://api.inspectrealestate.com.au/email/track?eta=1&t=B32-7KKNTCAKPC7ZTNUBHOUPWJR2CKEJSVPFSIWZH4NCI6EZINQWO7MLTIHLVSFQYBVYLMJ6TEO3MPH5PRU4RWWC3CUA77WTIDNTIU7TL7HAL5AH76AD2TOQVIW5PV2JRE4RNCQ4NEUNMDVCSD6JPMFVZ77RDXUXZYJPE37SHQ6YTGOQSMFUAE7WDEAB3OOT3M2FCEOQXRH7UNPJ2WK5G3EZDCYBO4BVJAOVPZNPQZA7434CV2N2VPUGC3MTP4LASMACK24ACVBH2OPUJEVCHE6M2JUNCGVQZWDWZ77ZWNTO2TZLBJHAA5IMJ2WCJLRCUPKFOVMXJZH6TLP5YXNBOSJYWUZEQABHF7SVNEDOQPXJ4DEN7R55UMEVKL3E3K5P3ARH",
+   "suburb": "Gymea Bay",
+   "last_seen": "2026-10-31",
+   "active": true,
+   "last_observation": {
+    "price": "Guide $2,000,000",
+    "price_low": 2000000,
+    "kind": "for_sale",
+    "address": "93 Coonong Road, Gymea Bay NSW 2227",
+    "beds": 5,
+    "baths": 3,
     "land_m2": null
    },
    "geo": {
