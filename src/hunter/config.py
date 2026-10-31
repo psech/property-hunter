@@ -56,6 +56,7 @@ DistanceRule = Annotated[WalkRule | DriveRule | TrainStopsRule, Field(discrimina
 
 class LlmConfig(BaseModel):
     model: str = "gemini-flash-latest"
+    fallback_model: str | None = None  # used for the rest of the run once `model` is overloaded
     max_calls_per_run: int = 200
 
 

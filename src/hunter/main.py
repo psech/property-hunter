@@ -67,7 +67,7 @@ def run(args: argparse.Namespace) -> int:
     if criteria.budget.max is None:
         log.warning("BUDGET_MAX is not set: the budget filter is off")
 
-    llm = Llm(secrets.gemini_api_key, criteria.llm.model, criteria.llm.max_calls_per_run)
+    llm = Llm(secrets.gemini_api_key, criteria.llm.model, criteria.llm.max_calls_per_run, criteria.llm.fallback_model)
     extract_cache, geo_cache = JsonCache("extract"), JsonCache("geo")
     extractor = Extractor(llm, extract_cache)
     geo = Geo(criteria.school, stations, secrets.ors_api_key, geo_cache)
@@ -101,9 +101,11 @@ def run(args: argparse.Namespace) -> int:
     new_uid = None
     if use_inbox:
         try:
-            found, new_uid = inbox.collect(gmail, extractor, store.meta.get("inbox_last_uid", 0))
+            found, new_uid, error = inbox.collect(gmail, extractor, store.meta.get("inbox_last_uid", 0))
             collected += found
-        except Exception as exc:
+            if error:
+                failing.append("Gmail inbox")
+        except Exception as exc:  # couldn't reach the mailbox at all
             log.error("inbox failed: %s", exc)
             failing.append("Gmail inbox")
 

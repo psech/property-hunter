@@ -42,4 +42,5 @@ distance_rules:
 
 llm:
   model: gemini-flash-latest
+  fallback_model: gemini-flash-lite-latest   # when the main model is overloaded (Gemini 503)
   max_calls_per_run: 200

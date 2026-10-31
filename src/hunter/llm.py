@@ -18,8 +18,9 @@ class LlmUnavailable(RuntimeError):
 
 
 class Llm:
-    def __init__(self, api_key: str | None, model: str, max_calls: int):
+    def __init__(self, api_key: str | None, model: str, max_calls: int, fallback_model: str | None = None):
         self.model = model
+        self.fallback_model = fallback_model
         self.max_calls = max_calls
         self.calls = 0
         self._client = None
@@ -43,6 +44,7 @@ class Llm:
             response_mime_type="application/json",
             response_schema=schema,
             temperature=0,
+            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
         )
         delay = 15.0
         for attempt in range(retries + 1):
@@ -55,6 +57,11 @@ class Llm:
                     return response.parsed
                 return schema.model_validate_json(response.text or "{}")
             except errors.APIError as exc:
+                if exc.code in (429, 500, 503) and self.fallback_model and self.model != self.fallback_model:
+                    # Overload and free-tier quotas are per model: another model usually answers.
+                    log.warning("Gemini %s on %s, switching to %s", exc.code, self.model, self.fallback_model)
+                    self.model = self.fallback_model
+                    continue
                 if exc.code in (429, 500, 503) and attempt < retries:
                     log.warning("Gemini %s, retrying in %.0fs", exc.code, delay)
                     time.sleep(delay)
