@@ -23,6 +23,16 @@ def test_sections_put_off_market_first(today):
     assert digest.whatsapp() == "🏠 Property Hunter: 2 off-market, 1 new, 1 changed, 2 price changes. See email."
 
 
+def test_withdrawn_listings_follow_live_off_market_ones(today):
+    changes = [
+        Change("w", make(address="1 A St", kind=ListingKind.WITHDRAWN, walk_min=5.0), "new"),
+        Change("o", make(address="2 B St", kind=ListingKind.OFF_MARKET, walk_min=20.0), "new"),
+    ]
+    digest = Digest.build(today, changes)
+    assert [c.key for c in digest.off_market] == ["o", "w"] and not digest.new
+    assert "withdrawn" in digest.render()[0]
+
+
 def test_empty_digest_is_a_heartbeat(today):
     digest = Digest.build(today, [], failing_sources=["Pulse"])
     assert digest.subject().endswith("nothing new")

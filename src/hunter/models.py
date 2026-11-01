@@ -13,6 +13,7 @@ class ListingKind(StrEnum):
     EXCLUSIVE = "exclusive"
     FOR_SALE = "for_sale"
     UNDER_OFFER = "under_offer"
+    WITHDRAWN = "withdrawn"  # taken off the market unsold: the owner may still sell
     SOLD = "sold"
 
     @property

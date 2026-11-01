@@ -6,7 +6,8 @@ walking, driving and train distance to the school, filters by suburb, size and b
 an email digest plus a WhatsApp ping. It remembers what it has sent, so you only hear about a
 property again when something material changes (price, status, address revealed).
 
-Off-market listings always come first in the digest.
+Off-market listings always come first in the digest, followed by withdrawn ones: listings an
+agency took off the market unsold, whose owners may still sell.
 
 ```
 agency sites ─┐                 ┌─ geocode + walk/drive/train to KHS (OpenRouteService)
@@ -103,7 +104,7 @@ pages are cached by content hash and never re-sent to the LLM. When a page can't
 HTML and a screenshot are uploaded as a workflow artifact.
 
 Respect each site's `robots.txt` and terms. The fetcher checks `robots.txt`, waits between
-requests and identifies itself. Don't add realestate.com.au or Domain listing pages.
+requests (longer when a site sets a `Crawl-delay`) and identifies itself. Don't add realestate.com.au or Domain listing pages.
 
 ## Not built yet
 

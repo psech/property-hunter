@@ -1,0 +1,124 @@
+{
+ "current": {
+  "total": 3,
+  "status": "SUCCESS",
+  "success": true,
+  "results": [
+   {
+    "id": 191060,
+    "uniqueID": "L42843920",
+    "officeID": "1496",
+    "address": {
+     "suburb": "Kareela",
+     "state": "NSW",
+     "postcode": "2232"
+    },
+    "title": "36 Freya Street",
+    "link": "https://foxandwood.com.au/property/house-nsw-kareela-l42843920",
+    "isOffMarket": false,
+    "isComingSoon": false,
+    "propertyHeading": "Private Family Retreat with Seamless Outdoor Living",
+    "propertyCategory": "House",
+    "propertyBed": 4,
+    "propertyBath": 2,
+    "propertyParking": 2,
+    "propertyStatus": "current",
+    "propertyImage": "https://propertyimages.stepps.net/9-eview/card/1496-residential-L42843920-17931420473izVB0.jpg",
+    "propertyPricing": {
+     "value": "AUCTION | GUIDE $1,500,000"
+    },
+    "propertyCoords": "-34.0155034, 151.0826795",
+    "landArea": 556
+   },
+   {
+    "id": 190685,
+    "uniqueID": "L28385800",
+    "officeID": "1496",
+    "address": {
+     "suburb": "Sutherland",
+     "state": "NSW",
+     "postcode": "2232"
+    },
+    "title": "14/30 Clio Street",
+    "link": "https://foxandwood.com.au/property/apartment-nsw-sutherland-l28385800",
+    "isOffMarket": false,
+    "isComingSoon": false,
+    "propertyHeading": "Spacious Ground Floor Living with a Garden Courtyard",
+    "propertyCategory": "Apartment",
+    "propertyBed": 3,
+    "propertyBath": 1,
+    "propertyParking": 2,
+    "propertyStatus": "current",
+    "propertyImage": "https://propertyimages.stepps.net/9-eview/card/1496-residential-L28385800-1792225841arETsJ.jpg",
+    "propertyPricing": {
+     "value": "Under Offer"
+    },
+    "propertyCoords": "-34.0290088, 151.0644255",
+    "landArea": 0
+   },
+   {
+    "id": 1,
+    "uniqueID": "L1",
+    "officeID": "751",
+    "address": {
+     "suburb": "Airport West",
+     "state": "VIC",
+     "postcode": "3042"
+    },
+    "title": "1/57 Parer Road",
+    "link": "https://foxandwood.com.au/property/house-nsw-kareela-l42843920",
+    "isOffMarket": false,
+    "isComingSoon": false,
+    "propertyHeading": "Private Family Retreat with Seamless Outdoor Living",
+    "propertyCategory": "House",
+    "propertyBed": 4,
+    "propertyBath": 2,
+    "propertyParking": 2,
+    "propertyStatus": "current",
+    "propertyImage": "https://propertyimages.stepps.net/9-eview/card/1496-residential-L42843920-17931420473izVB0.jpg",
+    "propertyPricing": {
+     "value": "AUCTION | GUIDE $1,500,000"
+    },
+    "propertyCoords": "-34.0155034, 151.0826795",
+    "landArea": 556
+   }
+  ]
+ },
+ "offmarket": {
+  "status": "NO_LISTING",
+  "success": false
+ },
+ "comingsoon": {
+  "total": 1,
+  "status": "SUCCESS",
+  "success": true,
+  "results": [
+   {
+    "id": 191999,
+    "uniqueID": "L49999999",
+    "officeID": "1496",
+    "address": {
+     "suburb": "Gymea Bay",
+     "state": "NSW",
+     "postcode": "2227"
+    },
+    "title": "Coming Soon to Gymea Bay",
+    "link": "https://foxandwood.com.au/property/house-nsw-gymea-bay-l49999999",
+    "isOffMarket": false,
+    "isComingSoon": false,
+    "propertyHeading": "Coming Soon to Gymea Bay",
+    "propertyCategory": "House",
+    "propertyBed": 4,
+    "propertyBath": 2,
+    "propertyParking": 2,
+    "propertyStatus": "current",
+    "propertyImage": "https://propertyimages.stepps.net/9-eview/card/1496-residential-L42843920-17931420473izVB0.jpg",
+    "propertyPricing": {
+     "value": "Contact Agent"
+    },
+    "propertyCoords": "",
+    "landArea": 0
+   }
+  ]
+ }
+}

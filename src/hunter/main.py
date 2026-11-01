@@ -18,7 +18,7 @@ from hunter.filters import rejection
 from hunter.geo import Geo
 from hunter.llm import Llm
 from hunter.mail import GmailImapSmtp
-from hunter.models import Enriched, Listing
+from hunter.models import Enriched, Listing, ListingKind
 from hunter.notify.digest import Digest
 from hunter.notify.whatsapp import send_whatsapp
 from hunter.sources import inbox
@@ -55,8 +55,8 @@ def merge_duplicates(listings: list[Listing]) -> list[Listing]:
                 setattr(kept, name, value)
         if not kept.price.is_known and listing.price.is_known:
             kept.price = listing.price
-        if listing.kind.is_off_market:
-            kept.kind = listing.kind
+        if listing.kind.is_off_market or kept.kind == ListingKind.WITHDRAWN:
+            kept.kind = listing.kind  # a withdrawn record never hides a live listing elsewhere
     return list(merged.values())
 
 

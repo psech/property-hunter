@@ -19,6 +19,7 @@ USER_AGENT = (
     "Chrome/126.0 Safari/537.36 property-hunter/0.1 (+https://github.com/psech/property-hunter)"
 )
 DEBUG_DIR = Path("debug")
+MAX_CRAWL_DELAY_S = 30.0  # cap on a robots.txt Crawl-delay, so one site can't stall the run
 
 
 class FetchError(RuntimeError):
@@ -64,9 +65,15 @@ class Fetcher:
             self._robots[host] = parser
         return self._robots[host].can_fetch(USER_AGENT, url)
 
+    def delay_for(self, url: str) -> float:
+        """Seconds between requests to this host: ours, or longer if its robots.txt asks."""
+        robots = self._robots.get(urlparse(url).netloc)
+        asked = robots.crawl_delay(USER_AGENT) if robots else None
+        return max(self.delay_s, min(float(asked or 0), MAX_CRAWL_DELAY_S))
+
     def _throttle(self, url: str) -> None:
         host = urlparse(url).netloc
-        wait = self.delay_s - (time.monotonic() - self._last.get(host, 0))
+        wait = self.delay_for(url) - (time.monotonic() - self._last.get(host, 0))
         if wait > 0:
             time.sleep(wait)
         self._last[host] = time.monotonic()
@@ -84,15 +91,15 @@ class Fetcher:
         except httpx.HTTPError as exc:
             raise FetchError(f"{url}: {exc}") from exc
 
-    def get_json(self, url: str, params: dict | None = None) -> object:
+    def get_json(self, url: str, params: dict | None = None, headers: dict | None = None) -> object:
         if not self.allowed(url):
             raise FetchError(f"robots.txt disallows {url}")
         self._throttle(url)
         try:
-            r = self.http.get(url, params=params, headers={"Accept": "application/json"})
+            r = self.http.get(url, params=params, headers={"Accept": "application/json", **(headers or {})})
             if r.status_code in (403, 503) and r.headers.get("server", "").lower() == "cloudflare":
                 # Cloudflare often blocks datacenter clients by fingerprint; a real browser may pass.
-                return self._get_json_browser(str(httpx.URL(url, params=params)))
+                return self._get_json_browser(str(httpx.URL(url, params=params)), headers)
             r.raise_for_status()
             return r.json()
         except (httpx.HTTPError, ValueError) as exc:
@@ -111,11 +118,13 @@ class Fetcher:
             )
         return self._contexts[proxied].new_page()
 
-    def _get_json_browser(self, url: str) -> object:
+    def _get_json_browser(self, url: str, headers: dict | None = None) -> object:
         page = self._page(url)
         try:
             origin = f"{urlparse(url).scheme}://{urlparse(url).netloc}/"
             page.goto(origin, wait_until="domcontentloaded", timeout=45_000)  # collects any clearance cookie
+            if headers:
+                page.set_extra_http_headers(headers)
             response = page.goto(url, wait_until="domcontentloaded", timeout=45_000)
             if response is None or not response.ok:
                 status = response.status if response else "no response"

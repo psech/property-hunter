@@ -2,6 +2,9 @@
 
 Off-market ("Pre-Market") listings appear in the same feed with `isOffMarket: true` and a blank
 address; the suburb survives in the slug. Their pages need a registered account.
+
+The `offmarket` status is something else: listings taken off the market unsold, going back years
+and undated, most with their address. They are reported as withdrawn.
 """
 
 from __future__ import annotations
@@ -21,21 +24,30 @@ SLUG = re.compile(r"/(?:property|land)/[a-z-]+?-nsw-(?P<suburb>[a-z-]+)-\w+/?$")
 
 def collect(source: Source, fetcher: Fetcher, extractor: Extractor) -> list[Listing]:
     base = source.list_urls[0].rstrip("/")
+    listings = [_listing(r, source, base) for r in feed(fetcher, base, "current")]
+    listings += [_listing(r, source, base, ListingKind.WITHDRAWN) for r in feed(fetcher, base, "offmarket")]
+    return listings
+
+
+def feed(fetcher: Fetcher, base: str, status: str, headers: dict | None = None) -> list[dict[str, Any]]:
+    """Every listing with `status` from the stepps theme's endpoint, which other sites share."""
     results: list[dict[str, Any]] = []
     page = 1
     while True:
         data = fetcher.get_json(
             f"{base}/wp-json/api/listings/all",
-            params={"paged": page, "limit": PAGE, "status": "current", "type": "property"},
+            params={"paged": page, "limit": PAGE, "status": status, "type": "property"},
+            headers=headers,
         )
+        if isinstance(data, dict) and data.get("status") == "NO_LISTING":
+            return results  # an empty status is reported as a failure
         if not isinstance(data, dict) or not data.get("success"):
-            raise FetchError(f"unexpected Pulse API response: {str(data)[:200]}")
+            raise FetchError(f"unexpected listings API response: {str(data)[:200]}")
         batch = data.get("results") or []
         results += batch
         if len(batch) < PAGE or len(results) >= data.get("total", 0):
-            break
+            return results
         page += 1
-    return [_listing(r, source, base) for r in results]
 
 
 def _suburb(result: dict[str, Any]) -> str | None:
@@ -53,13 +65,13 @@ def _float(value: Any) -> float | None:
         return None
 
 
-def _listing(result: dict[str, Any], source: Source, base: str) -> Listing:
+def _listing(result: dict[str, Any], source: Source, base: str, kind: ListingKind | None = None) -> Listing:
     address = result.get("address") or {}
     coords = address.get("coordinates") or {}
     price_text = (result.get("price") or {}).get("value") or ""
-    if result.get("isOffMarket"):
+    if kind is None and result.get("isOffMarket"):
         kind = ListingKind.COMING_SOON if "coming soon" in price_text.lower() else ListingKind.OFF_MARKET
-    else:
+    elif kind is None:
         kind = parse_kind(result.get("statusCaption"), price_text) or ListingKind.FOR_SALE
     land = (result.get("landDetails") or {}).get("value") or None
     slug = result.get("slug")

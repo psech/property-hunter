@@ -1,6 +1,6 @@
 # Home proxy for sites that block GitHub
 
-Some agency sites (Pulse) sit behind Cloudflare, which blocks GitHub Actions' datacenter IPs but
+Some agency sites (Pulse, Fox & Wood) sit behind Cloudflare, which blocks GitHub Actions' datacenter IPs but
 lets a home internet connection through. For those sources, the weekly run sends its requests
 through a small proxy on an always-on home server, reached over [Tailscale](https://tailscale.com).
 Every other request still goes out directly from GitHub.
@@ -70,6 +70,8 @@ sudo tee /etc/tinyproxy/allowed-hosts > /dev/null <<'EOF'
 # Sites the GitHub run may reach through this proxy: one domain pattern per line.
 pulseproperty.com.au
 *.pulseproperty.com.au
+foxandwood.com.au
+*.foxandwood.com.au
 EOF
 
 # Ubuntu's AppArmor profile lets tinyproxy read only tinyproxy.conf; without this it exits with

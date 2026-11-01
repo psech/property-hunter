@@ -1,0 +1,48 @@
+{
+ "total": 1,
+ "status": "SUCCESS",
+ "success": true,
+ "results": [
+  {
+   "ID": 17848,
+   "address": {
+    "lotNo": "",
+    "unit": "",
+    "streetNo": "3",
+    "streetName": "Kendall Place",
+    "streetAddress": "3 Kendall Place",
+    "suburb": "Kareela",
+    "state": "NSW",
+    "postcode": "2232",
+    "country": "AUS",
+    "fullSuburb": "Kareela, NSW 2232",
+    "fullAddress": "3 Kendall Place, Kareela, NSW 2232",
+    "coordinates": {
+     "lat": "-34.018993377686",
+     "lng": "151.08097839355",
+     "combined": "-34.018993377686, 151.08097839355"
+    }
+   },
+   "slug": "/property/house-nsw-kareela-1p16457/",
+   "link": "https://www.pulseproperty.com.au/property/house-nsw-kareela-1p16457/",
+   "statusCaption": "Offmarket",
+   "heading": "",
+   "categories": "House",
+   "bedrooms": 4,
+   "bathrooms": 2,
+   "parkingSpaces": 2,
+   "isOffMarket": false,
+   "images": {
+    "featured": "https://dbstwy8g73fi.cloudfront.net/wp-content/uploads/2025/05/26112509/blog-fallback.jpg",
+    "list": []
+   },
+   "landDetails": {
+    "value": 0,
+    "unit": ""
+   },
+   "price": {
+    "value": "Auction | Guide $1,800,000"
+   }
+  }
+ ]
+}

@@ -21,15 +21,35 @@ sources:
       /wp-json/api/listings/all. Off-market ("Pre-Market") listings have hidden addresses; register
       the alerts Gmail at /off-market/ and /property-alerts/ to get them by email.
 
+  - name: fox-and-wood
+    agency: Fox & Wood
+    adapter: eview
+    list_urls: [https://foxandwood.com.au]
+    via_home_proxy: true   # Cloudflare, same hosting as Pulse
+    options:
+      office_id: 1496      # guards against the feed returning every eview office
+    notes: >
+      Pulse's endpoint with eview fields; needs the PageFrom header. Off-market and coming-soon
+      listings come from their own statuses. Newsletter sign-up in the site footer.
+
+  - name: the-agency-sutherland-shire
+    agency: The Agency Sutherland Shire
+    adapter: pushcreative
+    list_urls: ["https://theagency.com.au/properties-for-sale?office=250"]
+    notes: All listings on one page. No off-market page or alert sign-up.
+
+  - name: century-21-sutherland-shire
+    agency: Century 21 Sutherland Shire
+    adapter: pushcreative
+    list_urls: [https://c21sutherlandshire.com.au/properties-for-sale]
+    notes: Office in Menai, so mostly suburbs outside the list. robots.txt asks for 5 s between requests.
+
   # ---- to onboard ----
   - {name: kore, agency: KORE Property Group, enabled: false}
   - {name: one-agency-engadine, agency: One Agency Engadine, enabled: false}
   - {name: one-agency-the-shire, agency: One Agency The Shire, enabled: false}
-  - {name: fox-and-wood, agency: Fox & Wood, enabled: false}
-  - {name: the-agency-sutherland-shire, agency: The Agency Sutherland Shire, enabled: false}
   - {name: mcgrath-engadine, agency: McGrath Engadine, enabled: false}
   - {name: sanders, agency: Sanders Property Agents, enabled: false}
   - {name: highland, agency: Highland Property Group, enabled: false}
   - {name: watkins, agency: Watkins Real Estate, enabled: false}
   - {name: sutherland-shire-property-agents, agency: Sutherland Shire Property Agents, enabled: false}
-  - {name: century-21-sutherland-shire, agency: Century 21 Sutherland Shire, enabled: false}

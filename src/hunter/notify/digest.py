@@ -8,6 +8,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from hunter.models import ListingKind
 from hunter.store import Change
 
 TEMPLATES = Path(__file__).resolve().parent.parent / "templates"
@@ -27,7 +28,8 @@ class Digest:
     def build(cls, run_date: date, changes: list[Change], **counts) -> Digest:
         digest = cls(run_date=run_date, **counts)
         for change in sorted(changes, key=_sort_key):
-            if change.item.listing.kind.is_off_market:
+            kind = change.item.listing.kind
+            if kind.is_off_market or kind == ListingKind.WITHDRAWN:
                 digest.off_market.append(change)
             elif change.status == "new":
                 digest.new.append(change)
@@ -68,7 +70,8 @@ class Digest:
 
 def _sort_key(change: Change):
     geo = change.item.geo
-    return (change.status != "new", geo.walk_min if geo.walk_min is not None else 999)
+    withdrawn = change.item.listing.kind == ListingKind.WITHDRAWN  # after live off-market listings
+    return (change.status != "new", withdrawn, geo.walk_min if geo.walk_min is not None else 999)
 
 
 def money(value: int | None) -> str:

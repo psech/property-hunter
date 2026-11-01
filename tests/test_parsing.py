@@ -14,6 +14,7 @@ from hunter.parsing import normalise_address, parse_kind, parse_price
         ("Contact Agent", PriceKind.CONTACT_AGENT, None, None, None),
         ("Auction", PriceKind.AUCTION, None, None, None),
         ("Expressions of interest", PriceKind.CONTACT_AGENT, None, None, None),
+        ("Price on request", PriceKind.CONTACT_AGENT, None, None, None),
         ("$950k", PriceKind.ASKING, 950_000, 950_000, 950_000),
     ],
 )

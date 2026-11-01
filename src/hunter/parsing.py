@@ -37,7 +37,7 @@ def parse_price(text: str | None) -> Price:
         return Price(kind=PriceKind.ASKING, text=clean, value=amount)
     if "auction" in lower:
         return Price(kind=PriceKind.AUCTION, text=clean)
-    if re.search(r"contact|enquire|price on application|\bpoa\b|by negotiation|expressions", lower):
+    if re.search(r"contact|enquire|price on (application|request)|\bpoa\b|by negotiation|expressions", lower):
         return Price(kind=PriceKind.CONTACT_AGENT, text=clean)
     return Price(kind=PriceKind.UNKNOWN, text=clean)
 
