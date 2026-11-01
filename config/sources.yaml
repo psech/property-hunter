@@ -42,6 +42,7 @@ sources:
     agency: Century 21 Sutherland Shire
     adapter: pushcreative
     list_urls: [https://c21sutherlandshire.com.au/properties-for-sale]
+    via_home_proxy: true   # doesn't answer GitHub's IPs at all (times out)
     notes: Office in Menai, so mostly suburbs outside the list. robots.txt asks for 5 s between requests.
 
   # ---- to onboard ----

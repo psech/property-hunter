@@ -41,6 +41,23 @@ def test_rewording_same_price_is_not_a_change(tmp_path, today):
     assert store.pending_change(key, reworded) is None
 
 
+def test_address_spelling_is_not_a_change(tmp_path, today):
+    store = Store(tmp_path / "s.json")
+    key, _ = store.observe(make(address="7A Milford Rd"), today)
+    store.mark_notified(key, today)
+    respelled = make(address="7a Milford Road")
+    key, _ = store.observe(respelled, today)
+    assert store.pending_change(key, respelled) is None
+
+
+def test_hash_from_an_older_formula_alone_is_not_a_change(tmp_path, today):
+    store = Store(tmp_path / "s.json")
+    key, _ = store.observe(make(), today)
+    store.mark_notified(key, today)
+    store.listings[key]["last_notified_hash"] = "0123456789abcdef"
+    assert store.pending_change(key, make()) is None
+
+
 def test_kind_change_is_reported(tmp_path, today):
     from hunter.models import ListingKind
 

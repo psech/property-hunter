@@ -38,10 +38,16 @@ def observation(item: Enriched) -> dict[str, Any]:
     }
 
 
+def _material(obs: dict[str, Any], name: str) -> Any:
+    if name == "address":  # "7A Milford Rd" and "7a Milford Road" are the same address
+        return normalise_address(obs.get("address"))
+    return obs.get(name)
+
+
 def fingerprint(obs: dict[str, Any]) -> str:
     material = {
         "price": obs.get("price_low") or (obs.get("price") or "").lower(),
-        **{k: obs.get(k) for k in MATERIAL_FIELDS if k != "price"},
+        **{k: _material(obs, k) for k in MATERIAL_FIELDS if k != "price"},
     }
     return hashlib.sha1(json.dumps(material, sort_keys=True, default=str).encode()).hexdigest()[:16]
 
@@ -53,6 +59,8 @@ def describe_changes(before: dict[str, Any], after: dict[str, Any]) -> list[str]
         old, new = before.get(name), after.get(name)
         if name == "price" and before.get("price_low") == after.get("price_low") and old and new:
             continue  # same number, reworded
+        if name != "price" and _material(before, name) == _material(after, name):
+            continue
         if old != new:
             pretty = lambda v: "—" if v in (None, "") else str(v).replace("_", "-")
             changes.append(f"{labels[name]} {pretty(old)} → {pretty(new)}")
@@ -138,7 +146,10 @@ class Store:
             return Change(key=key, item=item, status="new")
         if fingerprint(obs) == record["last_notified_hash"]:
             return None
-        return Change(key=key, item=item, status="changed", details=describe_changes(record["last_notified_observation"] or {}, obs))
+        details = describe_changes(record["last_notified_observation"] or {}, obs)
+        if not details:  # only a difference the buyer wouldn't care about, such as letter case
+            return None
+        return Change(key=key, item=item, status="changed", details=details)
 
     def mark_notified(self, key: str, today: date) -> None:
         record = self.listings[key]

@@ -1,4 +1,4 @@
-"""Thin Gemini wrapper: structured output, backoff on rate limits, and a per-run call budget."""
+"""Thin Gemini wrapper: structured output, backoff on rate limits and timeouts, and a per-run call budget."""
 
 from __future__ import annotations
 
@@ -6,11 +6,14 @@ import logging
 import time
 from typing import TypeVar
 
+import httpx
 from pydantic import BaseModel
 
 log = logging.getLogger(__name__)
 
 T = TypeVar("T", bound=BaseModel)
+TIMEOUT_S = 90  # the SDK waits forever by default; an overloaded model once took 7 minutes per email
+TRANSIENT = (429, 500, 503, "timeout")
 
 
 class LlmUnavailable(RuntimeError):
@@ -26,8 +29,9 @@ class Llm:
         self._client = None
         if api_key:
             from google import genai
+            from google.genai import types
 
-            self._client = genai.Client(api_key=api_key)
+            self._client = genai.Client(api_key=api_key, http_options=types.HttpOptions(timeout=TIMEOUT_S * 1000))
 
     @property
     def available(self) -> bool:
@@ -56,14 +60,15 @@ class Llm:
                 if isinstance(response.parsed, schema):
                     return response.parsed
                 return schema.model_validate_json(response.text or "{}")
-            except errors.APIError as exc:
-                if exc.code in (429, 500, 503) and self.fallback_model and self.model != self.fallback_model:
+            except (errors.APIError, httpx.TimeoutException) as exc:
+                reason = exc.code if isinstance(exc, errors.APIError) else "timeout"
+                if reason in TRANSIENT and self.fallback_model and self.model != self.fallback_model:
                     # Overload and free-tier quotas are per model: another model usually answers.
-                    log.warning("Gemini %s on %s, switching to %s", exc.code, self.model, self.fallback_model)
+                    log.warning("Gemini %s on %s, switching to %s", reason, self.model, self.fallback_model)
                     self.model = self.fallback_model
                     continue
-                if exc.code in (429, 500, 503) and attempt < retries:
-                    log.warning("Gemini %s, retrying in %.0fs", exc.code, delay)
+                if reason in TRANSIENT and attempt < retries:
+                    log.warning("Gemini %s, retrying in %.0fs", reason, delay)
                     time.sleep(delay)
                     delay *= 2
                     continue

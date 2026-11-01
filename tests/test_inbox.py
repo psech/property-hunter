@@ -1,5 +1,6 @@
 from types import SimpleNamespace
 
+import httpx
 from google.genai import errors
 
 from hunter.cache import JsonCache
@@ -63,3 +64,10 @@ def test_overloaded_model_switches_to_fallback_for_the_rest_of_the_run(tmp_path)
     assert [listing.address for listing in listings] == ["3 Oak Rd", "5 Elm St"]
     assert (last_uid, error) == (2, None)
     assert llm.calls_made == ["main-model", "lite-model", "lite-model"]
+
+
+def test_timeout_switches_to_fallback_too(tmp_path):
+    llm = fake_llm([httpx.ReadTimeout("no answer"), "3 Oak Rd"], fallback_model="lite-model")
+    listings, last_uid, error = inbox.collect(FakeMailbox([_mail(1, "One")]), Extractor(llm, JsonCache("x", tmp_path)), 0)
+    assert [listing.address for listing in listings] == ["3 Oak Rd"] and error is None
+    assert llm.calls_made == ["main-model", "lite-model"]
