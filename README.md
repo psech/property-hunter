@@ -53,6 +53,8 @@ To skip the alerts inbox for a run, add `--no-inbox` to the `hunter` command.
    | `CALLMEBOT_PHONE` | `+614xxxxxxxx` |
    | `CALLMEBOT_APIKEY` | |
 
+   Optional, for sites that block GitHub's IPs: `TS_OAUTH_CLIENT_ID`, `TS_OAUTH_SECRET` and
+   `HOME_PROXY_HOST`. See [docs/home-proxy.md](docs/home-proxy.md).
 5. **First run:** Actions → weekly → Run workflow with mode **seed**. This records everything
    currently listed without notifying you, so the first real digest isn't a flood. Use mode
    **normal** if you want everything sent the first time instead.
@@ -76,8 +78,10 @@ uv run pytest
 ```
 
 `--dry-run` sends nothing and saves nothing; the rendered email is written to `debug/digest.html`.
-`--where local` runs only the sources marked `run_on: local`. These are sites that block GitHub's
-datacenter IPs, and running them from home with the same `--state` file merges their results.
+Sites that block GitHub's datacenter IPs are marked `via_home_proxy: true` in `config/sources.yaml`;
+the weekly run fetches them through a proxy on a home server, reached over Tailscale
+([docs/home-proxy.md](docs/home-proxy.md)). `--where local` runs only the sources marked
+`run_on: local`, for a site you'd rather run from home with the same `--state` file.
 
 ## Adding an agency
 

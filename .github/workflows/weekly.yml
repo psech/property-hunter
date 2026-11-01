@@ -23,6 +23,8 @@ jobs:
   hunt:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      HOME_PROXY_HOST: ${{ secrets.HOME_PROXY_HOST }}  # the home server's Tailscale IP
     steps:
       - uses: actions/checkout@v5
 
@@ -57,8 +59,33 @@ jobs:
           key: hunter-cache-${{ github.run_id }}
           restore-keys: hunter-cache-
 
+      # Sources marked via_home_proxy (sites that block GitHub's IPs) go through a proxy on a home
+      # server, reached over Tailscale. If home is unreachable, only those sources fail.
+      # Setup: docs/home-proxy.md
+      - name: Join Tailscale
+        if: env.HOME_PROXY_HOST != ''
+        continue-on-error: true
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+
+      - name: Check home proxy
+        if: env.HOME_PROXY_HOST != ''
+        continue-on-error: true
+        run: |
+          for i in $(seq 12); do  # a new tailnet node can take a few seconds to be accepted
+            if curl -sf -o /dev/null -x "http://$HOME_PROXY_HOST:8888" https://www.pulseproperty.com.au/robots.txt; then
+              echo "home proxy OK"; exit 0
+            fi
+            sleep 5
+          done
+          echo "::warning::home proxy unreachable: sources marked via_home_proxy will fail"; exit 1
+
       - name: Run
         env:
+          HOME_PROXY: ${{ env.HOME_PROXY_HOST && format('http://{0}:8888', env.HOME_PROXY_HOST) || '' }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}

@@ -79,6 +79,7 @@ class Source(BaseModel):
     agency: str
     enabled: bool = True
     run_on: Literal["actions", "local"] = "actions"
+    via_home_proxy: bool = False  # fetch through HOME_PROXY when it's set (sites that block GitHub's IPs)
     fetch: Literal["httpx", "playwright"] = "httpx"
     adapter: str = "generic"
     list_urls: list[str] = Field(default_factory=list)
@@ -101,6 +102,7 @@ class Secrets(BaseModel):
     notify_email: str | None = None
     callmebot_phone: str | None = None
     callmebot_apikey: str | None = None
+    home_proxy: str | None = None  # e.g. http://100.x.y.z:8888, reached over Tailscale
 
     @property
     def gmail_ready(self) -> bool:

@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 import re
 import time
+from collections.abc import Iterable
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 from urllib.robotparser import RobotFileParser
@@ -25,20 +26,26 @@ class FetchError(RuntimeError):
 
 
 class Fetcher:
-    def __init__(self, delay_s: float = 1.5):
+    def __init__(self, delay_s: float = 1.5, proxy: str | None = None, proxied_hosts: Iterable[str] = ()):
+        """`proxy` carries requests to `proxied_hosts` only: sites that block datacenter IPs."""
         self.delay_s = delay_s
+        self.proxy = proxy
+        self.proxied_hosts = set(proxied_hosts) if proxy else set()
         self.http = httpx.Client(
-            timeout=30, follow_redirects=True, headers={"User-Agent": USER_AGENT, "Accept-Language": "en-AU,en;q=0.9"}
+            timeout=30,
+            follow_redirects=True,
+            headers={"User-Agent": USER_AGENT, "Accept-Language": "en-AU,en;q=0.9"},
+            mounts={f"all://{host}": httpx.HTTPTransport(proxy=proxy) for host in self.proxied_hosts},
         )
         self._robots: dict[str, RobotFileParser] = {}
         self._last: dict[str, float] = {}
         self._playwright = None
         self._browser = None
-        self._context = None
+        self._contexts: dict[bool, object] = {}  # keyed by "goes through the proxy"
 
     def close(self) -> None:
-        if self._context:
-            self._context.close()
+        for context in self._contexts.values():
+            context.close()
         if self._browser:
             self._browser.close()
         if self._playwright:
@@ -91,17 +98,21 @@ class Fetcher:
         except (httpx.HTTPError, ValueError) as exc:
             raise FetchError(f"{url}: {exc}") from exc
 
-    def _page(self):
-        if self._context is None:
+    def _page(self, url: str):
+        proxied = urlparse(url).netloc in self.proxied_hosts
+        if self._browser is None:
             from playwright.sync_api import sync_playwright
 
             self._playwright = sync_playwright().start()
             self._browser = self._playwright.chromium.launch()
-            self._context = self._browser.new_context(user_agent=USER_AGENT, locale="en-AU")
-        return self._context.new_page()
+        if proxied not in self._contexts:
+            self._contexts[proxied] = self._browser.new_context(
+                user_agent=USER_AGENT, locale="en-AU", proxy={"server": self.proxy} if proxied else None
+            )
+        return self._contexts[proxied].new_page()
 
     def _get_json_browser(self, url: str) -> object:
-        page = self._page()
+        page = self._page(url)
         try:
             origin = f"{urlparse(url).scheme}://{urlparse(url).netloc}/"
             page.goto(origin, wait_until="domcontentloaded", timeout=45_000)  # collects any clearance cookie
@@ -119,7 +130,7 @@ class Fetcher:
             page.close()
 
     def _get_browser(self, url: str, wait_for: str | None) -> str:
-        page = self._page()
+        page = self._page(url)
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=45_000)
             if wait_for:

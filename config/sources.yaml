@@ -16,6 +16,7 @@ sources:
     agency: Pulse Property Agents
     adapter: pulse
     list_urls: [https://www.pulseproperty.com.au]
+    via_home_proxy: true   # Cloudflare blocks GitHub's IPs; see docs/home-proxy.md
     notes: >
       /wp-json/api/listings/all. Off-market ("Pre-Market") listings have hidden addresses; register
       the alerts Gmail at /off-market/ and /property-alerts/ to get them by email.

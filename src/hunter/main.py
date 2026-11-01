@@ -7,6 +7,7 @@ import logging
 import sys
 from datetime import date
 from pathlib import Path
+from urllib.parse import urlparse
 
 from hunter import valuation
 from hunter.adapters import get_adapter
@@ -77,9 +78,13 @@ def run(args: argparse.Namespace) -> int:
     collected: list[Listing] = []
     healthy: set[str] = set()
     failing: list[str] = []
-    fetcher = Fetcher()
+    sources = load_sources()
+    proxied_hosts = {urlparse(url).netloc for source in sources if source.via_home_proxy for url in source.list_urls}
+    if proxied_hosts and not secrets.home_proxy:
+        log.info("HOME_PROXY is not set: fetching %s directly", ", ".join(sorted(proxied_hosts)))
+    fetcher = Fetcher(proxy=secrets.home_proxy, proxied_hosts=proxied_hosts)
     try:
-        for source in load_sources():
+        for source in sources:
             if not source.enabled or (args.source and source.name not in args.source):
                 continue
             if args.where != "all" and source.run_on != args.where:
