@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from hunter.adapters import eview, highland, pulse, pushcreative, raywhite
+from hunter.adapters import boxdice, eview, highland, pulse, pushcreative, raywhite
 from hunter.config import Source
 from hunter.models import ListingKind, PriceKind, PropertyType
 
@@ -173,3 +173,46 @@ def test_highland():
     # in no category and outside the buyer's suburbs: listed, but its detail page isn't fetched
     assert site.property_type is None and site.beds is None and site.price.kind == PriceKind.UNKNOWN
     assert not any("kingsway" in url for url in fetcher.urls)
+
+
+def test_boxdice(monkeypatch):
+    monkeypatch.setattr(boxdice, "PAGE_SIZE", 2)  # the site's batches are 15 cards
+    house, under_offer, unit, shop = (
+        card + "</div>" for card in (FIXTURES / "boxdice_cards.html").read_text().split("\n</div>\n")[:4]
+    )
+
+    def separator(label, value):
+        return f'<div class="listing-property-separator"><strong>{label}</strong><br>{value}</div>'
+
+    base = "https://oneagency.com.au"
+    detail = base + "/listing?listing_id={}"
+    pages = {
+        f"{base}/listings?type=Buy&office_id=117": f"<html><body>21 properties{house}{under_offer}</body></html>",
+        f"{base}/ajax-listings?offset_val=2&type=Buy&office_id=117": unit + shop,
+        f"{base}/ajax-listings?offset_val=4&type=Buy&office_id=117": "\n  \n",  # nothing more
+        detail.format("27214530"): (FIXTURES / "boxdice_detail.html").read_text(),
+        detail.format("27423922"): separator("Property Type", "Residential") + separator("Property Category", "Apartment"),
+        detail.format("19557823"): separator("Property Type", "Commercial") + separator("Property Category", "Offices"),
+    }
+    fetcher = SiteFetcher(pages)
+    source = Source(name="oa", agency="One Agency The Shire", adapter="boxdice",
+                    list_urls=[f"{base}/listings?type=Buy&office_id=117"], buyer_suburbs=["Sutherland", "Miranda"])
+    listings = boxdice.collect(source, fetcher, None)
+    assert [listing.ref for listing in listings] == ["27214530", "27565409", "27423922", "19557823"]
+    house, under_offer, unit, shop = listings
+
+    assert house.address == "50 Leonay Street" and house.suburb == "Sutherland"
+    assert house.url == detail.format("27214530") and house.photo_url.startswith("https://assets.boxdice.com.au/")
+    assert (house.beds, house.baths, house.cars) == (5, 3, 4)
+    assert house.price.kind == PriceKind.ASKING and house.price.value == 1_900_000  # "FOR SALE - $1,900,000"
+    assert house.property_type == PropertyType.HOUSE and house.land_m2 == 769
+    assert (house.lat, house.lng) == (-34.02603375, 151.05133216)
+
+    # Menai is outside the buyer's suburbs: card only, no detail page
+    assert under_offer.kind == ListingKind.UNDER_OFFER  # the badge; the price says "AUCTION UNLESS SOLD PRIOR"
+    assert under_offer.price.kind == PriceKind.AUCTION and under_offer.property_type is None
+    assert detail.format("27565409") not in fetcher.urls
+
+    assert unit.kind == ListingKind.FOR_SALE and unit.property_type == PropertyType.UNIT
+    assert unit.price.kind == PriceKind.GUIDE and unit.price.min == 780_000  # "AUCTION - GUIDE $780,000"
+    assert shop.property_type == PropertyType.OTHER and shop.beds is None

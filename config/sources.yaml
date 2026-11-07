@@ -55,10 +55,22 @@ sources:
       requests, so a run here takes about 10 minutes. Off-market listings ("Exclusive to Highland")
       are in the same pages; property alerts sign-up in the site menu.
 
+  - name: one-agency-engadine
+    agency: One Agency Engadine
+    adapter: boxdice
+    list_urls: ["https://oneagency.com.au/listings?type=Buy&office_id=103"]
+    via_home_proxy: true   # Cloudflare; challenges even a home IP after ~20 quick requests
+    notes: Box+Dice franchise site filtered by office. Property alerts sign-up on the site.
+
+  - name: one-agency-the-shire
+    agency: One Agency The Shire
+    adapter: boxdice
+    list_urls: ["https://oneagency.com.au/listings?type=Buy&office_id=117"]
+    via_home_proxy: true   # Cloudflare; challenges even a home IP after ~20 quick requests
+    notes: Same site as Engadine. Mostly Sutherland and the Menai area.
+
   # ---- to onboard ----
   - {name: kore, agency: KORE Property Group, enabled: false}
-  - {name: one-agency-engadine, agency: One Agency Engadine, enabled: false}
-  - {name: one-agency-the-shire, agency: One Agency The Shire, enabled: false}
   - {name: mcgrath-engadine, agency: McGrath Engadine, enabled: false}
   - {name: sanders, agency: Sanders Property Agents, enabled: false}
   - {name: watkins, agency: Watkins Real Estate, enabled: false}
