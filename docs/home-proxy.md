@@ -1,10 +1,10 @@
 # Home proxy for sites that block GitHub
 
 Some agency sites block GitHub Actions' datacenter IPs but let a home internet connection through:
-Pulse and Fox & Wood (Cloudflare) refuse them, and Century 21 Sutherland Shire never answers. For
-those sources, the weekly run sends its requests through a small proxy on an always-on home
-server, reached over [Tailscale](https://tailscale.com). Every other request still goes out
-directly from GitHub.
+Pulse and Fox & Wood (Cloudflare) and Ray White (CloudFront) refuse them, and Century 21
+Sutherland Shire never answers. For those sources, the weekly run sends its requests through a
+small proxy on an always-on home server, reached over [Tailscale](https://tailscale.com). Every
+other request still goes out directly from GitHub.
 
 ```
 GitHub Actions run ──(Tailscale, private)──► home server :8888 (tinyproxy) ──► pulseproperty.com.au
@@ -75,6 +75,8 @@ foxandwood.com.au
 *.foxandwood.com.au
 c21sutherlandshire.com.au
 *.c21sutherlandshire.com.au
+raywhitesutherlandshire.com.au
+*.raywhitesutherlandshire.com.au
 EOF
 
 # Ubuntu's AppArmor profile lets tinyproxy read only tinyproxy.conf; without this it exits with

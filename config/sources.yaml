@@ -6,6 +6,7 @@ sources:
     agency: Ray White Sutherland Shire
     adapter: raywhite
     list_urls: [https://raywhitesutherlandshire.com.au]
+    via_home_proxy: true   # CloudFront started refusing GitHub's IPs (403) in November 2026
     options:
       organisation_ids: [1676, 2098, 2368, 2980, 840]   # from window.INITIAL_STATE.config.organisationIds
     notes: >
