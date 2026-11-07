@@ -88,6 +88,8 @@ class Source(BaseModel):
     max_details: int = 60
     options: dict[str, Any] = Field(default_factory=dict)  # adapter-specific settings
     notes: str | None = None
+    # Set at run time from criteria, for adapters that fetch detail pages only where they matter.
+    buyer_suburbs: list[str] = Field(default_factory=list)
 
 
 class Sources(BaseModel):

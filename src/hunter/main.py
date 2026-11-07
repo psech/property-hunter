@@ -89,6 +89,7 @@ def run(args: argparse.Namespace) -> int:
                 continue
             if args.where != "all" and source.run_on != args.where:
                 continue
+            source.buyer_suburbs = criteria.suburbs
             try:
                 found = get_adapter(source.adapter)(source, fetcher, extractor)
             except Exception as exc:  # one broken site must not stop the run

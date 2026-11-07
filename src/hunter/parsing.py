@@ -47,6 +47,7 @@ def parse_kind(*labels: str | None) -> ListingKind | None:
     text = " ".join(label for label in labels if label).lower()
     if not text:
         return None
+    text = re.sub(r"\b(unless|if not)\s+(previously\s+)?sold\b", " ", text)  # "Auction, unless sold prior"
     if re.search(r"\bsold\b", text):
         return ListingKind.SOLD
     if re.search(r"under (offer|contract)|deposit taken", text):

@@ -46,12 +46,20 @@ sources:
     via_home_proxy: true   # doesn't answer GitHub's IPs at all (times out)
     notes: Office in Menai, so mostly suburbs outside the list. robots.txt asks for 5 s between requests.
 
+  - name: highland
+    agency: Highland Property Group
+    adapter: highland
+    list_urls: ["https://www.highlandproperty.com.au/buying/?offices=83&offices=84&offices=85"]
+    notes: >
+      Offices 83-85 are Cronulla, Sutherland and Taren Point. robots.txt asks for 10 s between
+      requests, so a run here takes about 10 minutes. Off-market listings ("Exclusive to Highland")
+      are in the same pages; property alerts sign-up in the site menu.
+
   # ---- to onboard ----
   - {name: kore, agency: KORE Property Group, enabled: false}
   - {name: one-agency-engadine, agency: One Agency Engadine, enabled: false}
   - {name: one-agency-the-shire, agency: One Agency The Shire, enabled: false}
   - {name: mcgrath-engadine, agency: McGrath Engadine, enabled: false}
   - {name: sanders, agency: Sanders Property Agents, enabled: false}
-  - {name: highland, agency: Highland Property Group, enabled: false}
   - {name: watkins, agency: Watkins Real Estate, enabled: false}
   - {name: sutherland-shire-property-agents, agency: Sutherland Shire Property Agents, enabled: false}

@@ -48,6 +48,9 @@ def test_normalise_address(raw, suburb, expected):
         ("Under Contract", ListingKind.UNDER_OFFER),
         ("SOLD", ListingKind.SOLD),
         ("For Sale", ListingKind.FOR_SALE),
+        ("Auction, Unless sold prior", ListingKind.FOR_SALE),
+        ("Auction (if not sold before)", ListingKind.FOR_SALE),
+        ("Database Exclusive", ListingKind.EXCLUSIVE),
     ],
 )
 def test_parse_kind(label, kind):

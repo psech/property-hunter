@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from hunter.adapters import eview, pulse, pushcreative, raywhite
+from hunter.adapters import eview, highland, pulse, pushcreative, raywhite
 from hunter.config import Source
 from hunter.models import ListingKind, PriceKind, PropertyType
 
@@ -118,3 +118,58 @@ def test_pushcreative():
 
     # Century 21: the banner says Under Offer while the price slot says "SOLD BY STEWART & JOEL"
     assert under_offer.kind == ListingKind.UNDER_OFFER and under_offer.land_m2 == 790.1
+
+
+class SiteFetcher:
+    """Serves pages by URL and records the order they were asked for."""
+
+    def __init__(self, pages):
+        self.pages = pages
+        self.urls = []
+
+    def get(self, url, method="httpx"):
+        self.urls.append(url)
+        return self.pages[url]
+
+
+def test_highland():
+    omaru, port_hacking, premier, kingsway = [
+        card + "</article>" for card in (FIXTURES / "highland_cards.html").read_text().split("</article>")[:4]
+    ]
+
+    def page(*cards, next_href=None):
+        link = f'<a href="{next_href}" class=next>Next</a>' if next_href else ""
+        return f"<html><body>{len(cards)} Properties Found{''.join(cards)}{link}</body></html>"
+
+    base = "https://www.highlandproperty.com.au/buying/?offices=83"
+    detail = "https://www.highlandproperty.com.au/property/{}/"
+    pages = {f"{base}&category={c}": page() for c in (5, 7, 19, 1)}
+    pages |= {
+        f"{base}&category=2": page(omaru, next_href="?offices=83&category=2&page=2"),
+        "https://www.highlandproperty.com.au/buying/?offices=83&category=2&page=2": page(port_hacking),
+        f"{base}&category=3": page(premier),
+        base: page(omaru, port_hacking, premier, kingsway),
+        detail.format("1987428/12-omaru-avenue-miranda-nsw-2228"): "<h2 class=listing-price> Auction, Unless sold prior </h2>",
+        detail.format("1954393/6289-port-hacking-road-miranda-nsw-2228"):
+            "<h2 class=listing-price>For Sale - $1,150,000 - $1,200,000</h2>",
+        detail.format("1992662/3415-premier-street-gymea-nsw-2227"): "<h2 class=listing-price>For Sale</h2>",
+    }
+    fetcher = SiteFetcher(pages)
+    source = Source(name="highland", agency="Highland", adapter="highland", list_urls=[base],
+                    buyer_suburbs=["Miranda", "Gymea"])
+    house, second_house, unit, site = highland.collect(source, fetcher, None)
+
+    assert house.address == "12 Omaru Avenue" and house.suburb == "Miranda" and house.ref == "1987428"
+    assert house.property_type == PropertyType.HOUSE and (house.beds, house.baths, house.cars) == (3, 2, 1)
+    assert house.price.kind == PriceKind.AUCTION and house.kind == ListingKind.FOR_SALE
+    assert house.lat and house.lng and house.photo_url.startswith("https://images.listonce.com.au/")
+
+    assert second_house.property_type == PropertyType.HOUSE  # from page 2 of the house category
+    assert (second_house.price.min, second_house.price.max) == (1_150_000, 1_200_000)
+
+    assert unit.property_type == PropertyType.UNIT and unit.kind == ListingKind.OFF_MARKET  # the banner
+    assert unit.price.kind == PriceKind.UNKNOWN and unit.price.text == "For Sale"
+
+    # in no category and outside the buyer's suburbs: listed, but its detail page isn't fetched
+    assert site.property_type is None and site.beds is None and site.price.kind == PriceKind.UNKNOWN
+    assert not any("kingsway" in url for url in fetcher.urls)
