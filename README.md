@@ -50,7 +50,7 @@ To skip the alerts inbox for a run, add `--no-inbox` to the `hunter` command.
    | `ORS_API_KEY` | |
    | `GMAIL_ADDRESS` | `you.homehunt@gmail.com` |
    | `GMAIL_APP_PASSWORD` | 16 characters; spaces are ignored |
-   | `NOTIFY_EMAIL` | where the digest goes |
+   | `NOTIFY_EMAIL` | where the digest goes; separate several addresses with commas |
    | `CALLMEBOT_PHONE` | `+614xxxxxxxx` |
    | `CALLMEBOT_APIKEY` | |
 
