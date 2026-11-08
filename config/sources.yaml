@@ -69,8 +69,16 @@ sources:
     via_home_proxy: true   # Cloudflare; challenges even a home IP after ~20 quick requests
     notes: Same site as Engadine. Mostly Sutherland and the Menai area.
 
+  - name: kore
+    agency: KORE Property Group
+    adapter: rex
+    list_urls: ["https://koreproperty.com.au/listings/?saleOrRental=Sale&status=available_under_contract&sortby=dateListed"]
+    notes: >
+      Rex Siteloft site, read once per property category. Engadine office, so mostly Engadine,
+      Heathcote and new estates further south. Off-market listings ("Off Market Opportunity") are in
+      the same pages; property alerts sign-up in the site menu.
+
   # ---- to onboard ----
-  - {name: kore, agency: KORE Property Group, enabled: false}
   - {name: mcgrath-engadine, agency: McGrath Engadine, enabled: false}
   - {name: sanders, agency: Sanders Property Agents, enabled: false}
   - {name: watkins, agency: Watkins Real Estate, enabled: false}

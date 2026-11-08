@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from hunter.adapters import boxdice, eview, highland, pulse, pushcreative, raywhite
+from hunter.adapters import boxdice, eview, highland, pulse, pushcreative, raywhite, rex
 from hunter.config import Source
 from hunter.models import ListingKind, PriceKind, PropertyType
 
@@ -229,3 +229,44 @@ def test_boxdice(monkeypatch):
     assert unit.kind == ListingKind.FOR_SALE and unit.property_type == PropertyType.UNIT
     assert unit.price.kind == PriceKind.GUIDE and unit.price.min == 780_000  # "AUCTION - GUIDE $780,000"
     assert shop.property_type == PropertyType.OTHER and shop.beds is None
+
+
+def test_rex(monkeypatch):
+    monkeypatch.setattr(rex, "PAGE_SIZE", 1)  # the site's pages hold 12 cards
+    house, off_market, apartment, land, vanity = (FIXTURES / "rex_cards.html").read_text().split("<!-- card -->")
+
+    def page(*cards):
+        return f'<html><body><input type="hidden" name="sortby">{"".join(cards)}</body></html>'
+
+    base = "https://koreproperty.com.au/listings/?saleOrRental=Sale&status=available_under_contract&sortby=dateListed"
+    pages = {f"{base}&category={category}&page=1": page() for category in rex.CATEGORIES}
+    pages |= {
+        f"{base}&category=House&page=1": page(house),
+        f"{base}&category=House&page=2": page(off_market),
+        f"{base}&category=House&page=3": page(),
+        f"{base}&category=Apartment&page=1": page(apartment),
+        f"{base}&category=Apartment&page=2": page(),
+        f"{base}&page=1": page(off_market),
+        f"{base}&page=2": page(vanity),  # a duplicate of an off-market listing under /listings/private
+        f"{base}&page=3": page(land),
+        f"{base}&page=4": page(),
+    }
+    fetcher = SiteFetcher(pages)
+    source = Source(name="kore", agency="KORE", adapter="rex", list_urls=[base])
+    house, off_market, apartment, land = rex.collect(source, fetcher, None)
+
+    assert house.address == "56 Dumbarton Place" and house.suburb == "Engadine" and house.postcode == "2233"
+    assert house.url == "https://koreproperty.com.au/listings/residential_sale-10P8665-engadine"
+    assert house.ref == "10P8665" and house.property_type == PropertyType.HOUSE
+    assert (house.beds, house.baths, house.cars, house.land_m2) == (4, 2, 1, None)  # only land cards show area
+    assert house.price.kind == PriceKind.RANGE and house.price.min == 1_450_000
+    assert house.kind == ListingKind.FOR_SALE and house.photo_url.startswith("https://au-crm.cdns.rexsoftware.com/")
+
+    assert off_market.address == "12 Abbott Road" and off_market.property_type == PropertyType.HOUSE  # from page 2
+    assert off_market.kind == ListingKind.OFF_MARKET  # "Off Market Opportunity"
+
+    assert apartment.address == "12/43-49 Railway Parade" and apartment.property_type == PropertyType.UNIT
+
+    # land has no category of its own: the link says land_sale
+    assert land.property_type == PropertyType.LAND and land.address == "Lot 3008/5 Solstice Road"
+    assert land.land_m2 == 354 and land.beds is None and land.price.value == 789_000
