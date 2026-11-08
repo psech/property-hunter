@@ -2,7 +2,7 @@ name: weekly
 
 on:
   schedule:
-    - cron: "17 18 * * 5"         # Friday 18:17, ahead of Saturday inspections; off the hour, where GitHub delays schedules most
+    - cron: "17 18 * * 4"         # Thursday 18:17, two days ahead of Saturday inspections; off the hour, where GitHub delays schedules most
       timezone: "Australia/Sydney"
   workflow_dispatch:
     inputs:

@@ -16,7 +16,7 @@ Gmail inbox ──┼─► extract ──► enrich ─► filter ─► diff v
               └────────────────────────────────────── state branch ◄───┘
 ```
 
-Runs on GitHub Actions every Friday at 18:17 Sydney time, ahead of Saturday inspections. Every service it uses is free.
+Runs on GitHub Actions every Thursday at 18:17 Sydney time, ahead of Saturday inspections. Every service it uses is free.
 To skip the alerts inbox for a run, add `--no-inbox` to the `hunter` command.
 
 ## How it decides what to send
