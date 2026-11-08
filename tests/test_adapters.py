@@ -46,6 +46,19 @@ def test_raywhite():
     # the stale OFF record (2025) is dropped
 
 
+def test_raywhite_sold_price_text():
+    source = Source(name="rw", agency="Ray White", adapter="raywhite", list_urls=["https://raywhitesutherlandshire.com.au"])
+    base = source.list_urls[0]
+
+    def kind(display_price):
+        value = {"id": 1, "statusCode": "CUR", "displayPrice": display_price}
+        return raywhite._listing(value, source, base, ListingKind.FOR_SALE).kind
+
+    assert kind("Sold | Contact Agent") == ListingKind.SOLD  # the feed still says Current
+    assert kind("Auction | Unless Sold Prior") == ListingKind.FOR_SALE
+    assert kind("For Sale | Contact Agent") == ListingKind.FOR_SALE
+
+
 def test_pulse():
     data = json.loads((FIXTURES / "pulse_api.json").read_text())
     withdrawn_data = json.loads((FIXTURES / "pulse_offmarket.json").read_text())

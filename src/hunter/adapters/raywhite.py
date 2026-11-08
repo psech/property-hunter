@@ -14,7 +14,7 @@ from urllib.parse import urlparse
 from hunter.config import Source
 from hunter.extract import Extractor
 from hunter.models import Listing, ListingKind, PropertyType
-from hunter.parsing import parse_price
+from hunter.parsing import parse_kind, parse_price
 from hunter.sources.web import Fetcher, FetchError
 
 CATEGORIES = {
@@ -76,6 +76,8 @@ def _listing(value: dict[str, Any], source: Source, base: str, kind: ListingKind
         url = None
     if value.get("underOffer"):
         kind = ListingKind.UNDER_OFFER
+    if parse_kind(value.get("displayPrice")) == ListingKind.SOLD:
+        kind = ListingKind.SOLD  # status still CUR, but the advertised price says "Sold | Contact Agent"
     price = parse_price(value.get("displayPrice"))
     feed_price = int(float(value["price"])) if str(value.get("price") or "").replace(".", "").isdigit() else None
     images = value.get("images") or []
