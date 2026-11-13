@@ -175,6 +175,25 @@ removed automatically afterwards.
 2. On the server, add its domain to `/etc/tinyproxy/allowed-hosts` (both `example.com.au` and
    `*.example.com.au`), then `sudo systemctl restart tinyproxy`.
 
+## Inspecting traffic
+
+tinyproxy logs every connection to `/var/log/tinyproxy/tinyproxy.log`, rotated daily with about
+two weeks kept as `.gz`. Only the `tinyproxy` user can read it, so use `sudo` on the server:
+
+```sh
+sudo tail -f /var/log/tinyproxy/tinyproxy.log            # live, e.g. during a run
+sudo zcat /var/log/tinyproxy/tinyproxy.log.1.gz | less   # an earlier day
+sudo grep -h CONNECT /var/log/tinyproxy/tinyproxy.log | grep -o '[a-z0-9.-]*:443' | sort | uniq -c   # requests per site
+```
+
+Each line has the time, the client's Tailscale IP (a GitHub runner is a `100.x.x.x` address) and
+the site, such as `CONNECT raywhitesutherlandshire.com.au:443`. Refused requests say why, for
+example "denied by filter" for a site missing from the allowlist.
+
+The sites are all HTTPS, so tinyproxy only tunnels the encrypted traffic: it sees the hostname,
+never the page address, the response or its status code. For those, read the Run step in the
+workflow log, which records every URL fetched and every error.
+
 ## Troubleshooting
 
 | Symptom | Check |
