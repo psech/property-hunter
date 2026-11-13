@@ -1,13 +1,12 @@
 """Ray White office sites share one listings API, reachable through each site's own proxy.
 
 Every listing carries a numeric `price`, even when the advertised text is "Contact Agent";
-that figure becomes `feed_price`. Status OFF means withdrawn or not publicly marketed: the
-listing has no public page, but often still a full address, so it is reported as off-market.
+that figure becomes `feed_price`. Only current listings are read: since November 2026 the proxy
+answers status OFF (withdrawn or not publicly marketed) with 400 "Query out of scope".
 """
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
 from typing import Any
 from urllib.parse import urlparse
 
@@ -23,7 +22,6 @@ CATEGORIES = {
     "LAN": PropertyType.LAND,
 }
 PAGE = 100
-OFF_MARKET_MAX_AGE = timedelta(days=120)  # older OFF records are usually withdrawn for good
 
 
 def collect(source: Source, fetcher: Fetcher, extractor: Extractor) -> list[Listing]:
@@ -31,12 +29,7 @@ def collect(source: Source, fetcher: Fetcher, extractor: Extractor) -> list[List
     org_ids = source.options.get("organisation_ids")
     if not org_ids:
         raise FetchError(f"{source.name}: options.organisation_ids is required")
-    listings = [_listing(v, source, base, ListingKind.FOR_SALE) for v in _query(fetcher, base, org_ids, "CUR")]
-    cutoff = datetime.now(timezone.utc) - OFF_MARKET_MAX_AGE
-    for value in _query(fetcher, base, org_ids, "OFF"):
-        if _when(value) >= cutoff:
-            listings.append(_listing(value, source, base, ListingKind.OFF_MARKET))
-    return listings
+    return [_listing(value, source, base) for value in _query(fetcher, base, org_ids, "CUR")]
 
 
 def _query(fetcher: Fetcher, base: str, org_ids: list[int], status: str) -> list[dict[str, Any]]:
@@ -56,12 +49,7 @@ def _query(fetcher: Fetcher, base: str, org_ids: list[int], status: str) -> list
             return values
 
 
-def _when(value: dict[str, Any]) -> datetime:
-    stamp = value.get("updatedAt") or value.get("creationTime") or "1970-01-01T00:00:00+00:00"
-    return datetime.fromisoformat(stamp)
-
-
-def _listing(value: dict[str, Any], source: Source, base: str, kind: ListingKind) -> Listing:
+def _listing(value: dict[str, Any], source: Source, base: str) -> Listing:
     address = value.get("address") or {}
     street = " ".join(p for p in (address.get("streetNumber"), address.get("streetName"), address.get("streetType")) if p)
     if address.get("unitNumber") and street:
@@ -70,10 +58,9 @@ def _listing(value: dict[str, Any], source: Source, base: str, kind: ListingKind
     land = next((m.get("value") for m in value.get("measurements", []) if m.get("code") == "LAS"), None)
     category = (value.get("categories") or [{}])[0].get("code")
     url = next((link["url"] for link in value.get("links", []) if link.get("code") == "PRL"), None)
-    if kind == ListingKind.OFF_MARKET:
-        url = None  # off-market listings have no public page (the short link 404s)
-    elif url and urlparse(url).netloc != urlparse(base).netloc:
+    if url and urlparse(url).netloc != urlparse(base).netloc:
         url = None
+    kind = ListingKind.FOR_SALE
     if value.get("underOffer"):
         kind = ListingKind.UNDER_OFFER
     if parse_kind(value.get("displayPrice")) == ListingKind.SOLD:

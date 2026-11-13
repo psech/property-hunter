@@ -25,13 +25,14 @@ class FakeFetcher:
 
 def test_raywhite():
     data = json.loads((FIXTURES / "raywhite_api.json").read_text())
-    fetcher = FakeFetcher([data["current"], data["off"]])
+    fetcher = FakeFetcher([data["current"]])
     source = Source(name="rw", agency="Ray White", adapter="raywhite",
                     list_urls=["https://raywhitesutherlandshire.com.au"], options={"organisation_ids": [1, 2]})
     listings = raywhite.collect(source, fetcher, None)
 
     assert "organisationId:!(1,2)" in fetcher.urls[0][0] and "statusCode:CUR" in fetcher.urls[0][0]
-    unit, contact, off = listings
+    unit, contact = listings
+    assert len(fetcher.urls) == 1  # status OFF is no longer queried: the proxy refuses it
     assert unit.address == "2/26-30 Harrow Road" and unit.suburb == "Sylvania"
     assert unit.property_type == PropertyType.UNIT and unit.price.kind == PriceKind.GUIDE
     assert unit.feed_price is None  # advertised price wins
@@ -42,9 +43,6 @@ def test_raywhite():
     assert contact.price.kind == PriceKind.CONTACT_AGENT and contact.feed_price == 1_600_000
     assert contact.land_m2 == 556
 
-    assert off.kind == ListingKind.OFF_MARKET and off.url is None and off.address == "8 Barratta Place"
-    # the stale OFF record (2025) is dropped
-
 
 def test_raywhite_sold_price_text():
     source = Source(name="rw", agency="Ray White", adapter="raywhite", list_urls=["https://raywhitesutherlandshire.com.au"])
@@ -52,7 +50,7 @@ def test_raywhite_sold_price_text():
 
     def kind(display_price):
         value = {"id": 1, "statusCode": "CUR", "displayPrice": display_price}
-        return raywhite._listing(value, source, base, ListingKind.FOR_SALE).kind
+        return raywhite._listing(value, source, base).kind
 
     assert kind("Sold | Contact Agent") == ListingKind.SOLD  # the feed still says Current
     assert kind("Auction | Unless Sold Prior") == ListingKind.FOR_SALE

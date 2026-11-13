@@ -10,8 +10,9 @@ sources:
     options:
       organisation_ids: [1676, 2098, 2368, 2980, 840]   # from window.INITIAL_STATE.config.organisationIds
     notes: >
-      Shared Ray White listings API via /api/proxy/v1/listings. Status OFF (withdrawn or not
-      publicly marketed) is reported as off-market. No off-market sign-up page on the site.
+      Shared Ray White listings API via /api/proxy/v1/listings, current listings only: the proxy
+      has refused status OFF (withdrawn or not publicly marketed) since November 2026. No off-market
+      sign-up page on the site.
 
   - name: pulse
     agency: Pulse Property Agents
