@@ -79,6 +79,15 @@ sources:
       Heathcote and new estates further south. Off-market listings ("Off Market Opportunity") are in
       the same pages; property alerts sign-up in the site menu.
 
+  - name: rosalie-douglas
+    agency: Rosalie Douglas Real Estate
+    adapter: epl
+    list_urls: [https://rosaliedouglasrealestate.com.au]
+    notes: >
+      WordPress with Easy Property Listing, read from its REST API (/wp-json/wp/v2/property). A small
+      office: a handful of current listings, around Engadine and Gymea but also across Sydney. No
+      off-market sign-up on the site.
+
   # ---- to onboard ----
   - {name: mcgrath-engadine, agency: McGrath Engadine, enabled: false}
   - {name: sanders, agency: Sanders Property Agents, enabled: false}

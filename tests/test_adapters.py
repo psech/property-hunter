@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from hunter.adapters import boxdice, eview, highland, pulse, pushcreative, raywhite, rex
+from hunter.adapters import boxdice, epl, eview, highland, pulse, pushcreative, raywhite, rex
 from hunter.config import Source
 from hunter.models import ListingKind, PriceKind, PropertyType
 
@@ -268,3 +268,31 @@ def test_rex(monkeypatch):
     # land has no category of its own: the link says land_sale
     assert land.property_type == PropertyType.LAND and land.address == "Lot 3008/5 Solstice Road"
     assert land.land_m2 == 354 and land.beds is None and land.price.value == 789_000
+
+
+def test_epl():
+    posts = json.loads((FIXTURES / "epl_properties.json").read_text())
+    fetcher = FakeFetcher([posts])
+    source = Source(name="rd", agency="Rosalie Douglas", adapter="epl", list_urls=["https://rosaliedouglasrealestate.com.au/"])
+    listings = {listing.ref: listing for listing in epl.collect(source, fetcher, None)}
+
+    assert fetcher.urls == [("https://rosaliedouglasrealestate.com.au/wp-json/wp/v2/property", {"per_page": 100, "page": 1})]
+    assert set(listings) == {"1971", "1836", "933", "1674"}  # the sold one is skipped
+
+    house = listings["1971"]
+    assert (house.address, house.suburb, house.postcode) == ("12 Stephen Road", "Engadine", "2233")
+    assert house.kind == ListingKind.FOR_SALE and house.property_type == PropertyType.HOUSE
+    assert house.price.kind == PriceKind.RANGE and house.feed_price is None
+    assert (house.beds, house.baths, house.cars, house.land_m2) == (3, 2, 2, 569.1)
+    assert house.url.endswith("/property/spacious-family-living-with-private-courtyard-workshop-and-bushland-appeal/")
+    assert house.photo_url.startswith("https://rosaliedouglasrealestate.com.au/wp-content/uploads/")
+
+    hidden = listings["1836"]  # address and price withheld on the site; "DEPOSIT TAKEN" in the description
+    assert hidden.address is None and hidden.suburb == "Airds"
+    assert hidden.kind == ListingKind.UNDER_OFFER
+    assert not hidden.price.is_known and hidden.feed_price == 960_000
+
+    assert listings["933"].kind == ListingKind.WITHDRAWN
+    unit = listings["1674"]
+    assert unit.address == "2/6-8 Moani Avenue" and unit.property_type == PropertyType.UNIT
+    assert unit.feed_price is None and unit.land_m2 is None
