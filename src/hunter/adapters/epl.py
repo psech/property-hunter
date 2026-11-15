@@ -4,7 +4,8 @@ the WordPress REST API as the `property` post type, with the plugin's fields und
 The site shows a street address only when `property_address_display` is "yes", and a price only
 when `property_price_display` is "yes" (otherwise "POA"); both rules are kept. The hidden figure in
 `property_price` becomes `feed_price`. Status `offmarket` means taken off the market, as at Pulse, so
-it is reported as withdrawn along with `withdrawn`; sold and leased listings are skipped. Land area
+it is reported as withdrawn along with `withdrawn`; sold and leased listings are skipped. Live
+off-market listings are current ones whose price text says so ("OFF MARKET", McDonald Partners). Land area
 in unit "square" is square metres: the descriptions confirm it. Coordinates come from geocoding.
 """
 
@@ -28,7 +29,9 @@ def collect(source: Source, fetcher: Fetcher, extractor: Extractor) -> list[List
     base = source.list_urls[0].rstrip("/")
     posts: list[dict[str, Any]] = []
     for page in range(1, 21):
-        batch = fetcher.get_json(f"{base}/wp-json/wp/v2/property", params={"per_page": PAGE, "page": page})
+        batch = fetcher.get_json(f"{base}/wp-json/wp/v2/property", params={
+            "per_page": PAGE, "page": page, "_fields": "id,link,title,excerpt,meta,yoast_head_json",
+        })
         if not isinstance(batch, list):
             raise FetchError(f"unexpected property API response: {str(batch)[:200]}")
         posts += batch
@@ -53,7 +56,10 @@ def _listing(post: dict[str, Any], source: Source) -> Listing:
     title = _text((post.get("title") or {}).get("rendered"))
     excerpt = _text((post.get("excerpt") or {}).get("rendered"))
     kind = STATUSES[meta["property_status"]]
-    if kind == ListingKind.FOR_SALE and (meta.get("property_under_offer") == "yes" or parse_kind(excerpt) == ListingKind.UNDER_OFFER):
+    label = parse_kind(_text(meta.get("property_price_view")))
+    if kind == ListingKind.FOR_SALE and label and label.is_off_market:
+        kind = label  # McDonald Partners files off-market listings as current, priced "OFF MARKET"
+    elif kind == ListingKind.FOR_SALE and (meta.get("property_under_offer") == "yes" or parse_kind(excerpt) == ListingKind.UNDER_OFFER):
         kind = ListingKind.UNDER_OFFER  # "DEPOSIT TAKEN – OPEN HOMES CANCELLED" opens the description
 
     street = " ".join(p for p in (_text(meta.get("property_address_street_number")), _text(meta.get("property_address_street"))) if p)

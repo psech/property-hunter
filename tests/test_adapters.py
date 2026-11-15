@@ -279,7 +279,8 @@ def test_epl():
     source = Source(name="rd", agency="Rosalie Douglas", adapter="epl", list_urls=["https://rosaliedouglasrealestate.com.au/"])
     listings = {listing.ref: listing for listing in epl.collect(source, fetcher, None)}
 
-    assert fetcher.urls == [("https://rosaliedouglasrealestate.com.au/wp-json/wp/v2/property", {"per_page": 100, "page": 1})]
+    assert fetcher.urls[0][0] == "https://rosaliedouglasrealestate.com.au/wp-json/wp/v2/property"
+    assert fetcher.urls[0][1]["per_page"] == 100 and fetcher.urls[0][1]["page"] == 1
     assert set(listings) == {"1971", "1836", "933", "1674"}  # the sold one is skipped
 
     house = listings["1971"]
@@ -299,6 +300,14 @@ def test_epl():
     unit = listings["1674"]
     assert unit.address == "2/6-8 Moani Avenue" and unit.property_type == PropertyType.UNIT
     assert unit.feed_price is None and unit.land_m2 is None
+
+
+def test_epl_off_market_price_text():
+    post = json.loads((FIXTURES / "epl_properties.json").read_text())[0]  # a current listing
+    post["meta"]["property_price_view"] = "OFF MARKET"  # how McDonald Partners files them
+    source = Source(name="mp", agency="McDonald Partners", adapter="epl", list_urls=["https://www.mcdonaldpartners.com.au"])
+    listing = epl.collect(source, FakeFetcher([[post]]), None)[0]
+    assert listing.kind == ListingKind.OFF_MARKET and not listing.price.is_known
 
 
 def test_sanders():

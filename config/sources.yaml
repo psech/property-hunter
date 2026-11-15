@@ -107,6 +107,16 @@ sources:
       from listing pages. Sutherland office, mostly rentals and units; one or two listings for sale
       at a time. Buyer enquiry form at /forms/buyer-enquiry-form/.
 
+  - name: mcdonald-partners
+    agency: McDonald Partners
+    adapter: epl
+    list_urls: [https://www.mcdonaldpartners.com.au]
+    notes: >
+      WordPress with Easy Property Listing, read from its REST API like Rosalie Douglas; about 440
+      posts, mostly sold, over five pages. Gymea office: Gymea, Gymea Bay, Kirrawee, Miranda, Grays
+      Point. Off-market listings are current ones priced "OFF MARKET". No alert sign-up; a paid
+      buyer's agent service at /bespoke-buying-service/.
+
   # ---- to onboard ----
   - {name: mcgrath-engadine, agency: McGrath Engadine, enabled: false}
   - {name: sutherland-shire-property-agents, agency: Sutherland Shire Property Agents, enabled: false}
