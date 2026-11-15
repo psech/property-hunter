@@ -88,8 +88,17 @@ sources:
       office: a handful of current listings, around Engadine and Gymea but also across Sydney. No
       off-market sign-up on the site.
 
+  - name: sanders
+    agency: Sanders Property Agents
+    adapter: sanders
+    list_urls: ["https://www.sanders.com.au/search/buy/-/-/-/0/0?pg=1&sort=&agent="]
+    via_home_proxy: true   # Cloudflare, like the other sites that refuse GitHub's IPs
+    notes: >
+      Custom WordPress site with Reapit listings, 20 cards per search page; property type, land
+      area and coordinates only on listing pages, fetched for the buyer's suburbs. Jannali, Como,
+      Sutherland and Oyster Bay mostly. Off-market listings need a registered account.
+
   # ---- to onboard ----
   - {name: mcgrath-engadine, agency: McGrath Engadine, enabled: false}
-  - {name: sanders, agency: Sanders Property Agents, enabled: false}
   - {name: watkins, agency: Watkins Real Estate, enabled: false}
   - {name: sutherland-shire-property-agents, agency: Sutherland Shire Property Agents, enabled: false}

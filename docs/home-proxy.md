@@ -2,7 +2,7 @@
 
 Some agency sites block GitHub Actions' datacenter IPs but let a home internet connection through:
 Pulse, Fox & Wood and One Agency (Cloudflare) and Ray White (CloudFront) refuse them, and Century 21
-Sutherland Shire never answers. For those sources, the weekly run sends its requests through a
+Sutherland Shire never answers. Sanders, also behind Cloudflare, goes the same way. For those sources, the weekly run sends its requests through a
 small proxy on an always-on home server, reached over [Tailscale](https://tailscale.com). Every
 other request still goes out directly from GitHub.
 
@@ -79,6 +79,8 @@ raywhitesutherlandshire.com.au
 *.raywhitesutherlandshire.com.au
 oneagency.com.au
 *.oneagency.com.au
+sanders.com.au
+*.sanders.com.au
 EOF
 
 # Ubuntu's AppArmor profile lets tinyproxy read only tinyproxy.conf; without this it exits with

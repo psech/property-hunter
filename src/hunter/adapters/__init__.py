@@ -13,7 +13,7 @@ Adapter = Callable[[Source, Fetcher, Extractor], list[Listing]]
 
 
 def get_adapter(name: str) -> Adapter:
-    from hunter.adapters import boxdice, epl, eview, generic, highland, pulse, pushcreative, raywhite, rex
+    from hunter.adapters import boxdice, epl, eview, generic, highland, pulse, pushcreative, raywhite, rex, sanders
 
     adapters: dict[str, Adapter] = {
         "boxdice": boxdice.collect,
@@ -25,6 +25,7 @@ def get_adapter(name: str) -> Adapter:
         "pushcreative": pushcreative.collect,
         "raywhite": raywhite.collect,
         "rex": rex.collect,
+        "sanders": sanders.collect,
     }
     if name not in adapters:
         raise KeyError(f"Unknown adapter {name!r}; known: {', '.join(sorted(adapters))}")

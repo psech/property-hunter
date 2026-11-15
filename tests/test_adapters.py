@@ -1,9 +1,12 @@
 import json
 from pathlib import Path
 
-from hunter.adapters import boxdice, epl, eview, highland, pulse, pushcreative, raywhite, rex
+import pytest
+
+from hunter.adapters import boxdice, epl, eview, highland, pulse, pushcreative, raywhite, rex, sanders
 from hunter.config import Source
 from hunter.models import ListingKind, PriceKind, PropertyType
+from hunter.sources.web import FetchError
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -296,3 +299,44 @@ def test_epl():
     unit = listings["1674"]
     assert unit.address == "2/6-8 Moani Avenue" and unit.property_type == PropertyType.UNIT
     assert unit.feed_price is None and unit.land_m2 is None
+
+
+def test_sanders():
+    cards = (FIXTURES / "sanders_cards.html").read_text()
+    detail = (FIXTURES / "sanders_detail.html").read_text()
+    fetcher = FakeFetcher([cards, "<html><body>no results</body></html>", detail])
+    source = Source(name="sanders", agency="Sanders", adapter="sanders",
+                    list_urls=["https://www.sanders.com.au/search/buy/-/-/-/0/0?pg=1&sort=&agent="])
+    source.buyer_suburbs = ["Kirrawee"]
+    listings = {listing.ref: listing for listing in sanders.collect(source, fetcher, None)}
+
+    assert [url for url, _ in fetcher.urls] == [
+        "https://www.sanders.com.au/search/buy/-/-/-/0/0?pg=1&sort=&agent=",
+        "https://www.sanders.com.au/search/buy/-/-/-/0/0?pg=2&sort=&agent=",
+        "https://www.sanders.com.au/1P9307/",  # details only for the buyer's suburbs
+    ]
+    assert set(listings) == {"1P11236", "1P9307", "1P10223"}
+
+    unit = listings["1P11236"]
+    assert (unit.address, unit.suburb) == ("29/20-26 Leonay Street", "Sutherland")
+    assert unit.price.kind == PriceKind.ASKING and unit.kind == ListingKind.FOR_SALE
+    assert (unit.beds, unit.baths, unit.cars) == (3, 2, 2)
+    assert unit.property_type is None and unit.lat is None  # no detail page fetched
+    assert unit.photo_url.startswith("https://www.sanders.com.au/app/uploads/external/")
+
+    house = listings["1P9307"]
+    assert house.url == "https://www.sanders.com.au/1P9307/"
+    assert house.property_type == PropertyType.HOUSE and house.land_m2 == 1018
+    assert (house.postcode, house.lat, house.lng) == ("2232", -34.022171020508, 151.07418823242)
+    assert house.price.kind == PriceKind.GUIDE and "1200x630" in house.photo_url
+
+    assert listings["1P10223"].kind == ListingKind.UNDER_OFFER  # "Under Contract" in the price text
+
+
+def test_sanders_no_cards(monkeypatch):
+    monkeypatch.setattr(sanders, "save_debug", lambda url, html: None)
+    fetcher = FakeFetcher(["<html><body>Just a moment...</body></html>"])  # e.g. a Cloudflare challenge
+    source = Source(name="sanders", agency="Sanders", adapter="sanders",
+                    list_urls=["https://www.sanders.com.au/search/buy/-/-/-/0/0?pg=1&sort=&agent="])
+    with pytest.raises(FetchError):
+        sanders.collect(source, fetcher, None)
