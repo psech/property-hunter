@@ -57,6 +57,8 @@ def describe_changes(before: dict[str, Any], after: dict[str, Any]) -> list[str]
     changes = []
     for name in MATERIAL_FIELDS:
         old, new = before.get(name), after.get(name)
+        if new in (None, ""):
+            continue  # not read this time (e.g. a detail page timed out), which isn't news
         if name == "price" and before.get("price_low") == after.get("price_low") and old and new:
             continue  # same number, reworded
         if name != "price" and _material(before, name) == _material(after, name):

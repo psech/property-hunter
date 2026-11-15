@@ -109,3 +109,16 @@ def test_disappear_and_reappear(tmp_path, today):
     key, record = store.observe(make(), today + timedelta(days=14))
     assert record["active"] is True
     assert store.pending_change(key, make()) is None  # same as what was sent
+
+
+def test_value_going_missing_is_not_a_change(tmp_path, today):
+    store = Store(tmp_path / "s.json")
+    key, _ = store.observe(make(land_m2=1091.0), today)
+    store.mark_notified(key, today)
+    unread = make(land_m2=None)  # its detail page timed out this run
+    key, _ = store.observe(unread, today + timedelta(days=7))
+    assert store.pending_change(key, unread) is None
+
+    back = make(land_m2=1091.0)
+    key, _ = store.observe(back, today + timedelta(days=14))
+    assert store.pending_change(key, back) is None
