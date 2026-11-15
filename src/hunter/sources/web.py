@@ -33,7 +33,8 @@ class Fetcher:
         self.proxy = proxy
         self.proxied_hosts = set(proxied_hosts) if proxy else set()
         self.http = httpx.Client(
-            timeout=30,
+            # Some sites take 20-40 s before the first byte (One Agency, November 2026).
+            timeout=httpx.Timeout(30, read=60),
             follow_redirects=True,
             headers={"User-Agent": USER_AGENT, "Accept-Language": "en-AU,en;q=0.9"},
             mounts={f"all://{host}": httpx.HTTPTransport(proxy=proxy) for host in self.proxied_hosts},
