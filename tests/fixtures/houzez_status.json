@@ -1,0 +1,54 @@
+[
+ {
+  "id": 144,
+  "name": "Business"
+ },
+ {
+  "id": 149,
+  "name": "Commercial"
+ },
+ {
+  "id": 145,
+  "name": "Commercial"
+ },
+ {
+  "id": 23,
+  "name": "For Rent"
+ },
+ {
+  "id": 24,
+  "name": "For Sale"
+ },
+ {
+  "id": 150,
+  "name": "Holiday"
+ },
+ {
+  "id": 146,
+  "name": "Land"
+ },
+ {
+  "id": 108,
+  "name": "Leased"
+ },
+ {
+  "id": 148,
+  "name": "Residential"
+ },
+ {
+  "id": 143,
+  "name": "Residential"
+ },
+ {
+  "id": 147,
+  "name": "Rural"
+ },
+ {
+  "id": 84,
+  "name": "Sold"
+ },
+ {
+  "id": 215,
+  "name": "Upcoming Rental"
+ }
+]

@@ -1,0 +1,83 @@
+[
+ {
+  "id": 179161,
+  "link": "https://watkinsrealestate.com.au/property/villa-style-apartment-with-expansive-outdoor-living/",
+  "title": {
+   "rendered": "Villa-Style Apartment with Expansive Outdoor Living"
+  },
+  "_embedded": {
+   "wp:term": [
+    [
+     {
+      "taxonomy": "property_type",
+      "name": "Apartment"
+     }
+    ],
+    [
+     {
+      "taxonomy": "property_status",
+      "name": "For Sale"
+     },
+     {
+      "taxonomy": "property_status",
+      "name": "Residential"
+     }
+    ],
+    [],
+    [],
+    [
+     {
+      "taxonomy": "property_city",
+      "name": "Sutherland"
+     }
+    ],
+    [],
+    [
+     {
+      "taxonomy": "property_state",
+      "name": "NSW"
+     }
+    ]
+   ]
+  }
+ },
+ {
+  "id": 1,
+  "link": "https://watkinsrealestate.com.au/property/example/",
+  "title": {
+   "rendered": "Family Home"
+  },
+  "_embedded": {
+   "wp:term": [
+    [
+     {
+      "taxonomy": "property_type",
+      "name": "House"
+     }
+    ],
+    [
+     {
+      "taxonomy": "property_status",
+      "name": "For Sale"
+     }
+    ],
+    [
+     {
+      "taxonomy": "property_label",
+      "name": "Auction"
+     },
+     {
+      "taxonomy": "property_label",
+      "name": "UNDER OFFER/CONTRACT"
+     }
+    ],
+    [
+     {
+      "taxonomy": "property_city",
+      "name": "Cronulla"
+     }
+    ]
+   ]
+  }
+ }
+]

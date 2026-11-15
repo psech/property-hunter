@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from hunter.adapters import boxdice, epl, eview, highland, pulse, pushcreative, raywhite, rex, sanders
+from hunter.adapters import boxdice, epl, eview, highland, houzez, pulse, pushcreative, raywhite, rex, sanders
 from hunter.config import Source
 from hunter.models import ListingKind, PriceKind, PropertyType
 from hunter.sources.web import FetchError
@@ -340,3 +340,29 @@ def test_sanders_no_cards(monkeypatch):
                     list_urls=["https://www.sanders.com.au/search/buy/-/-/-/0/0?pg=1&sort=&agent="])
     with pytest.raises(FetchError):
         sanders.collect(source, fetcher, None)
+
+
+def test_houzez():
+    statuses = json.loads((FIXTURES / "houzez_status.json").read_text())
+    posts = json.loads((FIXTURES / "houzez_properties.json").read_text())
+    detail = (FIXTURES / "houzez_detail.html").read_text()
+    fetcher = FakeFetcher([statuses, posts, detail])
+    source = Source(name="watkins", agency="Watkins", adapter="houzez", list_urls=["https://watkinsrealestate.com.au"])
+    source.buyer_suburbs = ["Sutherland"]
+    listings = {listing.ref: listing for listing in houzez.collect(source, fetcher, None)}
+
+    assert fetcher.urls[0][0] == "https://watkinsrealestate.com.au/wp-json/wp/v2/status"
+    assert fetcher.urls[1][1]["status"] == "24"  # "For Sale", looked up by name
+    assert fetcher.urls[2][0] == "https://watkinsrealestate.com.au/property/villa-style-apartment-with-expansive-outdoor-living/"
+    assert len(fetcher.urls) == 3  # no detail page for the Cronulla listing
+
+    unit = listings["179161"]
+    assert (unit.address, unit.suburb, unit.postcode) == ("201/674 Old Princes Hwy", "Sutherland", "2232")
+    assert unit.property_type == PropertyType.UNIT and unit.kind == ListingKind.FOR_SALE
+    assert unit.price.kind == PriceKind.RANGE and (unit.price.low, unit.price.high) == (800_000, 850_000)
+    assert (unit.beds, unit.baths, unit.cars) == (2, 1, 1)
+    assert unit.photo_url.startswith("https://i0.wp.com/watkinsrealestate.com.au/")
+
+    house = listings["1"]
+    assert house.kind == ListingKind.UNDER_OFFER  # "UNDER OFFER/CONTRACT" label, despite "Auction"
+    assert house.suburb == "Cronulla" and house.property_type == PropertyType.HOUSE and house.address is None
