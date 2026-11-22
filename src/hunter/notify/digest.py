@@ -8,10 +8,18 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from hunter.models import ListingKind
+from hunter.models import Enriched, ListingKind
 from hunter.store import Change
 
 TEMPLATES = Path(__file__).resolve().parent.parent / "templates"
+
+
+@dataclass
+class Skipped:
+    """A listing new this week in the buyer's suburbs that failed the criteria, and why."""
+
+    item: Enriched
+    reason: str
 
 
 @dataclass
@@ -23,10 +31,12 @@ class Digest:
     unchanged_count: int = 0
     filtered_count: int = 0
     failing_sources: list[str] = field(default_factory=list)
+    skipped: list[Skipped] = field(default_factory=list)  # shown in the email only, at the end
 
     @classmethod
     def build(cls, run_date: date, changes: list[Change], **counts) -> Digest:
         digest = cls(run_date=run_date, **counts)
+        digest.skipped = sorted(digest.skipped, key=lambda s: (s.reason, (s.item.listing.suburb or "").lower()))
         for change in sorted(changes, key=_sort_key):
             kind = change.item.listing.kind
             if kind.is_off_market or kind == ListingKind.WITHDRAWN:

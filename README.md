@@ -29,6 +29,11 @@ To skip the alerts inbox for a run, add `--no-inbox` to the `hunter` command.
 | Budget | An advertised price must be ≤ `BUDGET_MAX`. Guides, ranges and estimates may go up to `BUDGET_MAX × (1 + tolerance)`. With no price at all, a listing passes when `include_unknown_price` is set. |
 | Memory | Sent when it's new to you, or when price, status, address, beds, baths or land changed since it was last sent. |
 
+The email ends with the listings that first appeared this week in your suburbs but failed a rule, each
+with the reason ("type unit", "2 beds", "too far", "over budget"). The repo is public, and so are its
+workflow logs and artifacts, so that list stays in the email: a dry run on GitHub prints the digest
+without it, and the digest isn't uploaded as an artifact.
+
 ## Setup
 
 1. **Gmail:** create a dedicated account for agency alerts, turn on 2-Step Verification, and

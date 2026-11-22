@@ -40,6 +40,12 @@ def distance_ok(item: Enriched, criteria: Criteria) -> bool:
     return False
 
 
+def outside_area(reason: str) -> bool:
+    """True for reasons that put a listing outside the buyer's suburbs (or off the market), as opposed to
+    one in those suburbs that fails on type, size, distance or price."""
+    return reason == "sold" or reason == "unknown suburb" or reason.startswith("suburb ")
+
+
 def rejection(item: Enriched, criteria: Criteria, check_distance: bool = True) -> str | None:
     """None when the listing matches; otherwise a short reason."""
     listing = item.listing

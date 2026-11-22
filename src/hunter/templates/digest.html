@@ -74,4 +74,20 @@
   {{ d.off_market | length }} off-market · {{ d.new | length }} new · {{ d.changed | length }} changed · {{ d.unchanged_count }} seen before, unchanged · {{ d.filtered_count }} outside criteria
   {%- if d.failing_sources %}<br><b style="color:#b3261e">Sources failing:</b> {{ d.failing_sources | join(", ") }}{% endif %}
 </p>
+{%- if d.skipped %}
+<div style="margin-top:16px;font-size:12px;color:#555">
+  <div style="font-weight:600;color:#222;margin-bottom:4px">Skipped in your suburbs ({{ d.skipped | length }}), new this week</div>
+  {%- for s in d.skipped[:40] %}{% set l = s.item.listing %}{% set g = s.item.geo %}
+  <div style="padding:2px 0">
+    <b>{{ s.reason }}</b> ·
+    {% if l.url %}<a href="{{ l.url }}" style="color:#0b57d0;text-decoration:none">{% endif %}{{ l.address or "Address withheld" }}, {{ l.suburb }}{% if l.url %}</a>{% endif %}
+    {%- if l.beds is not none %} · {{ l.beds }} bed{% endif %}
+    {%- if l.property_type %} {{ l.property_type.value }}{% endif %}
+    {%- if g.walk_min is not none %} · {{ "%.0f" | format(g.walk_min) }} min walk{% endif %}
+    {%- if l.agency %} · {{ l.agency }}{% endif %}
+  </div>
+  {%- endfor %}
+  {%- if d.skipped | length > 40 %}<div style="padding:2px 0">… and {{ d.skipped | length - 40 }} more</div>{% endif %}
+</div>
+{%- endif %}
 </div></body></html>

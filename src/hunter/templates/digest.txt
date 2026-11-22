@@ -11,3 +11,8 @@ Property Hunter: {{ d.run_date.strftime("%d %b %Y") }}
 {% if not d.total %}No new or changed properties match your criteria this week.
 {% endif %}
 {{ d.unchanged_count }} unchanged, {{ d.filtered_count }} outside criteria.{% if d.failing_sources %} Sources failing: {{ d.failing_sources | join(", ") }}{% endif %}
+{% if d.skipped %}
+Skipped in your suburbs ({{ d.skipped | length }}), new this week:
+{% for s in d.skipped[:40] %}{% set l = s.item.listing %}- {{ s.reason }}: {{ l.address or "Address withheld" }}, {{ l.suburb }}{% if l.beds is not none %}, {{ l.beds }} bed{% endif %}{% if l.property_type %} {{ l.property_type.value }}{% endif %}{% if l.agency %} ({{ l.agency }}){% endif %}
+{% endfor %}{% if d.skipped | length > 40 %}... and {{ d.skipped | length - 40 }} more
+{% endif %}{% endif %}

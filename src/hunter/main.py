@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import logging
+import os
 import sys
 from datetime import date
 from pathlib import Path
@@ -14,12 +16,12 @@ from hunter.adapters import get_adapter
 from hunter.cache import JsonCache
 from hunter.config import Secrets, TrainStopsRule, load_criteria, load_sources, load_stations
 from hunter.extract import Extractor
-from hunter.filters import rejection
+from hunter.filters import outside_area, rejection
 from hunter.geo import Geo
 from hunter.llm import Llm
 from hunter.mail import GmailImapSmtp
 from hunter.models import Enriched, Listing, ListingKind
-from hunter.notify.digest import Digest
+from hunter.notify.digest import Digest, Skipped
 from hunter.notify.whatsapp import send_whatsapp
 from hunter.sources import inbox
 from hunter.sources.web import Fetcher
@@ -118,6 +120,7 @@ def run(args: argparse.Namespace) -> int:
     # 2. Enrich, remember, filter
     school_station = next((r.school_station for r in criteria.distance_rules if isinstance(r, TrainStopsRule)), None)
     changes: list[Change] = []
+    skipped: list[Skipped] = []
     seen: set[str] = set()
     unchanged = filtered = 0
     for listing in merge_duplicates(collected):
@@ -131,11 +134,13 @@ def run(args: argparse.Namespace) -> int:
             if school_station:
                 item.geo.stops_to_school = geo.stops_to(item.geo.station, school_station)
             reason = rejection(item, criteria)
-        key, _ = store.observe(item, today)
+        key, record = store.observe(item, today)
         seen.add(key)
         if reason:
             log.debug("skip %s: %s", key, reason)
             filtered += 1
+            if record["first_seen"] == today.isoformat() and not outside_area(reason):
+                skipped.append(Skipped(item, reason))  # new in the buyer's suburbs: say why it didn't make it
             continue
         if change := store.pending_change(key, item):
             changes.append(change)
@@ -145,7 +150,9 @@ def run(args: argparse.Namespace) -> int:
     log.info("%d to notify, %d unchanged, %d outside criteria, %d gone", len(changes), unchanged, filtered, gone)
 
     # 3. Notify
-    digest = Digest.build(today, changes, unchanged_count=unchanged, filtered_count=filtered, failing_sources=failing)
+    digest = Digest.build(
+        today, changes, unchanged_count=unchanged, filtered_count=filtered, failing_sources=failing, skipped=skipped
+    )
     html, text = digest.render()
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(html)
@@ -154,6 +161,8 @@ def run(args: argparse.Namespace) -> int:
     geo_cache.save()
 
     if args.dry_run:
+        if os.environ.get("GITHUB_ACTIONS"):  # a public repo's logs are public: keep the skipped list out
+            text = dataclasses.replace(digest, skipped=[]).render()[1]
         print(digest.subject())
         print(text)
         print(f"\nWhatsApp: {digest.whatsapp()}")

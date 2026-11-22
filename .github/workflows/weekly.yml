@@ -117,6 +117,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: debug-${{ github.run_id }}
-          path: debug/
+          # The repo is public, so its artifacts are too: pages that failed to parse only, not the digest.
+          path: |
+            debug/
+            !debug/digest.html
           if-no-files-found: ignore
           retention-days: 14

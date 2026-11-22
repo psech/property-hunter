@@ -38,3 +38,25 @@ def test_empty_digest_is_a_heartbeat(today):
     assert digest.subject().endswith("nothing new")
     assert digest.whatsapp() == "🏠 Property Hunter: nothing new this week. ⚠️ 1 source(s) failing."
     digest.render()
+
+
+def test_skipped_listings_close_the_email(today):
+    from hunter.notify.digest import Skipped
+
+    skipped = [
+        Skipped(make(address="9 Unit St", suburb="Gymea"), "type unit"),
+        Skipped(make(address="3 Far Rd", suburb="Engadine"), "too far"),
+    ]
+    digest = Digest.build(today, [Change("a", make(address="1 A St"), "new")], skipped=skipped)
+    assert [s.reason for s in digest.skipped] == ["too far", "type unit"]
+    html, text = digest.render()
+    assert html.index("1 A St") < html.index("Skipped in your suburbs (2)") < html.index("9 Unit St")
+    assert "- type unit: 9 Unit St, Gymea" in text
+    assert "Skipped" not in Digest.build(today, []).render()[0]
+
+
+def test_outside_area_reasons():
+    from hunter.filters import outside_area
+
+    assert outside_area("suburb Cronulla") and outside_area("sold") and outside_area("unknown suburb")
+    assert not outside_area("type unit") and not outside_area("over budget") and not outside_area("2 beds")
