@@ -12,8 +12,8 @@
 {%- set l = change.item.listing -%}{%- set g = change.item.geo -%}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e3e3e3;border-radius:8px;margin:0 0 14px;border-collapse:separate">
 <tr>
-  {%- if l.photo_url %}<td width="150" style="padding:10px;vertical-align:top"><img src="{{ l.photo_url }}" width="150" style="border-radius:6px;display:block" alt=""></td>{% endif %}
-  <td style="padding:10px 12px;vertical-align:top;font:14px/1.45 -apple-system,Segoe UI,Arial,sans-serif;color:#222">
+  {%- if l.photo_url %}<td class="card-photo" width="150" style="padding:10px;vertical-align:top"><img src="{{ l.photo_url }}" width="150" style="border-radius:6px;display:block" alt=""></td>{% endif %}
+  <td class="card-info" style="padding:10px 12px;vertical-align:top;font:14px/1.45 -apple-system,Segoe UI,Arial,sans-serif;color:#222">
     <div style="font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#8a5a00">
       {%- if show_status %}{{ change.status }} · {% endif %}{{ l.kind.value | replace("_", "-") }}{% if l.agency %} · {{ l.agency }}{% endif %}
     </div>
@@ -47,8 +47,20 @@
 </table>
 {%- endmacro -%}
 <!doctype html>
-<html><body style="margin:0;padding:16px;background:#f6f6f6">
-<div style="max-width:680px;margin:0 auto;background:#fff;padding:18px;border-radius:10px;font:14px/1.45 -apple-system,Segoe UI,Arial,sans-serif;color:#222">
+<html><head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* Phones: photo across the top of each card, text underneath. Clients that ignore this keep the side-by-side layout. */
+  @media only screen and (max-width: 520px) {
+    .page { padding: 8px !important; }
+    .sheet { padding: 12px !important; }
+    .card-photo, .card-info { display: block !important; width: auto !important; }
+    .card-photo { padding: 10px 10px 0 !important; }
+    .card-photo img { width: 100% !important; height: auto !important; }
+  }
+</style>
+</head><body class="page" style="margin:0;padding:16px;background:#f6f6f6">
+<div class="sheet" style="max-width:680px;margin:0 auto;background:#fff;padding:18px;border-radius:10px;font:14px/1.45 -apple-system,Segoe UI,Arial,sans-serif;color:#222">
 <h1 style="font-size:20px;margin:0 0 4px">Property Hunter: {{ d.run_date.strftime("%d %b %Y") }}</h1>
 <p style="margin:0 0 16px;color:#666">{{ d.subject().split(": ", 1)[1] }}</p>
 {%- for title, items, show in (("Off-market", d.off_market, True), ("New", d.new, False), ("Changed", d.changed, False)) %}
