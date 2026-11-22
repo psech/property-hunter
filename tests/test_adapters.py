@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from hunter.adapters import boxdice, epl, eview, highland, houzez, pulse, pushcreative, raywhite, rex, sanders
+from hunter.adapters import agentpoint, boxdice, epl, eview, highland, houzez, pulse, pushcreative, raywhite, rex, sanders
 from hunter.config import Source
 from hunter.models import ListingKind, PriceKind, PropertyType
 from hunter.sources.web import FetchError
@@ -375,3 +375,55 @@ def test_houzez():
     house = listings["1"]
     assert house.kind == ListingKind.UNDER_OFFER  # "UNDER OFFER/CONTRACT" label, despite "Auction"
     assert house.suburb == "Cronulla" and house.property_type == PropertyType.HOUSE and house.address is None
+
+
+def test_agentpoint(monkeypatch):
+    monkeypatch.setattr(agentpoint, "PAGE_SIZE", 3)  # the sites' pages hold 18 cards
+    cards = (FIXTURES / "agentpoint_cards.html").read_text()
+    detail = (FIXTURES / "agentpoint_detail.html").read_text()
+    fetcher = FakeFetcher([cards, cards, detail])  # page 2 repeats page 1, as JRE does past the end
+    source = Source(name="harwood", agency="Harwood", adapter="agentpoint",
+                    list_urls=["https://www.harwoodproperty.com.au/buy/properties-for-sale"])
+    source.buyer_suburbs = ["Gymea Bay"]
+    listings = {listing.ref: listing for listing in agentpoint.collect(source, fetcher, None)}
+
+    assert [url for url, _ in fetcher.urls] == [
+        "https://www.harwoodproperty.com.au/buy/properties-for-sale/",
+        "https://www.harwoodproperty.com.au/buy/properties-for-sale/page/2/",
+        "https://www.harwoodproperty.com.au/sale/nsw/sutherland/gymea-bay/residential/house/8837419",
+    ]
+    assert set(listings) == {"8837419", "8814475", "8852008"}
+
+    house = listings["8837419"]
+    assert (house.address, house.suburb) == ("48 Alkaringa Road", "Gymea Bay")
+    assert house.property_type == PropertyType.HOUSE and house.kind == ListingKind.FOR_SALE
+    assert house.price.kind == PriceKind.GUIDE and (house.beds, house.baths, house.cars) == (3, 2, 1)
+    assert (house.lat, house.lng) == (-34.047485351562, 151.09678649902)
+    assert house.photo_url == "https://phimg.reapit.website/b68e9b9d2bb1f89149e046892d829d89e9b32db1"
+
+    assert listings["8814475"].kind == ListingKind.UNDER_OFFER
+    assert listings["8814475"].property_type == PropertyType.DUPLEX  # from the URL, no detail page
+    assert listings["8852008"].suburb == "Cronulla" and listings["8852008"].lat is None
+
+
+def test_agentpoint_single_address_line():
+    cards = (FIXTURES / "agentpoint_cards_single_line.html").read_text()
+    detail = (FIXTURES / "agentpoint_detail_single_line.html").read_text()
+    fetcher = FakeFetcher([cards, detail])
+    source = Source(name="tpc", agency="The Property Co.", adapter="agentpoint",
+                    list_urls=["https://www.thepropertyco.com.au/buy/current-listings/"])
+    source.buyer_suburbs = ["Kirrawee", "Gymea"]
+    listings = {listing.ref: listing for listing in agentpoint.collect(source, fetcher, None)}
+
+    assert len(fetcher.urls) == 2  # fewer than a full page: no page 2; one detail page
+    premarket = listings["8853122"]  # "1/9 Dunkeld Close Burraneer NSW", "Pre Market Exclusive."
+    assert (premarket.address, premarket.suburb) == ("1/9 Dunkeld Close", "Burraneer")
+    assert premarket.kind.is_off_market and premarket.property_type == PropertyType.VILLA
+
+    house = listings["8769312"]
+    assert (house.address, house.suburb) == ("44 Oak Road", "Kirrawee")
+    assert house.property_type == PropertyType.HOUSE and house.price.kind == PriceKind.GUIDE
+    assert (house.lat, house.lng) == (-34.024505615234, 151.07344055176)
+
+    hidden = listings["8747272"]
+    assert hidden.address is None and hidden.suburb == "Woolooware"

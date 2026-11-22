@@ -13,9 +13,10 @@ Adapter = Callable[[Source, Fetcher, Extractor], list[Listing]]
 
 
 def get_adapter(name: str) -> Adapter:
-    from hunter.adapters import boxdice, epl, eview, generic, highland, houzez, pulse, pushcreative, raywhite, rex, sanders
+    from hunter.adapters import agentpoint, boxdice, epl, eview, generic, highland, houzez, pulse, pushcreative, raywhite, rex, sanders
 
     adapters: dict[str, Adapter] = {
+        "agentpoint": agentpoint.collect,
         "boxdice": boxdice.collect,
         "epl": epl.collect,
         "eview": eview.collect,

@@ -117,6 +117,37 @@ sources:
       Point. Off-market listings are current ones priced "OFF MARKET". No alert sign-up; a paid
       buyer's agent service at /bespoke-buying-service/.
 
+  # Agentpoint (Reapit) WordPress sites: server-rendered cards, 18 per page, paged by path.
+  - name: jre-property
+    agency: JRE Property
+    adapter: agentpoint
+    list_urls: [https://www.jreproperty.com.au/buy/properties-for-sale/]
+    notes: Gymea office; nearly all listings in the buyer's suburbs. No alert sign-up found.
+
+  - name: harwood
+    agency: Harwood Property Agents
+    adapter: agentpoint
+    list_urls: [https://www.harwoodproperty.com.au/buy/properties-for-sale/]
+    notes: Miranda office (also Marland Real Estate). No alert sign-up found.
+
+  - name: mattblak
+    agency: MattBlak Property
+    adapter: agentpoint
+    list_urls: [https://www.mattblakproperty.com.au/buy/for-sale/]
+    notes: >
+      Engadine (the old Stone Engadine office), Gymea and Cronulla offices. robots.txt forbids URLs
+      with a query string, which path paging avoids. Off-market listings ("Off-Market Opportunity")
+      are in the same pages.
+
+  - name: the-property-co
+    agency: The Property Co.
+    adapter: agentpoint
+    list_urls: [https://www.thepropertyco.com.au/buy/current-listings/]
+    notes: >
+      Cronulla office, many listings in the buyer's suburbs. Cards carry a single address line, so the
+      suburb is matched against the buyer's suburbs. Pre-market listings ("Pre Market Exclusive") are
+      in the same pages.
+
   # ---- to onboard ----
   - {name: mcgrath-engadine, agency: McGrath Engadine, enabled: false}
   - {name: sutherland-shire-property-agents, agency: Sutherland Shire Property Agents, enabled: false}
